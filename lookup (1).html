@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>學員查詢專區 — 財團法人消防教育學術研究基金會</title>
+<link rel="icon" type="image/png" href="logoicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal-900: #0D3B3D; --teal-800: #134548; --teal-700: #1C5C5F;
+    --cyan-500: #2FBFC4; --cyan-400: #4FD4D8; --cyan-100: #E3F7F7;
+    --bg: #F6FAFA; --surface: #FFFFFF;
+    --text-900: #14242A; --text-600: #5C7274; --border: #DEE8E8;
+    --topbar: #D6E6EF; --topbar-border: rgba(13,59,61,.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans TC', sans-serif; color: var(--text-900); background: var(--bg); line-height: 1.7; }
+  h1,h2,h3 { font-family: 'Noto Serif TC', serif; line-height: 1.4; }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  /* ===== Nav ===== */
+  header { background: var(--topbar); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(13,59,61,.08); border-bottom: 1px solid var(--topbar-border); }
+  .nav { max-width: 1120px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.02rem; letter-spacing: .02em; color: var(--teal-900); }
+  .brand-name-short { display: none; }
+  .nav-links { display: flex; gap: 28px; font-size: .92rem; font-weight: 500; }
+  .nav-links a { color: var(--teal-700); opacity: .85; transition: opacity .15s, color .15s; padding: 6px 0; border-bottom: 2px solid transparent; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--teal-900); border-color: var(--cyan-500); }
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--teal-900); border-radius: 2px; }
+  .nav-drawer { display: none; flex-direction: column; background: var(--topbar); border-top: 1px solid rgba(13,59,61,.1); padding: 8px 24px 16px; }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer a { color: var(--teal-700); padding: 10px 0; border-bottom: 1px solid rgba(13,59,61,.06); font-size: .95rem; font-weight: 500; text-decoration: none; }
+  @media (max-width: 720px) {
+    .nav-links { display: none; } .brand-name-full { display: none; }
+    .brand-name-short { display: inline; } .nav-hamburger { display: flex; }
+  }
+
+  /* ===== Hero (same pattern as index) ===== */
+  .hero {
+    background:
+      linear-gradient(100deg, rgba(13,59,61,.82) 0%, rgba(28,92,95,.38) 100%),
+      url('aboutherobg.jpg') center / cover no-repeat;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -120px; top: -120px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(47,191,196,.28) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 80px 24px 96px;
+    position: relative; z-index: 1;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+    border-radius: 999px; padding: 6px 16px;
+    font-size: .82rem; font-weight: 600; letter-spacing: .08em;
+    margin-bottom: 24px; color: rgba(255,255,255,.9);
+  }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin-bottom: 16px; }
+  .hero h1 em { font-style: normal; color: var(--cyan-400); }
+  .hero p { font-size: 1rem; color: rgba(255,255,255,.82); max-width: 600px; }
+
+  /* ===== Warning banner ===== */
+  .scope-banner {
+    background: linear-gradient(135deg, rgba(47,191,196,.12) 0%, rgba(13,59,61,.06) 100%);
+    border: 1.5px solid var(--cyan-500);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin: -48px 0 0;
+    position: relative; z-index: 2;
+    display: flex; gap: 16px; align-items: flex-start;
+    max-width: 860px;
+    background-color: var(--surface);
+    box-shadow: 0 8px 28px rgba(13,59,61,.1);
+  }
+  .scope-banner-icon {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    background: var(--cyan-100); display: flex; align-items: center; justify-content: center;
+    color: var(--teal-900);
+  }
+  .scope-banner h3 { font-size: .95rem; font-weight: 700; color: var(--teal-900); margin-bottom: 4px; font-family: 'Noto Sans TC', sans-serif; }
+  .scope-banner p { font-size: .85rem; color: var(--text-600); line-height: 1.65; }
+  .scope-banner strong { color: var(--teal-800); }
+
+  /* ===== Main content ===== */
+  .page-body { max-width: 1120px; margin: 0 auto; padding: 56px 24px 96px; }
+
+  /* ===== Section ===== */
+  .section-eyebrow {
+    font-size: .8rem; font-weight: 700; letter-spacing: .18em;
+    color: var(--cyan-500); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .section-title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; color: var(--teal-900); margin-bottom: 8px; }
+  .section-sub { color: var(--text-600); font-size: .92rem; margin-bottom: 40px; }
+
+  /* ===== Query card ===== */
+  .query-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 24px rgba(13,59,61,.06);
+    max-width: 760px;
+  }
+
+  .tab-row {
+    display: flex; gap: 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 36px;
+  }
+  .tab-btn {
+    padding: 10px 24px; font-size: .92rem; font-weight: 600;
+    border: none; background: none; cursor: pointer;
+    color: var(--text-600); border-bottom: 3px solid transparent;
+    margin-bottom: -2px; transition: all .15s;
+    font-family: 'Noto Sans TC', sans-serif;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .tab-btn.active { color: var(--teal-900); border-bottom-color: var(--cyan-500); }
+  .tab-btn:hover:not(.active) { color: var(--teal-700); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .panel-title { font-family: 'Noto Serif TC', serif; font-size: 1.15rem; font-weight: 700; color: var(--teal-900); margin-bottom: 6px; }
+  .panel-desc { font-size: .875rem; color: var(--text-600); margin-bottom: 28px; line-height: 1.65; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: .8rem; font-weight: 700; color: var(--teal-900); letter-spacing: .03em; }
+  .form-group input {
+    padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 10px;
+    font-size: .95rem; font-family: 'Noto Sans TC', sans-serif;
+    background: var(--bg); color: var(--text-900);
+    transition: border-color .2s, box-shadow .2s; outline: none;
+  }
+  .form-group input:focus { border-color: var(--cyan-500); box-shadow: 0 0 0 3px rgba(47,191,196,.12); background: #fff; }
+  .form-group input::placeholder { color: #a8c4c8; }
+  .form-hint { font-size: .77rem; color: var(--text-600); margin-top: 2px; }
+
+  .query-btn {
+    width: 100%; margin-top: 12px; padding: 15px;
+    background: linear-gradient(135deg, var(--cyan-500) 0%, var(--teal-700) 100%);
+    color: #fff; border: none; border-radius: 10px;
+    font-size: 1rem; font-weight: 700; cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+    transition: opacity .2s, transform .15s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .query-btn:hover { opacity: .88; transform: translateY(-1px); }
+
+  /* ===== Results ===== */
+  .result-area { margin-top: 32px; }
+  .result-loading { display: none; text-align: center; padding: 32px 0; color: var(--teal-700); font-size: .9rem; }
+  .result-loading .spinner { width: 32px; height: 32px; border: 3px solid var(--cyan-100); border-top-color: var(--cyan-500); border-radius: 50%; animation: spin .7s linear infinite; margin: 0 auto 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .result-empty { display: none; text-align: center; padding: 40px 0; color: var(--text-600); }
+  .result-empty svg { margin: 0 auto 14px; opacity: .3; }
+  .result-empty p { font-size: .9rem; }
+  .result-table-wrap { display: none; overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+  .result-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+  .result-table th { background: var(--cyan-100); color: var(--teal-900); padding: 11px 16px; text-align: left; font-weight: 700; border-bottom: 2px solid var(--cyan-500); }
+  .result-table td { padding: 13px 16px; border-bottom: 1px solid var(--border); color: var(--text-900); }
+  .result-table tr:last-child td { border-bottom: none; }
+  .result-table tr:hover td { background: #f8fefe; }
+  .status-badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: .77rem; font-weight: 700; }
+  .status-registered { background: #e6f9f0; color: #1a7a50; }
+  .status-completed { background: var(--cyan-100); color: var(--teal-800); }
+  .result-notice {
+    display: none; padding: 16px 20px; border-radius: 10px;
+    background: var(--cyan-100); border: 1px solid rgba(47,191,196,.3);
+    color: var(--teal-800); font-size: .875rem; margin-top: 16px; line-height: 1.65;
+  }
+
+  /* ===== Cert tab - cert number only ===== */
+  .cert-form-full .form-group { margin-bottom: 16px; }
+
+  /* ===== Side info ===== */
+  .query-layout { display: grid; grid-template-columns: 760px 1fr; gap: 32px; align-items: start; }
+  .info-aside {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px 24px;
+    box-shadow: 0 4px 24px rgba(13,59,61,.06);
+  }
+  .info-aside h4 { font-size: .9rem; font-weight: 700; color: var(--teal-900); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .info-aside-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
+  .info-aside-item:last-child { margin-bottom: 0; }
+  .info-aside-item svg { flex-shrink: 0; color: var(--cyan-500); margin-top: 2px; }
+  .info-aside-item p { font-size: .84rem; color: var(--text-600); line-height: 1.6; }
+  .info-aside-item strong { color: var(--teal-900); display: block; font-size: .85rem; margin-bottom: 2px; }
+  .divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+  /* ===== Footer ===== */
+  footer { background: var(--teal-900); color: rgba(255,255,255,.65); padding: 48px 24px 28px; font-size: .88rem; }
+  .footer-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr 1fr 2fr; gap: 32px; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 32px; margin-bottom: 20px; }
+  .footer-inner h4 { color: #fff; font-size: .9rem; margin-bottom: 12px; font-weight: 700; }
+  .footer-inner a, .footer-inner p { color: rgba(255,255,255,.6); display: block; margin-bottom: 6px; text-decoration: none; }
+  .footer-inner a:hover { color: var(--cyan-400); }
+  .footer-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .footer-contact-block h5 { color: #fff; font-size: .85rem; font-weight: 700; margin-bottom: 8px; }
+  .footer-contact-block p, .footer-contact-block a { font-size: .82rem; color: rgba(255,255,255,.6); display: block; margin-bottom: 4px; }
+  .footer-bottom { max-width: 1120px; margin: 0 auto; text-align: center; font-size: .8rem; color: rgba(255,255,255,.4); padding-top: 4px; }
+
+  @media (max-width: 1060px) { .query-layout { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) {
+    .query-card { padding: 24px 18px; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-inner { padding: 56px 20px 80px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+    .footer-contact-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <img src="logoicon.png" alt="消防教育學術研究基金會 LOGO" width="38" height="38">
+      <span class="brand-name-full">財團法人消防教育學術研究基金會</span>
+      <span class="brand-name-short">消防基金會</span>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" data-page="index">首頁</a>
+      <a href="about.html" data-page="about">關於我們</a>
+      <a href="register.html" data-page="register">課程報名</a>
+      <a href="lookup.html" data-page="lookup">查詢專區</a>
+      <a href="contact.html" data-page="contact">聯絡我們</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-drawer" id="nav-drawer">
+    <a href="index.html" data-page="index">首頁</a>
+    <a href="about.html" data-page="about">關於我們</a>
+    <a href="register.html" data-page="register">課程報名</a>
+    <a href="lookup.html" data-page="lookup">查詢專區</a>
+    <a href="contact.html" data-page="contact">聯絡我們</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      MEMBER LOOKUP
+    </div>
+    <h1>學員<em>查詢</em>專區</h1>
+    <p>輸入您的姓名與身分證字號，即可查詢本會辦理課程的報名紀錄與結業證書資訊。</p>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="page-body">
+
+  <!-- Scope banner -->
+  <div class="scope-banner">
+    <div class="scope-banner-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+    <div>
+      <h3>查詢範圍說明</h3>
+      <p>
+        本查詢系統<strong>僅限查詢學員於財團法人消防教育學術研究基金會受訓之紀錄</strong>，包含防火管理人、保安監督人及保安檢查員課程。<br>
+        若您曾於<strong>其他訓練機構</strong>參訓，請逕洽原訓練單位查詢。如有疑問，歡迎來電
+        <strong>(02)&nbsp;2361-2119</strong>（台北）或 <strong>(05)&nbsp;283-8119</strong>（中南區）洽詢。
+      </p>
+    </div>
+  </div>
+
+  <div style="height:56px"></div>
+
+  <div class="query-layout">
+
+    <!-- Query card -->
+    <div class="query-card">
+
+      <div class="section-eyebrow">QUERY</div>
+      <div class="section-title">查詢受訓紀錄</div>
+      <p class="section-sub">請輸入報名時填寫的真實姓名與身分證字號。</p>
+
+      <!-- Tabs -->
+      <div class="tab-row">
+        <button class="tab-btn active" onclick="switchTab('record', this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          報名紀錄查詢
+        </button>
+        <button class="tab-btn" onclick="switchTab('cert', this)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          結業證書查詢
+        </button>
+      </div>
+
+      <!-- Tab 1 : 報名紀錄 -->
+      <div class="tab-panel active" id="panel-record">
+        <div class="panel-title">報名紀錄查詢</div>
+        <p class="panel-desc">查詢本會課程的報名狀態及上課日期。</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="r-name">姓名</label>
+            <input type="text" id="r-name" placeholder="請輸入真實姓名" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="r-id">身分證字號</label>
+            <input type="text" id="r-id" placeholder="A123456789" maxlength="10" style="letter-spacing:.06em">
+            <span class="form-hint">英文字母大寫開頭，共 10 碼</span>
+          </div>
+        </div>
+        <button class="query-btn" onclick="queryRecord()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          查詢報名紀錄
+        </button>
+        <div class="result-area">
+          <div class="result-loading" id="loading-record"><div class="spinner"></div>查詢中，請稍候…</div>
+          <div class="result-empty" id="empty-record">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <p>查無符合資料，請確認姓名與身分證字號是否正確。</p>
+          </div>
+          <div class="result-table-wrap" id="table-record">
+            <table class="result-table">
+              <thead><tr><th>課程名稱</th><th>上課地區</th><th>上課日期</th><th>狀態</th></tr></thead>
+              <tbody id="tbody-record"></tbody>
+            </table>
+          </div>
+          <div class="result-notice" id="notice-record"></div>
+        </div>
+      </div>
+
+      <!-- Tab 2 : 結業證書 -->
+      <div class="tab-panel" id="panel-cert">
+        <div class="panel-title">結業證書查詢</div>
+        <p class="panel-desc">輸入您的姓名與身分證字號，查詢本會核發之結業證書號碼及有效期限。</p>
+        <div class="cert-form-full">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="c-name">姓名</label>
+              <input type="text" id="c-name" placeholder="請輸入真實姓名" autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="c-id">身分證字號</label>
+              <input type="text" id="c-id" placeholder="A123456789" maxlength="10" style="letter-spacing:.06em">
+              <span class="form-hint">英文字母大寫開頭，共 10 碼</span>
+            </div>
+          </div>
+        </div>
+        <button class="query-btn" onclick="queryCert()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          查詢結業證書
+        </button>
+        <div class="result-area">
+          <div class="result-loading" id="loading-cert"><div class="spinner"></div>查詢中，請稍候…</div>
+          <div class="result-empty" id="empty-cert">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+            <p>查無相符的證書資料，請確認輸入資訊是否正確。</p>
+          </div>
+          <div class="result-table-wrap" id="table-cert">
+            <table class="result-table">
+              <thead><tr><th>證書號碼</th><th>課程名稱</th><th>結業日期</th><th>有效期限</th></tr></thead>
+              <tbody id="tbody-cert"></tbody>
+            </table>
+          </div>
+          <div class="result-notice" id="notice-cert"></div>
+        </div>
+      </div>
+
+    </div><!-- /query-card -->
+
+    <!-- Side info -->
+    <div class="info-aside">
+      <h4>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        注意事項
+      </h4>
+      <div class="info-aside-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <p><strong>資料保護</strong>查詢過程全程加密，本系統不儲存您的查詢記錄，請安心使用。</p>
+      </div>
+      <div class="info-aside-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <p><strong>資料更新時間</strong>報名資料於受理後 1–2 個工作日內更新，若報名後未立即查到，請稍後再試。</p>
+      </div>
+      <div class="divider"></div>
+      <div class="info-aside-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 015.11 16a19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        <p><strong>電話洽詢</strong>台北：(02) 2361-2119<br>中南區：(05) 283-8119</p>
+      </div>
+    </div>
+
+  </div><!-- /query-layout -->
+</div><!-- /page-body -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h4>財團法人消防教育學術研究基金會</h4>
+      <p>致力於消防安全教育推廣與學術研究，辦理防火管理人、保安監督人及保安檢查員等專業訓練課程。</p>
+    </div>
+    <div>
+      <h4>課程資訊</h4>
+      <a href="course-fire.html">防火管理人</a>
+      <a href="course-security.html">保安監督人</a>
+      <a href="course-inspector.html">保安檢查員</a>
+    </div>
+    <div>
+      <h4>網站導覽</h4>
+      <a href="index.html">首頁</a>
+      <a href="about.html">關於我們</a>
+      <a href="register.html">課程報名</a>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <h4 style="margin:0">服務據點</h4>
+      </div>
+      <div class="footer-contact-grid">
+        <div class="footer-contact-block">
+          <h5>台北總管理處</h5>
+          <p>台北市中正區延平南路65號2樓</p>
+          <p>TEL：(02)2361-2119</p>
+          <p>FAX：(02)2361-6915</p>
+          <a href="mailto:feaf@119fire.org.tw">feaf@119fire.org.tw</a>
+        </div>
+        <div class="footer-contact-block">
+          <h5>中區南區營運中心</h5>
+          <p>TEL：(05)283-8119</p>
+          <p>FAX：(05)285-7289</p>
+          <a href="mailto:sfireman119@gmail.com">sfireman119@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 財團法人消防教育學術研究基金會. 版權所有。</div>
+</footer>
+
+<script>
+// Tab
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+}
+
+// Helpers
+function hideAll(prefix) {
+  ['loading','empty','table','notice'].forEach(s => {
+    var el = document.getElementById(s+'-'+prefix);
+    if (el) el.style.display = 'none';
+  });
+}
+function showNotice(prefix, html) {
+  hideAll(prefix);
+  var el = document.getElementById('notice-'+prefix);
+  el.innerHTML = html; el.style.display = 'block';
+}
+
+// TODO: Replace with real Apps Script URL after deployment
+// const API_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
+const LOOKUP_API = 'https://script.google.com/macros/s/AKfycbzkIaz1EegxlRQ9NjeygvC3iah7nuT7clXfMXc3NKLar94bpMBfJ9Lnb-FFC0sBi734/exec';
+
+function jsonp(url) {
+  return new Promise(function(resolve, reject) {
+    var cbName = 'jsonpCb_' + Date.now();
+    var script = document.createElement('script');
+    window[cbName] = function(data) {
+      delete window[cbName];
+      document.head.removeChild(script);
+      resolve(data);
+    };
+    script.onerror = function() { reject(new Error('網路錯誤')); };
+    script.src = url + '&callback=' + cbName;
+    document.head.appendChild(script);
+    setTimeout(function() { reject(new Error('逾時')); }, 10000);
+  });
+}
+
+async function queryRecord() {
+  var name = document.getElementById('r-name').value.trim();
+  var id   = document.getElementById('r-id').value.trim().toUpperCase();
+
+  if (!name || !id) { alert('請輸入姓名與身分證字號'); return; }
+  if (!/^[A-Z][12]\d{8}$/.test(id)) { alert('身分證字號格式不正確，請確認後再試'); return; }
+
+  hideAll('record');
+  document.getElementById('loading-record').style.display = 'block';
+
+  try {
+    const url  = LOOKUP_API + '?name=' + encodeURIComponent(name) + '&id=' + encodeURIComponent(id);
+    const data = await jsonp(url);
+
+    document.getElementById('loading-record').style.display = 'none';
+
+    if (data.status === 'not_found') {
+      document.getElementById('empty-record').style.display = 'block';
+      return;
+    }
+    if (data.status === 'error') {
+      showNotice('record', '查詢失敗：' + data.message);
+      return;
+    }
+
+    var tbody = document.getElementById('tbody-record');
+    tbody.innerHTML = '';
+    data.records.forEach(function(r) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + r.course + '</td><td>' + r.region + '</td><td>' + (r.batch || '—') + '</td><td>已報名</td>';
+      tbody.appendChild(tr);
+    });
+    document.getElementById('table-record').style.display = 'block';
+
+  } catch(e) {
+    document.getElementById('loading-record').style.display = 'none';
+    showNotice('record', '查詢時發生錯誤，請稍後再試或來電洽詢 <strong>(02)&nbsp;2361-2119</strong>。');
+  }
+}
+
+async function queryCert() {
+  var name = document.getElementById('c-name').value.trim();
+  var id   = document.getElementById('c-id').value.trim().toUpperCase();
+  if (!name || !id) { alert('請輸入姓名與身分證字號'); return; }
+  if (!/^[A-Z][12]\d{8}$/.test(id)) { alert('身分證字號格式不正確，請確認後再試'); return; }
+  hideAll('cert');
+  document.getElementById('loading-cert').style.display = 'block';
+  try {
+    await new Promise(r => setTimeout(r, 900));
+    document.getElementById('loading-cert').style.display = 'none';
+    showNotice('cert', '⚙️ &nbsp;查詢功能建置中，正式上線後即可使用。如需緊急查詢，請電洽 <strong>(02)&nbsp;2361-2119</strong>。');
+  } catch(e) {
+    document.getElementById('loading-cert').style.display = 'none';
+    showNotice('cert', '查詢時發生錯誤，請稍後再試或來電洽詢。');
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter') return;
+  if (document.getElementById('panel-record').classList.contains('active')) queryRecord();
+  else queryCert();
+});
+
+// Nav active + hamburger
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('nav-hamburger');
+  var drawer = document.getElementById('nav-drawer');
+  if (btn && drawer) btn.addEventListener('click', function() { drawer.classList.toggle('open'); });
+  document.querySelectorAll('[data-page]').forEach(function(link) {
+    if (link.tagName === 'A' && link.getAttribute('data-page') === 'lookup') link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
