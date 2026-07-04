@@ -293,6 +293,12 @@
       <input type="hidden" id="f-kind" name="kind">
       <input type="hidden" id="f-type" name="type">
 
+      <!-- 防機器人蜜罐欄位：一般使用者看不到，機器人會自動填寫 -->
+      <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+        <label for="f-website">網站（請勿填寫）</label>
+        <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
       <!-- Section 1: 個人資料 -->
       <div class="section-title">學員基本資料</div>
       <div class="form-grid">
@@ -552,6 +558,7 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
     batch:         batchLabel || batch,
     kind:          courseKind,
     type:          courseType,
+    website:       document.getElementById('f-website').value.trim(),
     name:          document.getElementById('f-name').value.trim(),
     idNum:         document.getElementById('f-id').value.trim().toUpperCase(),
     birth:         document.getElementById('f-birth').value.trim(),
@@ -596,4 +603,3 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
 
 </body>
 </html>
-
