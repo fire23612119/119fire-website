@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>課程報名 — 財團法人消防教育學術研究基金會</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal: #00B5C8;
+      --teal-dark: #007F8C;
+      --teal-light: #E6F9FB;
+      --navy: #0D3B3D;
+      --bg: #F4FAFB;
+      --text: #1a3a4a;
+      --text-sub: #5a7a7c;
+      --border: #d0e8e8;
+      --white: #fff;
+      --red: #e53e3e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #D6E6EF;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(13,59,61,.08);
+    }
+    .nav-brand img { height: 44px; display: block; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(100deg, rgba(13,59,61,.92) 0%, rgba(28,92,95,.6) 100%);
+      color: #fff;
+      padding: 40px 48px;
+    }
+    .page-header-inner { max-width: 760px; margin: 0 auto; }
+    .page-header .eyebrow {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .page-header h1 { font-size: 1.6rem; font-weight: 900; }
+
+    /* ── COURSE BANNER ── */
+    .course-banner {
+      max-width: 760px;
+      margin: 28px auto 0;
+      padding: 0 24px;
+    }
+    .course-banner-inner {
+      background: var(--white);
+      border: 1.5px solid var(--teal);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .course-banner-inner svg { flex-shrink: 0; }
+    .banner-label { font-size: .75rem; color: var(--teal-dark); font-weight: 700; }
+    .banner-course { font-size: 1rem; font-weight: 700; color: var(--navy); }
+    .banner-meta { font-size: .85rem; color: var(--text-sub); margin-top: 2px; }
+
+    /* ── FORM ── */
+    .form-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 24px 60px;
+    }
+    .form-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 2px 16px rgba(13,59,61,.06);
+    }
+    .section-title {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    label .req { color: var(--red); margin-left: 2px; }
+    label .opt { font-size: .75rem; color: var(--text-sub); font-weight: 400; margin-left: 4px; }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: .9rem;
+      font-family: 'Noto Sans TC', sans-serif;
+      color: var(--text);
+      background: #fff;
+      transition: border-color .15s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--teal); }
+    input.error, select.error { border-color: var(--red); }
+    .field-hint { font-size: .78rem; color: var(--text-sub); }
+    .field-error { font-size: .78rem; color: var(--red); display: none; }
+    .field-error.show { display: block; }
+
+    /* 條件顯示欄位 */
+    .cond-field { display: none; }
+    .cond-field.show { display: flex; }
+
+    /* 分隔線 */
+    .form-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+    /* 同意條款 */
+    .consent-box {
+      background: var(--teal-light);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: .84rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .consent-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .consent-check input[type=checkbox] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: var(--teal);
+    }
+    .consent-check label {
+      font-size: .85rem;
+      font-weight: 400;
+      cursor: pointer;
+    }
+
+    /* 送出按鈕 */
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Noto Sans TC', sans-serif;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-submit:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    /* 送出成功 */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 60px 24px;
+    }
+    .success-screen.show { display: block; }
+    .success-icon {
+      width: 72px; height: 72px;
+      background: var(--teal-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .success-screen h2 { font-size: 1.4rem; color: var(--navy); margin-bottom: 12px; }
+    .success-screen p { font-size: .9rem; color: var(--text-sub); line-height: 1.7; }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 28px;
+      padding: 11px 24px;
+      border: 1.5px solid var(--teal-dark);
+      border-radius: 8px;
+      color: var(--teal-dark);
+      font-size: .9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .15s;
+    }
+    .btn-back:hover { background: var(--teal-dark); color: #fff; }
+
+    /* 手機版 */
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; }
+      .page-header { padding: 28px 16px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-card { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="logo_nav.png" alt="財團法人消防教育學術研究基金會">
+  </a>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="eyebrow">Online Registration</div>
+    <h1>課程報名表</h1>
+  </div>
+</div>
+
+<!-- 課程資訊橫幅 -->
+<div class="course-banner">
+  <div class="course-banner-inner">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00B5C8" stroke-width="2">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    <div>
+      <div class="banner-label">已選擇課程</div>
+      <div class="banner-course" id="banner-course">—</div>
+      <div class="banner-meta" id="banner-meta">—</div>
+    </div>
+  </div>
+</div>
+
+<div class="form-wrap">
+  <div class="form-card">
+
+    <!-- 送出成功畫面 -->
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00B5C8" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <h2>報名資料已送出！</h2>
+      <p>
+        感謝您的報名，我們已收到您的資料。<br>
+        確認信將寄送至您填寫的 Email，請注意查收。<br>
+        如有疑問請聯絡本會。
+      </p>
+      <a href="index.html" class="btn-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        返回首頁
+      </a>
+    </div>
+
+    <!-- 報名表單 -->
+    <form id="reg-form" novalidate>
+
+      <!-- 隱藏欄位（自動帶入） -->
+      <input type="hidden" id="f-course" name="course">
+      <input type="hidden" id="f-region" name="region">
+      <input type="hidden" id="f-batch" name="batch">
+      <input type="hidden" id="f-kind" name="kind">
+      <input type="hidden" id="f-type" name="type">
+
+      <!-- Section 1: 個人資料 -->
+      <div class="section-title">學員基本資料</div>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>姓名<span class="req">*</span></label>
+          <input type="text" id="f-name" placeholder="請輸入真實姓名">
+          <span class="field-error" id="err-name">請填寫姓名</span>
+        </div>
+
+        <div class="form-group">
+          <label>身分證字號<span class="req">*</span></label>
+          <input type="text" id="f-id" placeholder="A123456789" maxlength="10">
+          <span class="field-error" id="err-id">請填寫正確的身分證字號</span>
+        </div>
+
+        <div class="form-group">
+          <label>出生年月日<span class="req">*</span></label>
+          <input type="text" id="f-birth" placeholder="yyyy/mm/dd">
+          <span class="field-error" id="err-birth">請填寫出生年月日（格式：yyyy/mm/dd）</span>
+        </div>
+
+        <div class="form-group">
+          <label>行動電話<span class="req">*</span></label>
+          <input type="tel" id="f-mobile" placeholder="0900-000-000">
+          <span class="field-error" id="err-mobile">請填寫行動電話</span>
+        </div>
+
+        <div class="form-group">
+          <label>市話<span class="opt">（選填）</span></label>
+          <input type="tel" id="f-phone" placeholder="02-12345678">
+        </div>
+
+        <div class="form-group">
+          <label>Email<span class="req">*</span></label>
+          <input type="email" id="f-email" placeholder="example@email.com">
+          <span class="field-error" id="err-email">請填寫正確的 Email</span>
+        </div>
+
+        <!-- 條件欄位：上次上課時間（複訓才顯示） -->
+        <div class="form-group cond-field" id="field-lasttime">
+          <label>上次上課時間<span class="req">*</span></label>
+          <input type="text" id="f-lasttime" placeholder="yyyy/mm/dd">
+          <span class="field-hint">請填寫上次參加本課程的日期</span>
+          <span class="field-error" id="err-lasttime">請填寫上次上課時間</span>
+        </div>
+
+        <!-- 條件欄位：防火管理人證書（保安二天班才顯示） -->
+        <div class="form-group cond-field" id="field-cert">
+          <label>是否持有效期內防火管理人證書<span class="req">*</span></label>
+          <select id="f-cert">
+            <option value="">請選擇</option>
+            <option value="是（請攜帶防火管理人證書影本上課）">是（請攜帶防火管理人證書影本上課）</option>
+            <option value="否（請改選保安監督人三天班）">否（請改選保安監督人三天班）</option>
+          </select>
+          <span class="field-error" id="err-cert">請選擇</span>
+        </div>
+
+        <div class="form-group full">
+          <label>用餐習慣<span class="req">*</span></label>
+          <select id="f-meal">
+            <option value="">請選擇</option>
+            <option value="葷">葷</option>
+            <option value="方便素（奶蛋素）">方便素（奶蛋素）</option>
+            <option value="不需便當">不需便當</option>
+          </select>
+          <span class="field-error" id="err-meal">請選擇用餐習慣</span>
+        </div>
+
+      </div>
+
+      <hr class="form-divider">
+
+      <!-- Section 2: 公司資料 -->
+      <div class="section-title">公司／發票資料</div>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>公司名稱<span class="opt">（選填）</span></label>
+          <input type="text" id="f-company" placeholder="發票開立之抬頭">
+        </div>
+
+        <div class="form-group">
+          <label>公司統編<span class="opt">（選填）</span></label>
+          <input type="text" id="f-taxid" placeholder="發票開立之統編">
+        </div>
+
+        <div class="form-group full">
+          <label>證書郵寄地址<span class="req">*</span></label>
+          <input type="text" id="f-addr" placeholder="白天可收掛號信的地址">
+          <span class="field-error" id="err-addr">請填寫證書郵寄地址</span>
+        </div>
+
+      </div>
+
+      <hr class="form-divider">
+
+      <!-- Section 3: 聯絡人 -->
+      <div class="section-title">聯絡人資料 <span style="font-weight:400;font-size:.78rem;color:var(--text-sub);text-transform:none;letter-spacing:0;">（選填，如報名人非本人可填寫）</span></div>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>聯絡人</label>
+          <input type="text" id="f-contact" placeholder="聯絡人姓名">
+        </div>
+
+        <div class="form-group">
+          <label>聯絡人電話</label>
+          <input type="tel" id="f-contact-phone" placeholder="聯絡人電話">
+        </div>
+
+        <div class="form-group full">
+          <label>聯絡人 Email</label>
+          <input type="email" id="f-contact-email" placeholder="聯絡人 Email">
+        </div>
+
+      </div>
+
+      <hr class="form-divider">
+
+      <!-- Section 4: 備註 -->
+      <div class="section-title">其他</div>
+      <div class="form-group" style="margin-bottom:24px;">
+        <label>備註<span class="opt">（選填）</span></label>
+        <textarea id="f-note" rows="3" placeholder="如有特殊需求或說明，請填寫於此"></textarea>
+      </div>
+
+      <!-- 同意條款 -->
+      <div class="consent-box">
+        本會依個人資料保護法規定，您所填寫之個人資料僅供課程報名、聯絡及寄送證書等相關事務使用，不會提供給第三方。
+        <div class="consent-check">
+          <input type="checkbox" id="f-consent">
+          <label for="f-consent">我已閱讀並同意本會蒐集個人資料，並確認所填資料正確無誤。</label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="btn-submit">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+        送出報名資料
+      </button>
+
+    </form>
+  </div>
+</div>
+
+<script>
+// ── Apps Script Web App URL（部署後填入）──
+const WEB_APP_URL = 'YOUR_WEB_APP_URL_HERE';
+
+// ── 讀取 URL 參數 ──
+const params = new URLSearchParams(location.search);
+const courseType = params.get('type') || '';
+const courseKind = params.get('kind') || '';
+const region     = params.get('region') || '';
+const batch      = params.get('batch') || '';
+const batchLabel = params.get('batchLabel') || '';
+
+// 課程中文對應
+const typeMap = {
+  fire:      '防火管理人',
+  security:  '保安監督人',
+  inspector: '保安檢查員',
+};
+const courseLabel = (typeMap[courseType] || '') + (courseKind ? `（${courseKind}）` : '');
+const courseFull  = courseLabel;
+
+// 填入隱藏欄位
+document.getElementById('f-course').value = courseFull;
+document.getElementById('f-region').value = region;
+document.getElementById('f-batch').value  = batchLabel || batch;
+document.getElementById('f-kind').value   = courseKind;
+document.getElementById('f-type').value   = courseType;
+
+// 填入橫幅
+document.getElementById('banner-course').textContent = courseFull || '（未指定課程）';
+document.getElementById('banner-meta').textContent =
+  [region, batchLabel || batch].filter(Boolean).join('　|　') || '請確認課程資訊';
+
+// ── 條件欄位顯示 ──
+function updateCondFields() {
+  const isRefresh = courseKind.includes('複訓');
+  const is2Day    = courseKind === '初訓(二天)' && courseType === 'security';
+
+  document.getElementById('field-lasttime').classList.toggle('show', isRefresh);
+  document.getElementById('field-cert').classList.toggle('show', is2Day);
+}
+updateCondFields();
+
+// ── 驗證 ──
+function validateIdNum(id) {
+  const re = /^[A-Z][12]\d{8}$/;
+  return re.test(id.toUpperCase());
+}
+function validateDate(d) {
+  return /^\d{4}\/\d{2}\/\d{2}$/.test(d);
+}
+function validateEmail(e) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+}
+
+function showError(id, show) {
+  document.getElementById('err-' + id)?.classList.toggle('show', show);
+  const input = document.getElementById('f-' + id);
+  if (input) input.classList.toggle('error', show);
+}
+
+function validate() {
+  let ok = true;
+  const name    = document.getElementById('f-name').value.trim();
+  const idNum   = document.getElementById('f-id').value.trim();
+  const birth   = document.getElementById('f-birth').value.trim();
+  const mobile  = document.getElementById('f-mobile').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const meal    = document.getElementById('f-meal').value;
+  const addr    = document.getElementById('f-addr').value.trim();
+  const consent = document.getElementById('f-consent').checked;
+
+  if (!name)                  { showError('name', true);   ok = false; } else showError('name', false);
+  if (!validateIdNum(idNum))  { showError('id', true);     ok = false; } else showError('id', false);
+  if (!validateDate(birth))   { showError('birth', true);  ok = false; } else showError('birth', false);
+  if (!mobile)                { showError('mobile', true); ok = false; } else showError('mobile', false);
+  if (!validateEmail(email))  { showError('email', true);  ok = false; } else showError('email', false);
+  if (!meal)                  { showError('meal', true);   ok = false; } else showError('meal', false);
+  if (!addr)                  { showError('addr', true);   ok = false; } else showError('addr', false);
+
+  // 複訓：上次上課時間必填
+  if (document.getElementById('field-lasttime').classList.contains('show')) {
+    const lasttime = document.getElementById('f-lasttime').value.trim();
+    if (!validateDate(lasttime)) { showError('lasttime', true); ok = false; } else showError('lasttime', false);
+  }
+
+  // 保安二天班：證書必選
+  if (document.getElementById('field-cert').classList.contains('show')) {
+    const cert = document.getElementById('f-cert').value;
+    if (!cert) { showError('cert', true); ok = false; } else showError('cert', false);
+  }
+
+  if (!consent) { alert('請勾選同意個人資料使用條款'); ok = false; }
+
+  return ok;
+}
+
+// ── 送出 ──
+document.getElementById('reg-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!validate()) return;
+
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 送出中…';
+
+  const payload = {
+    course:        courseFull,
+    region:        region,
+    batch:         batchLabel || batch,
+    kind:          courseKind,
+    type:          courseType,
+    name:          document.getElementById('f-name').value.trim(),
+    idNum:         document.getElementById('f-id').value.trim().toUpperCase(),
+    birth:         document.getElementById('f-birth').value.trim(),
+    mobile:        document.getElementById('f-mobile').value.trim(),
+    phone:         document.getElementById('f-phone').value.trim(),
+    email:         document.getElementById('f-email').value.trim(),
+    meal:          document.getElementById('f-meal').value,
+    company:       document.getElementById('f-company').value.trim(),
+    taxId:         document.getElementById('f-taxid').value.trim(),
+    address:       document.getElementById('f-addr').value.trim(),
+    lastTime:      document.getElementById('f-lasttime').value.trim(),
+    cert:          document.getElementById('f-cert').value,
+    contact:       document.getElementById('f-contact').value.trim(),
+    contactPhone:  document.getElementById('f-contact-phone').value.trim(),
+    contactEmail:  document.getElementById('f-contact-email').value.trim(),
+    note:          document.getElementById('f-note').value.trim(),
+    source:        '個人（HTML）',
+    timestamp:     new Date().toLocaleString('zh-TW'),
+  };
+
+  try {
+    const res = await fetch(WEB_APP_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+    const result = await res.json();
+
+    if (result.status === 'ok') {
+      document.getElementById('reg-form').style.display = 'none';
+      document.getElementById('success-screen').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      throw new Error(result.message || '送出失敗');
+    }
+  } catch(err) {
+    alert('送出失敗，請稍後再試或聯絡本會。\n錯誤：' + err.message);
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> 送出報名資料';
+  }
+});
+</script>
+
+</body>
+</html>

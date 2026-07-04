@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>聯絡我們 — 財團法人消防教育學術研究基金會</title>
+<link rel="icon" type="image/png" href="logoicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal-900: #0D3B3D; --teal-800: #134548; --teal-700: #1C5C5F;
+    --cyan-500: #2FBFC4; --cyan-400: #4FD4D8; --cyan-100: #E3F7F7;
+    --bg: #F6FAFA; --surface: #FFFFFF;
+    --text-900: #14242A; --text-600: #5C7274; --border: #DEE8E8;
+    --topbar: #D6E6EF; --topbar-border: rgba(13,59,61,.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans TC', sans-serif; color: var(--text-900); background: var(--bg); line-height: 1.7; }
+  h1,h2,h3,h4 { font-family: 'Noto Serif TC', serif; line-height: 1.4; }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  /* ===== Nav ===== */
+  header { background: var(--topbar); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(13,59,61,.08); border-bottom: 1px solid var(--topbar-border); }
+  .nav { max-width: 1120px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.02rem; letter-spacing: .02em; color: var(--teal-900); }
+  .brand-name-short { display: none; }
+  .nav-links { display: flex; gap: 28px; font-size: .92rem; font-weight: 500; }
+  .nav-links a { color: var(--teal-700); opacity: .85; transition: opacity .15s, color .15s; padding: 6px 0; border-bottom: 2px solid transparent; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--teal-900); border-color: var(--cyan-500); }
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--teal-900); border-radius: 2px; }
+  .nav-drawer { display: none; flex-direction: column; background: var(--topbar); border-top: 1px solid rgba(13,59,61,.1); padding: 8px 24px 16px; }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer a { color: var(--teal-700); padding: 10px 0; border-bottom: 1px solid rgba(13,59,61,.06); font-size: .95rem; font-weight: 500; text-decoration: none; }
+  @media (max-width: 720px) {
+    .nav-links { display: none; } .brand-name-full { display: none; }
+    .brand-name-short { display: inline; } .nav-hamburger { display: flex; }
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    background:
+      linear-gradient(100deg, rgba(13,59,61,.82) 0%, rgba(28,92,95,.38) 100%),
+      url('aboutherobg.jpg') center / cover no-repeat;
+    color: #fff; position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute;
+    right: -120px; top: -120px; width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(47,191,196,.28) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1120px; margin: 0 auto; padding: 80px 24px 96px; position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+    border-radius: 999px; padding: 6px 16px;
+    font-size: .82rem; font-weight: 600; letter-spacing: .08em; margin-bottom: 24px;
+  }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin-bottom: 16px; }
+  .hero h1 em { font-style: normal; color: var(--cyan-400); }
+  .hero p { font-size: 1rem; color: rgba(255,255,255,.82); max-width: 520px; }
+
+  /* ===== Page body ===== */
+  .page-body { max-width: 1120px; margin: 0 auto; padding: 72px 24px 96px; }
+
+  .section-eyebrow { font-size: .8rem; font-weight: 700; letter-spacing: .18em; color: var(--cyan-500); text-transform: uppercase; margin-bottom: 10px; }
+  .section-title { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 900; color: var(--teal-900); margin-bottom: 8px; }
+  .section-sub { color: var(--text-600); font-size: .92rem; margin-bottom: 48px; }
+
+  /* ===== Contact grid ===== */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 56px; }
+
+  .contact-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 36px 32px;
+    box-shadow: 0 4px 24px rgba(13,59,61,.06);
+    position: relative; overflow: hidden;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .contact-card:hover { border-color: var(--cyan-500); box-shadow: 0 8px 32px rgba(13,59,61,.1); }
+  .contact-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--cyan-500), var(--teal-700));
+  }
+  .card-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: .75rem; font-weight: 700; letter-spacing: .1em;
+    color: var(--cyan-500); text-transform: uppercase; margin-bottom: 14px;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  .contact-card h3 { font-size: 1.2rem; font-weight: 900; color: var(--teal-900); margin-bottom: 24px; }
+
+  .info-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+  .info-row:last-child { margin-bottom: 0; }
+  .info-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--cyan-100); display: flex; align-items: center; justify-content: center; color: var(--teal-900); flex-shrink: 0; }
+  .info-label { font-size: .75rem; font-weight: 700; color: var(--text-600); margin-bottom: 2px; font-family: 'Noto Sans TC', sans-serif; }
+  .info-value { font-size: .95rem; color: var(--text-900); line-height: 1.5; }
+  a.info-value { color: var(--teal-700); }
+  a.info-value:hover { color: var(--cyan-500); text-decoration: underline; }
+
+  /* ===== Hours card ===== */
+  .hours-section { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .hours-title { font-size: .85rem; font-weight: 700; color: var(--teal-900); margin-bottom: 14px; display: flex; align-items: center; gap: 7px; font-family: 'Noto Sans TC', sans-serif; }
+  .hours-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: .875rem; }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-day { color: var(--text-600); }
+  .hours-time { font-weight: 600; color: var(--teal-900); }
+  .hours-closed { color: #c0392b; font-weight: 600; }
+
+  /* ===== Map section ===== */
+  .map-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 4px 24px rgba(13,59,61,.06);
+  }
+  .map-header { padding: 24px 32px 0; }
+  .map-tabs { display: flex; gap: 0; padding: 12px 32px 0; border-bottom: 2px solid var(--border); }
+  .map-tab {
+    padding: 9px 22px; font-size: .88rem; font-weight: 600;
+    color: var(--text-600); background: none; border: none;
+    border-bottom: 3px solid transparent; margin-bottom: -2px;
+    cursor: pointer; font-family: 'Noto Sans TC', sans-serif; transition: all .15s;
+  }
+  .map-tab.active { color: var(--teal-900); border-bottom-color: var(--cyan-500); }
+  .map-tab:hover:not(.active) { color: var(--teal-700); }
+  .map-frame { height: 360px; }
+  .map-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  /* ===== Footer ===== */
+  footer { background: var(--teal-900); color: rgba(255,255,255,.65); padding: 48px 24px 28px; font-size: .88rem; }
+  .footer-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr 1fr 2fr; gap: 32px; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 32px; margin-bottom: 20px; }
+  .footer-inner h4 { color: #fff; font-size: .9rem; margin-bottom: 12px; font-weight: 700; }
+  .footer-inner a, .footer-inner p { color: rgba(255,255,255,.6); display: block; margin-bottom: 6px; text-decoration: none; }
+  .footer-inner a:hover { color: var(--cyan-400); }
+  .footer-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .footer-contact-block h5 { color: #fff; font-size: .85rem; font-weight: 700; margin-bottom: 8px; }
+  .footer-contact-block p, .footer-contact-block a { font-size: .82rem; color: rgba(255,255,255,.6); display: block; margin-bottom: 4px; }
+  .footer-bottom { max-width: 1120px; margin: 0 auto; text-align: center; font-size: .8rem; color: rgba(255,255,255,.4); padding-top: 4px; }
+
+  @media (max-width: 720px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .hero-inner { padding: 56px 20px 80px; }
+    .page-body { padding: 48px 20px 72px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+    .footer-contact-grid { grid-template-columns: 1fr; }
+    .map-header, .map-tabs { padding-left: 20px; padding-right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <img src="logo_nav.png" alt="財團法人消防教育學術研究基金會" height="44" style="display:block;">
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" data-page="index">首頁</a>
+      <a href="about.html" data-page="about">關於我們</a>
+      <a href="index.html#courses" data-page="register">課程報名</a>
+      <a href="lookup.html" data-page="lookup">查詢專區</a>
+      <a href="contact.html" data-page="contact">聯絡我們</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-drawer" id="nav-drawer">
+    <a href="index.html" data-page="index">首頁</a>
+    <a href="about.html" data-page="about">關於我們</a>
+    <a href="index.html#courses" data-page="register">課程報名</a>
+    <a href="lookup.html" data-page="lookup">查詢專區</a>
+    <a href="contact.html" data-page="contact">聯絡我們</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 015.11 16a19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      CONTACT US
+    </div>
+    <h1>歡迎<em>聯絡</em>我們</h1>
+    <p>無論是課程諮詢、報名問題或其他事宜，我們的服務團隊隨時為您解答。</p>
+  </div>
+</section>
+
+<!-- BODY -->
+<div class="page-body">
+
+  <div class="section-eyebrow">CONTACT</div>
+  <div class="section-title">服務據點</div>
+  <p class="section-sub">提供全台服務，北、中、南皆有專人接洽。</p>
+
+  <div class="contact-grid">
+
+    <!-- 台北 -->
+    <div class="contact-card">
+      <div class="card-badge">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 00-8 8c0 5.25 8 14 8 14s8-8.75 8-14a8 8 0 00-8-8z"/></svg>
+        北區總管理處
+      </div>
+      <h3>台北總管理處</h3>
+
+      <div class="info-row">
+        <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="info-label">地址</div><div class="info-value">台北市中正區延平南路65號2樓</div></div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 015.11 16a19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div><div class="info-label">電話</div><a href="tel:+886223612119" class="info-value">(02) 2361-2119</a></div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></div>
+        <div><div class="info-label">傳真</div><div class="info-value">(02) 2361-6915</div></div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></div>
+        <div><div class="info-label">電子信箱</div><a href="mailto:feaf@119fire.org.tw" class="info-value">feaf@119fire.org.tw</a></div>
+      </div>
+    </div>
+
+    <!-- 中南區 -->
+    <div class="contact-card">
+      <div class="card-badge">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 00-8 8c0 5.25 8 14 8 14s8-8.75 8-14a8 8 0 00-8-8z"/></svg>
+        中區 ／ 南區
+      </div>
+      <h3>中區南區營運中心</h3>
+
+      <div class="info-row">
+        <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 015.11 16a19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div><div class="info-label">電話</div><a href="tel:+886528388119" class="info-value">(05) 283-8119</a></div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></div>
+        <div><div class="info-label">傳真</div><div class="info-value">(05) 285-7289</div></div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg></div>
+        <div><div class="info-label">電子信箱</div><a href="mailto:sfireman119@gmail.com" class="info-value">sfireman119@gmail.com</a></div>
+      </div>
+
+      <div class="hours-section">
+        <div class="hours-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          服務時間
+        </div>
+        <div class="hours-row"><span class="hours-day">週一 ～ 週五</span><span class="hours-time">09:00 ～ 17:00</span></div>
+        <div class="hours-row"><span class="hours-day">週六</span><span class="hours-time">09:00 ～ 12:00</span></div>
+        <div class="hours-row"><span class="hours-day">週日 ／ 國定假日</span><span class="hours-closed">休息</span></div>
+      </div>
+    </div>
+
+  </div><!-- /contact-grid -->
+
+  <!-- Map -->
+  <div class="map-section">
+    <div class="map-header">
+      <div class="section-eyebrow" style="margin-bottom:4px">LOCATION</div>
+      <h2 style="font-size:1.3rem;font-weight:900;color:var(--teal-900);margin-bottom:0">交通位置</h2>
+    </div>
+    <div class="map-tabs">
+      <button class="map-tab active" onclick="switchMap('taipei', this)">台北總管理處</button>
+      <button class="map-tab" onclick="switchMap('chiayi', this)">中區南區營運中心</button>
+    </div>
+    <div class="map-frame">
+      <iframe id="map-taipei"
+        src="https://maps.google.com/maps?q=台北市中正區延平南路65號&output=embed&z=16"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe id="map-chiayi" style="display:none"
+        src="https://maps.google.com/maps?q=嘉義市消防&output=embed&z=14"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+
+</div><!-- /page-body -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h4>財團法人消防教育學術研究基金會</h4>
+      <p>以教育推動防災，以研究支持實務</p>
+    </div>
+    <div>
+      <h4>課程資訊</h4>
+      <a href="course-fire.html">防火管理人</a>
+      <a href="course-security.html">保安監督人</a>
+      <a href="course-inspector.html">保安檢查員</a>
+    </div>
+    <div>
+      <h4>網站導覽</h4>
+      <a href="index.html">首頁</a>
+      <a href="about.html">關於我們</a>
+      <a href="register.html">課程報名</a>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <h4 style="margin:0">服務據點</h4>
+      </div>
+      <div class="footer-contact-grid">
+        <div class="footer-contact-block">
+          <h5>台北總管理處</h5>
+          <p>台北市中正區延平南路65號2樓</p>
+          <p>TEL：(02)2361-2119</p>
+          <p>FAX：(02)2361-6915</p>
+          <a href="mailto:feaf@119fire.org.tw">feaf@119fire.org.tw</a>
+        </div>
+        <div class="footer-contact-block">
+          <h5>中區南區營運中心</h5>
+          <p>TEL：(05)283-8119</p>
+          <p>FAX：(05)285-7289</p>
+          <a href="mailto:sfireman119@gmail.com">sfireman119@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 財團法人消防教育學術研究基金會. 版權所有。</div>
+</footer>
+
+<script>
+function switchMap(id, btn) {
+  document.querySelectorAll('.map-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('map-taipei').style.display = id === 'taipei' ? 'block' : 'none';
+  document.getElementById('map-chiayi').style.display = id === 'chiayi' ? 'block' : 'none';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('nav-hamburger');
+  var drawer = document.getElementById('nav-drawer');
+  if (btn && drawer) btn.addEventListener('click', function() { drawer.classList.toggle('open'); });
+  document.querySelectorAll('[data-page]').forEach(function(link) {
+    if (link.tagName === 'A' && link.getAttribute('data-page') === 'contact') link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

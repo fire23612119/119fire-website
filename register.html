@@ -1,0 +1,2916 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>線上報名｜財團法人消防教育學術研究基金會</title>
+<link rel="icon" type="image/png" href="logo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== 設計代幣（與全站一致） ===== */
+  :root {
+    --teal-900: #0D3B3D;
+    --teal-800: #134548;
+    --teal-700: #1C5C5F;
+    --cyan-500: #2FBFC4;
+    --cyan-400: #4FD4D8;
+    --cyan-100: #E3F7F7;
+    --bg: #F6FAFA;
+    --surface: #FFFFFF;
+    --text-900: #14242A;
+    --text-600: #5C7274;
+    --border: #DEE8E8;
+    --topbar: #D6E6EF;
+    --topbar-border: rgba(13,59,61,.08);
+    --step-inactive: #B0CACA;
+    --card-hover: #EEF8F8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--text-900);
+    background: var(--bg);
+    line-height: 1.7;
+  }
+  h1, h2, h3 { font-family: 'Noto Serif TC', serif; line-height: 1.4; }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+  button { cursor: pointer; font-family: inherit; }
+
+  /* ===== Header ===== */
+  header {
+    background: var(--topbar);
+    color: var(--teal-900);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(13,59,61,.08);
+    border-bottom: 1px solid var(--topbar-border);
+  }
+  .nav {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: .02em;
+    color: var(--teal-900);
+  }
+  .brand-name-short { display: none; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: .88rem;
+    font-weight: 500;
+  }
+  .nav-links a {
+    color: var(--teal-700);
+    opacity: .85;
+    transition: opacity .15s, color .15s;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--teal-900); background: rgba(13,59,61,.05); }
+  .nav-links a.active { opacity: 1; color: var(--teal-900); border-color: var(--cyan-500); }
+  .nav-cta {
+    background: var(--cyan-500) !important;
+    color: var(--teal-900) !important;
+    padding: 9px 20px !important;
+    border-radius: 999px !important;
+    font-weight: 700 !important;
+    font-size: .88rem !important;
+    opacity: 1 !important;
+    margin-left: 8px;
+  }
+  .nav-cta:hover { background: var(--cyan-400) !important; }
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--teal-900); border-radius: 2px; transition: .2s; }
+  .nav-drawer {
+    display: none;
+    flex-direction: column;
+    background: var(--topbar);
+    border-top: 1px solid var(--topbar-border);
+    padding: 8px 24px 16px;
+    gap: 2px;
+  }
+  .nav-drawer a { padding: 10px 8px; color: var(--teal-700); font-size: .93rem; border-radius: 6px; }
+  .nav-drawer a:hover { background: rgba(13,59,61,.05); }
+  .nav-drawer .nav-cta-drawer {
+    margin-top: 8px;
+    background: var(--cyan-500);
+    color: var(--teal-900);
+    padding: 11px 20px;
+    border-radius: 999px;
+    text-align: center;
+    font-weight: 700;
+  }
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .brand-name-full { display: none; }
+    .brand-name-short { display: inline; }
+  }
+  .nav-drawer.open { display: flex; }
+
+  /* ===== Page Hero ===== */
+  .page-hero {
+    background:
+      linear-gradient(100deg, rgba(13,59,61,.82) 0%, rgba(28,92,95,.38) 100%),
+      url('about-hero-bg.jpg') center / cover no-repeat;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    right: -80px; top: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(47,191,196,.22) 0%, transparent 70%);
+  }
+  .page-hero-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+  .eyebrow {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    color: var(--cyan-400);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 900; }
+  .page-hero p { color: rgba(255,255,255,.78); margin-top: 10px; max-width: 580px; font-size: .97rem; }
+
+  /* ===== 步驟指示器 ===== */
+  .stepper-wrap {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 65px;
+    z-index: 90;
+    box-shadow: 0 2px 8px rgba(13,59,61,.05);
+  }
+  .stepper {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+  }
+  .step-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 0;
+    color: var(--step-inactive);
+    font-size: .87rem;
+    font-weight: 600;
+    transition: color .25s;
+  }
+  .step-item.active { color: var(--teal-900); }
+  .step-item.done { color: var(--cyan-500); }
+  .step-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: background .25s, border-color .25s;
+  }
+  .step-item.active .step-num {
+    background: var(--teal-900);
+    border-color: var(--teal-900);
+    color: #fff;
+  }
+  .step-item.done .step-num {
+    background: var(--cyan-500);
+    border-color: var(--cyan-500);
+    color: #fff;
+  }
+  .step-connector {
+    flex: 0 0 32px;
+    height: 2px;
+    background: var(--border);
+    margin: 0 4px;
+    border-radius: 1px;
+  }
+  @media (max-width: 520px) {
+    .step-label { display: none; }
+    .step-connector { flex: 0 0 16px; }
+  }
+
+  /* ===== 主要內容區 ===== */
+  .main-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* ===== 選項卡片通用 ===== */
+  .section-label {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    color: var(--cyan-500);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    font-weight: 900;
+    color: var(--teal-900);
+    margin-bottom: 28px;
+  }
+
+  .cards {
+    display: grid;
+    gap: 16px;
+  }
+  .cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .cards.cols-auto { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+
+  .card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    cursor: pointer;
+    transition: border-color .18s, background .18s, transform .18s, box-shadow .18s;
+    user-select: none;
+    position: relative;
+  }
+  .card:hover {
+    border-color: var(--cyan-400);
+    background: var(--card-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(47,191,196,.12);
+  }
+  .card.selected {
+    border-color: var(--cyan-500);
+    background: var(--cyan-100);
+    box-shadow: 0 0 0 3px rgba(47,191,196,.18);
+  }
+  .card-check {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--cyan-500);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-check svg { stroke: #fff; }
+  .card.selected .card-check { display: flex; }
+
+  /* 課程卡片 */
+  .course-card .course-icon {
+    width: 72px; height: 72px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    transition: opacity .18s;
+  }
+  .course-card .course-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .course-card.selected .course-icon { background: rgba(47,191,196,.25); }
+  .course-card .course-icon svg { stroke: var(--teal-700); }
+  .course-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--teal-900);
+    margin-bottom: 4px;
+  }
+  .course-card p { font-size: .82rem; color: var(--text-600); }
+  .course-badge {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .badge-fire { background: #FFF0E0; color: #A0500A; }
+  .badge-security { background: #E3F0FF; color: #1A4E8A; }
+  .badge-inspector { background: #F0E8FF; color: #5A2A8A; }
+
+  /* 地區卡片 */
+  .region-card { text-align: center; }
+  .region-card h3 { font-size: .97rem; font-weight: 700; color: var(--teal-900); }
+  .region-card .region-count { font-size: .78rem; color: var(--text-600); margin-top: 2px; }
+
+  /* 梯次卡片 */
+  .batch-card { padding: 18px 22px; }
+  .batch-card .batch-tag {
+    font-size: .72rem;
+    font-weight: 700;
+    background: var(--cyan-100);
+    color: var(--teal-700);
+    padding: 2px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .batch-card.selected .batch-tag { background: rgba(47,191,196,.3); }
+  .batch-card h3 { font-size: .95rem; font-weight: 700; color: var(--teal-900); margin-bottom: 6px; }
+  .batch-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    font-size: .82rem;
+    color: var(--text-600);
+  }
+  .batch-meta span { display: flex; align-items: center; gap: 4px; }
+  .batch-meta svg { stroke: var(--cyan-500); flex-shrink: 0; }
+  .batch-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: .75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-top: 10px;
+  }
+  .status-open { background: #E6F9EE; color: #1A7A3C; }
+  .status-few { background: #FFF4E0; color: #9A5500; }
+  .status-full { background: #F5E8E8; color: #8A1A1A; }
+
+  /* ===== 確認區 ===== */
+  .confirm-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 16px rgba(13,59,61,.06);
+  }
+  .confirm-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .confirm-row:last-of-type { border-bottom: none; }
+  .confirm-label {
+    font-size: .82rem;
+    color: var(--text-600);
+    font-weight: 600;
+    width: 90px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .confirm-value {
+    font-size: .97rem;
+    color: var(--teal-900);
+    font-weight: 600;
+  }
+
+  /* ===== 按鈕 ===== */
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 32px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: .95rem;
+    border: none;
+    transition: transform .15s, box-shadow .15s, background .15s, opacity .15s;
+  }
+  .btn:disabled { opacity: .4; cursor: not-allowed; transform: none !important; }
+  .btn-primary {
+    background: var(--cyan-500);
+    color: var(--teal-900);
+  }
+  .btn-primary:not(:disabled):hover {
+    background: var(--cyan-400);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(47,191,196,.35);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--teal-700);
+    border: 2px solid var(--border);
+  }
+  .btn-ghost:not(:disabled):hover { border-color: var(--cyan-400); background: var(--cyan-100); }
+  .btn-go {
+    background: var(--teal-900);
+    color: #fff;
+    font-size: 1rem;
+    padding: 14px 36px;
+  }
+  .btn-go:not(:disabled):hover {
+    background: var(--teal-700);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(13,59,61,.25);
+  }
+
+  /* ===== 無資料 ===== */
+  .empty-state {
+    text-align: center;
+    padding: 48px 16px;
+    color: var(--text-600);
+  }
+  .empty-state svg { margin: 0 auto 16px; stroke: var(--border); }
+  .empty-state p { font-size: .9rem; }
+
+  /* ===== Steps 顯示控制 ===== */
+  .step-panel { display: none; animation: fadeIn .22s ease; }
+  .step-panel.visible { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* ===== Footer ===== */
+  footer {
+    background: var(--teal-900);
+    color: rgba(255,255,255,.6);
+    padding: 48px 24px 28px;
+    font-size: .88rem;
+  }
+  .footer-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    gap: 32px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    padding-bottom: 32px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 860px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .footer-inner { grid-template-columns: 1fr; } }
+  .footer-inner h4 { color: #fff; font-size: .9rem; margin-bottom: 12px; font-weight: 700; }
+  .footer-inner a, .footer-inner p { color: rgba(255,255,255,.6); display: block; margin-bottom: 6px; }
+  .footer-inner a:hover { color: var(--cyan-400); }
+  .footer-contact-grid { display: flex; flex-direction: column; gap: 16px; }
+  .footer-contact-block h5 { color: #fff; font-size: .85rem; font-weight: 700; margin-bottom: 8px; }
+  .footer-contact-block p, .footer-contact-block a { font-size: .82rem; }
+  .footer-bottom {
+    max-width: 1120px; margin: 0 auto;
+    text-align: center; font-size: .8rem; color: rgba(255,255,255,.35);
+  }
+
+  @media (max-width: 720px) {
+    .cards.cols-3 { grid-template-columns: 1fr; }
+    .confirm-card { padding: 20px; }
+  }
+</style>
+<script>
+// 若無課程參數，立即跳回首頁課程區塊，避免頁面閃爍
+(function() {
+  var params = new URLSearchParams(location.search);
+  if (!params.get('type')) {
+    window.location.replace('index.html#courses');
+  }
+})();
+</script>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header>
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <img src="logo_nav.png" alt="財團法人消防教育學術研究基金會" height="44" style="display:block;">
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" data-page="index">首頁</a>
+      <a href="about.html" data-page="about">關於我們</a>
+      <a href="index.html#courses" data-page="register">課程報名</a>
+      <a href="lookup.html" data-page="lookup">查詢專區</a>
+      <a href="contact.html" data-page="contact">聯絡我們</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-drawer" id="nav-drawer">
+    <a href="index.html" data-page="index">首頁</a>
+    <a href="about.html" data-page="about">關於我們</a>
+    <a href="index.html#courses" data-page="register">課程報名</a>
+    <a href="lookup.html" data-page="lookup">查詢專區</a>
+    <a href="contact.html" data-page="contact">聯絡我們</a>
+  </div>
+</header>
+
+<!-- ===== Page Hero ===== -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="eyebrow">Online Registration</div>
+    <h1>線上報名</h1>
+    <p>選擇開課地區與梯次，即可前往 Google 表單完成報名。</p>
+  </div>
+</section>
+
+<!-- ===== 步驟指示器 ===== -->
+<div class="stepper-wrap">
+  <div class="stepper">
+    <div class="step-item active" id="step-ind-1">
+      <div class="step-num">1</div>
+      <span class="step-label">選擇地區</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step-item" id="step-ind-2">
+      <div class="step-num">2</div>
+      <span class="step-label">選擇梯次</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step-item" id="step-ind-3">
+      <div class="step-num">3</div>
+      <span class="step-label">確認前往</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 主要內容 ===== -->
+<div class="main-wrap">
+
+  <!-- Step 1：選課程 -->
+  <!-- 課程資訊橫幅（由 JS 填入）-->
+  <div id="course-banner" style="display:none;background:var(--teal-light);border:1.5px solid var(--teal);border-radius:12px;padding:14px 20px;margin-bottom:24px;display:flex;align-items:center;gap:12px;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal-dark)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <div>
+      <div style="font-size:.78rem;color:var(--teal-dark);font-weight:700;margin-bottom:2px;">已選擇課程</div>
+      <div id="course-banner-text" style="font-size:.95rem;font-weight:700;color:var(--teal-900);"></div>
+    </div>
+  </div>
+
+  <!-- Step 1：選地區 -->
+  <div class="step-panel visible" id="panel-1">
+    <div class="section-label">Step 1</div>
+    <h2 class="section-title">請選擇開課地區</h2>
+    <div class="cards cols-auto" id="region-cards">
+      <!-- 由 JS 動態產生 -->
+    </div>
+    <div class="actions">
+      <a href="index.html#courses" class="btn btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        返回課程選擇
+      </a>
+      <button class="btn btn-primary" id="btn-1-next" disabled>
+        下一步：選擇梯次
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 2：選梯次 -->
+  <div class="step-panel" id="panel-2">
+    <div class="section-label">Step 2</div>
+    <h2 class="section-title">請選擇梯次</h2>
+    <div class="cards" id="batch-cards" style="grid-template-columns:1fr;">
+      <!-- 由 JS 動態產生 -->
+    </div>
+    <div class="actions">
+      <button class="btn btn-ghost" id="btn-2-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        上一步
+      </button>
+      <button class="btn btn-primary" id="btn-2-next" disabled>
+        下一步：確認資料
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 3：確認 -->
+  <div class="step-panel" id="panel-3">
+    <div class="section-label">Step 3</div>
+    <h2 class="section-title">確認報名資訊</h2>
+    <div class="confirm-card" id="confirm-detail">
+      <!-- 由 JS 動態產生 -->
+    </div>
+    <div class="actions">
+      <button class="btn btn-ghost" id="btn-3-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        修改梯次
+      </button>
+      <button class="btn btn-go" id="btn-go-form">
+        前往填寫報名資料
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <p style="margin-top:20px;font-size:.82rem;color:var(--text-600);text-align:center;">
+      點擊「前往填寫報名資料」後，將進入報名表單頁面，課程、地區、梯次資訊已自動帶入，請填寫個人資料後送出。
+    </p>
+  </div>
+
+</div><!-- /.main-wrap -->
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h4>財團法人消防教育學術研究基金會</h4>
+      <p>以教育推動防災，以研究支持實務</p>
+    </div>
+    <div>
+      <h4>課程資訊</h4>
+      <a href="course-fire.html">防火管理人</a>
+      <a href="course-security.html">保安監督人</a>
+      <a href="course-inspector.html">保安檢查員</a>
+    </div>
+    <div>
+      <h4>網站導覽</h4>
+      <a href="index.html">首頁</a>
+      <a href="about.html">關於我們</a>
+      <a href="register.html">線上報名</a>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <h4 style="margin:0">服務據點</h4>
+      </div>
+      <div class="footer-contact-grid">
+        <div class="footer-contact-block">
+          <h5>台北總管理處</h5>
+          <p>台北市中正區延平南路65號2樓</p>
+          <p>TEL：(02)2361-2119</p>
+          <a href="mailto:feaf@119fire.org.tw">feaf@119fire.org.tw</a>
+        </div>
+        <div class="footer-contact-block">
+          <h5>中區南區營運中心</h5>
+          <p>TEL：(05)283-8119</p>
+          <a href="mailto:sfireman119@gmail.com">sfireman119@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 財團法人消防教育學術研究基金會. 版權所有。</div>
+</footer>
+
+<script>
+/* =====================================================================
+   課程梯次資料
+   ── 你只需維護這段 COURSE_DATA，其他頁面邏輯全自動
+   ── 每次新增/更新梯次後，將舊梯次 status 改為 "ended"（不顯示）
+   ── Google 表單 URL 填在各梯次的 formUrl 欄位
+
+   欄位說明：
+   id        : 唯一識別（英文+數字）
+   course    : 課程名稱（顯示用）
+   type      : "fire" | "security" | "inspector"
+   region    : 地區名稱（顯示用）
+   sessions  : 梯次陣列
+     .id     : 梯次識別
+     .label  : 梯次標籤（例：第一梯次）
+     .dates  : 上課日期文字
+     .location : 上課地點
+     .quota  : 招生名額
+     .status : "open"（報名中）| "few"（名額剩餘）| "full"（額滿）| "ended"（已結束，不顯示）
+     .formUrl: 此梯次的 Google 表單報名連結（含預填參數）
+===================================================================== */
+const COURSE_DATA = [
+  {
+    "id": "fire-南投-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "南投縣",
+    "sessions": [
+      {
+        "id": "fire-南投-初訓-3614",
+        "label": "115年8月4日（二）～8月5日（三）",
+        "dates": "115年8月4日（二）～8月5日（三）",
+        "location": "南投縣",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8D%97%E6%8A%95%E7%B8%A3&entry.916965652=115%E5%B9%B48%E6%9C%884%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E8%E6%9C%885%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-南投-初訓-3615",
+        "label": "115年10月20日（二）～10月21日（三）",
+        "dates": "115年10月20日（二）～10月21日（三）",
+        "location": "南投縣",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8D%97%E6%8A%95%E7%B8%A3&entry.916965652=115%E5%B9%B410%E6%9C%8820%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E10%E6%9C%8821%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-南投-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "南投縣",
+    "sessions": [
+      {
+        "id": "fire-南投-複訓-3616",
+        "label": "115年8月6日（四）",
+        "dates": "115年8月6日（四）",
+        "location": "南投縣",
+        "quota": "28人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8D%97%E6%8A%95%E7%B8%A3&entry.916965652=115%E5%B9%B48%E6%9C%886%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-南投-複訓-3617",
+        "label": "115年10月22日（四）",
+        "dates": "115年10月22日（四）",
+        "location": "南投縣",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8D%97%E6%8A%95%E7%B8%A3&entry.916965652=115%E5%B9%B410%E6%9C%8822%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-台中-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "台中市",
+    "sessions": [
+      {
+        "id": "fire-台中-初訓-3619",
+        "label": "115年9月9日（三）～9月10日（四）",
+        "dates": "115年9月9日（三）～9月10日（四）",
+        "location": "台中市",
+        "quota": "38人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%889%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E9%E6%9C%8810%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台中-初訓-3620",
+        "label": "115年10月6日（二）～10月7日（三）",
+        "dates": "115年10月6日（二）～10月7日（三）",
+        "location": "台中市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%886%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E10%E6%9C%887%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台中-初訓-3621",
+        "label": "115年11月10日（二）～11月11日（三）",
+        "dates": "115年11月10日（二）～11月11日（三）",
+        "location": "台中市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8810%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E11%E6%9C%8811%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台中-初訓-3622",
+        "label": "115年12月1日（二）～12月2日（三）",
+        "dates": "115年12月1日（二）～12月2日（三）",
+        "location": "台中市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%881%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E12%E6%9C%882%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-台中-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "台中市",
+    "sessions": [
+      {
+        "id": "fire-台中-複訓-3623",
+        "label": "115年7月2日（四）",
+        "dates": "115年7月2日（四）",
+        "location": "台中市",
+        "quota": "32人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%882%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台中-複訓-3624",
+        "label": "115年8月3日（一）",
+        "dates": "115年8月3日（一）",
+        "location": "台中市",
+        "quota": "24人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%883%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台中-複訓-3625",
+        "label": "115年9月10日（四）",
+        "dates": "115年9月10日（四）",
+        "location": "台中市",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8810%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台中-複訓-3626",
+        "label": "115年10月7日（三）",
+        "dates": "115年10月7日（三）",
+        "location": "台中市",
+        "quota": "29人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%887%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台中-複訓-3627",
+        "label": "115年11月12日（四）",
+        "dates": "115年11月12日（四）",
+        "location": "台中市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8812%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台中-複訓-3628",
+        "label": "115年12月2日（三）",
+        "dates": "115年12月2日（三）",
+        "location": "台中市",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%882%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-台北-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "台北市",
+    "sessions": [
+      {
+        "id": "fire-台北-初訓-3543",
+        "label": "115年6月15日（一）～6月16日（二）",
+        "dates": "115年6月15日（一）～6月16日（二）",
+        "location": "台北市",
+        "quota": "10人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8815%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E6%E6%9C%8816%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台北-初訓-3692",
+        "label": "115年7月23日（四）～7月24日（五）",
+        "dates": "115年7月23日（四）～7月24日（五）",
+        "location": "台北市",
+        "quota": "2人",
+        "status": "few",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8823%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E7%E6%9C%8824%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台北-初訓-3694",
+        "label": "115年8月20日（四）～8月21日（五）",
+        "dates": "115年8月20日（四）～8月21日（五）",
+        "location": "台北市",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8820%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E8%E6%9C%8821%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台北-初訓-3696",
+        "label": "115年9月22日（二）～9月23日（三）",
+        "dates": "115年9月22日（二）～9月23日（三）",
+        "location": "台北市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8822%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E9%E6%9C%8823%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台北-初訓-3698",
+        "label": "115年10月15日（四）～10月16日（五）",
+        "dates": "115年10月15日（四）～10月16日（五）",
+        "location": "台北市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8815%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E10%E6%9C%8816%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台北-初訓-3700",
+        "label": "115年11月26日（四）～11月27日（五）",
+        "dates": "115年11月26日（四）～11月27日（五）",
+        "location": "台北市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8826%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E11%E6%9C%8827%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台北-初訓-3702",
+        "label": "115年12月17日（四）～12月18日（五）",
+        "dates": "115年12月17日（四）～12月18日（五）",
+        "location": "台北市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8817%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E12%E6%9C%8818%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-台北-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "台北市",
+    "sessions": [
+      {
+        "id": "fire-台北-複訓-3693",
+        "label": "115年7月10日（五）",
+        "dates": "115年7月10日（五）",
+        "location": "台北市",
+        "quota": "11人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8810%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台北-複訓-3695",
+        "label": "115年8月3日（一）",
+        "dates": "115年8月3日（一）",
+        "location": "台北市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%883%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台北-複訓-3697",
+        "label": "115年9月8日（二）",
+        "dates": "115年9月8日（二）",
+        "location": "台北市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%888%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台北-複訓-3699",
+        "label": "115年10月12日（一）",
+        "dates": "115年10月12日（一）",
+        "location": "台北市",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8812%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台北-複訓-3701",
+        "label": "115年11月16日（一）",
+        "dates": "115年11月16日（一）",
+        "location": "台北市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8816%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台北-複訓-3703",
+        "label": "115年12月14日（一）",
+        "dates": "115年12月14日（一）",
+        "location": "台北市",
+        "quota": "47人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8814%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-台南-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "台南市",
+    "sessions": [
+      {
+        "id": "fire-台南-初訓-3504",
+        "label": "115年6月24日（三）～6月25日（四）",
+        "dates": "115年6月24日（三）～6月25日（四）",
+        "location": "台南市",
+        "quota": "40人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8824%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E6%E6%9C%8825%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-初訓-3641",
+        "label": "115年7月27日（一）～7月28日（二）",
+        "dates": "115年7月27日（一）～7月28日（二）",
+        "location": "台南市",
+        "quota": "45人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8827%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E7%E6%9C%8828%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-初訓-3642",
+        "label": "115年8月19日（三）～8月20日（四）",
+        "dates": "115年8月19日（三）～8月20日（四）",
+        "location": "台南市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8819%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E8%E6%9C%8820%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-初訓-3643",
+        "label": "115年9月21日（一）～9月22日（二）",
+        "dates": "115年9月21日（一）～9月22日（二）",
+        "location": "台南市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8821%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E9%E6%9C%8822%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-初訓-3644",
+        "label": "115年10月28日（三）～10月29日（四）",
+        "dates": "115年10月28日（三）～10月29日（四）",
+        "location": "台南市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8828%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E10%E6%9C%8829%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-初訓-3645",
+        "label": "115年11月23日（一）～11月24日（二）",
+        "dates": "115年11月23日（一）～11月24日（二）",
+        "location": "台南市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8823%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E11%E6%9C%8824%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-初訓-3646",
+        "label": "115年12月21日（一）～12月22日（二）",
+        "dates": "115年12月21日（一）～12月22日（二）",
+        "location": "台南市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8821%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E12%E6%9C%8822%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-台南-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "台南市",
+    "sessions": [
+      {
+        "id": "fire-台南-複訓-3510",
+        "label": "115年6月26日（五）",
+        "dates": "115年6月26日（五）",
+        "location": "台南市",
+        "quota": "16人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8826%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-複訓-3647",
+        "label": "115年7月29日（三）",
+        "dates": "115年7月29日（三）",
+        "location": "台南市",
+        "quota": "27人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8829%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-複訓-3648",
+        "label": "115年8月21日（五）",
+        "dates": "115年8月21日（五）",
+        "location": "台南市",
+        "quota": "33人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8821%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-複訓-3649",
+        "label": "115年9月23日（三）",
+        "dates": "115年9月23日（三）",
+        "location": "台南市",
+        "quota": "42人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8823%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-複訓-3650",
+        "label": "115年10月30日（五）",
+        "dates": "115年10月30日（五）",
+        "location": "台南市",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8830%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-複訓-3651",
+        "label": "115年11月25日（三）",
+        "dates": "115年11月25日（三）",
+        "location": "台南市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8825%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-台南-複訓-3652",
+        "label": "115年12月23日（三）",
+        "dates": "115年12月23日（三）",
+        "location": "台南市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8823%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-嘉義-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "嘉義市",
+    "sessions": [
+      {
+        "id": "fire-嘉義-初訓-3492",
+        "label": "115年6月29日（一）～6月30日（二）",
+        "dates": "115年6月29日（一）～6月30日（二）",
+        "location": "嘉義市",
+        "quota": "22人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8829%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E6%E6%9C%8830%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-初訓-3629",
+        "label": "115年7月21日（二）～7月22日（三）",
+        "dates": "115年7月21日（二）～7月22日（三）",
+        "location": "嘉義市",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8821%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E7%E6%9C%8822%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-初訓-3630",
+        "label": "115年8月25日（二）～8月26日（三）",
+        "dates": "115年8月25日（二）～8月26日（三）",
+        "location": "嘉義市",
+        "quota": "47人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8825%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E8%E6%9C%8826%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-初訓-3631",
+        "label": "115年9月15日（二）～9月16日（三）",
+        "dates": "115年9月15日（二）～9月16日（三）",
+        "location": "嘉義市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8815%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E9%E6%9C%8816%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-初訓-3632",
+        "label": "115年10月15日（四）～10月16日（五）",
+        "dates": "115年10月15日（四）～10月16日（五）",
+        "location": "嘉義市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8815%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E10%E6%9C%8816%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-初訓-3633",
+        "label": "115年11月26日（四）～11月27日（五）",
+        "dates": "115年11月26日（四）～11月27日（五）",
+        "location": "嘉義市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8826%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E11%E6%9C%8827%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-初訓-3634",
+        "label": "115年12月28日（一）～12月29日（二）",
+        "dates": "115年12月28日（一）～12月29日（二）",
+        "location": "嘉義市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8828%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E12%E6%9C%8829%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-嘉義-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "嘉義市",
+    "sessions": [
+      {
+        "id": "fire-嘉義-複訓-3498",
+        "label": "115年6月30日（二）",
+        "dates": "115年6月30日（二）",
+        "location": "嘉義市",
+        "quota": "0人",
+        "status": "full",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8830%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-複訓-3778",
+        "label": "115年6月30日（二）",
+        "dates": "115年6月30日（二）",
+        "location": "嘉義市",
+        "quota": "10人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8830%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-複訓-3635",
+        "label": "115年7月23日（四）",
+        "dates": "115年7月23日（四）",
+        "location": "嘉義市",
+        "quota": "10人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8823%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-複訓-3636",
+        "label": "115年8月27日（四）",
+        "dates": "115年8月27日（四）",
+        "location": "嘉義市",
+        "quota": "29人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8827%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-複訓-3637",
+        "label": "115年9月17日（四）",
+        "dates": "115年9月17日（四）",
+        "location": "嘉義市",
+        "quota": "43人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8817%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-複訓-3638",
+        "label": "115年10月16日（五）",
+        "dates": "115年10月16日（五）",
+        "location": "嘉義市",
+        "quota": "46人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8816%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-複訓-3639",
+        "label": "115年11月27日（五）",
+        "dates": "115年11月27日（五）",
+        "location": "嘉義市",
+        "quota": "47人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8827%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-嘉義-複訓-3640",
+        "label": "115年12月29日（二）",
+        "dates": "115年12月29日（二）",
+        "location": "嘉義市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8829%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-基隆-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "基隆市",
+    "sessions": [
+      {
+        "id": "fire-基隆-初訓-3720",
+        "label": "115年8月10日（一）～8月11日（二）",
+        "dates": "115年8月10日（一）～8月11日（二）",
+        "location": "基隆市",
+        "quota": "42人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%9F%BA%E9%9A%86%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8810%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E8%E6%9C%8811%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-基隆-初訓-3742",
+        "label": "115年11月23日（一）～11月24日（二）",
+        "dates": "115年11月23日（一）～11月24日（二）",
+        "location": "基隆市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%9F%BA%E9%9A%86%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8823%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E11%E6%9C%8824%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-基隆-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "基隆市",
+    "sessions": [
+      {
+        "id": "fire-基隆-複訓-3721",
+        "label": "115年8月12日（三）",
+        "dates": "115年8月12日（三）",
+        "location": "基隆市",
+        "quota": "39人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%9F%BA%E9%9A%86%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8812%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-基隆-複訓-3743",
+        "label": "115年11月25日（三）",
+        "dates": "115年11月25日（三）",
+        "location": "基隆市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%9F%BA%E9%9A%86%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8825%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-宜蘭-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "宜蘭縣",
+    "sessions": [
+      {
+        "id": "fire-宜蘭-初訓-3735",
+        "label": "115年7月13日（一）～7月14日（二）",
+        "dates": "115年7月13日（一）～7月14日（二）",
+        "location": "宜蘭縣",
+        "quota": "42人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%AE%9C%E8%98%AD%E7%B8%A3&entry.916965652=115%E5%B9%B47%E6%9C%8813%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E7%E6%9C%8814%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-宜蘭-初訓-3736",
+        "label": "115年10月13日（二）～10月14日（三）",
+        "dates": "115年10月13日（二）～10月14日（三）",
+        "location": "宜蘭縣",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%AE%9C%E8%98%AD%E7%B8%A3&entry.916965652=115%E5%B9%B410%E6%9C%8813%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E10%E6%9C%8814%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-宜蘭-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "宜蘭縣",
+    "sessions": [
+      {
+        "id": "fire-宜蘭-複訓-3737",
+        "label": "115年9月30日（三）",
+        "dates": "115年9月30日（三）",
+        "location": "宜蘭縣",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%AE%9C%E8%98%AD%E7%B8%A3&entry.916965652=115%E5%B9%B49%E6%9C%8830%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-宜蘭-複訓-3738",
+        "label": "115年12月23日（三）",
+        "dates": "115年12月23日（三）",
+        "location": "宜蘭縣",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%AE%9C%E8%98%AD%E7%B8%A3&entry.916965652=115%E5%B9%B412%E6%9C%8823%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-新竹-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "新竹市",
+    "sessions": [
+      {
+        "id": "fire-新竹-初訓-3466",
+        "label": "115年6月15日（一）～6月16日（二）",
+        "dates": "115年6月15日（一）～6月16日（二）",
+        "location": "新竹市",
+        "quota": "31人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8815%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E6%E6%9C%8816%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-新竹-初訓-3603",
+        "label": "115年8月13日（四）～8月14日（五）",
+        "dates": "115年8月13日（四）～8月14日（五）",
+        "location": "新竹市",
+        "quota": "15人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8813%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E8%E6%9C%8814%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-新竹-初訓-3604",
+        "label": "115年9月29日（二）～9月30日（三）",
+        "dates": "115年9月29日（二）～9月30日（三）",
+        "location": "新竹市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8829%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E9%E6%9C%8830%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-新竹-初訓-3605",
+        "label": "115年10月12日（一）～10月13日（二）",
+        "dates": "115年10月12日（一）～10月13日（二）",
+        "location": "新竹市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8812%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E10%E6%9C%8813%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-新竹-初訓-3606",
+        "label": "115年11月16日（一）～11月17日（二）",
+        "dates": "115年11月16日（一）～11月17日（二）",
+        "location": "新竹市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8816%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E11%E6%9C%8817%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-新竹-初訓-3607",
+        "label": "115年12月14日（一）～12月15日（二）",
+        "dates": "115年12月14日（一）～12月15日（二）",
+        "location": "新竹市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8814%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E12%E6%9C%8815%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-新竹-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "新竹市",
+    "sessions": [
+      {
+        "id": "fire-新竹-複訓-3472",
+        "label": "115年6月17日（三）",
+        "dates": "115年6月17日（三）",
+        "location": "新竹市",
+        "quota": "29人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8817%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-新竹-複訓-3608",
+        "label": "115年7月14日（二）",
+        "dates": "115年7月14日（二）",
+        "location": "新竹市",
+        "quota": "7人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8814%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-新竹-複訓-3609",
+        "label": "115年8月11日（二）",
+        "dates": "115年8月11日（二）",
+        "location": "新竹市",
+        "quota": "8人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8811%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-新竹-複訓-3610",
+        "label": "115年9月1日（二）",
+        "dates": "115年9月1日（二）",
+        "location": "新竹市",
+        "quota": "18人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%881%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-新竹-複訓-3611",
+        "label": "115年10月1日（四）",
+        "dates": "115年10月1日（四）",
+        "location": "新竹市",
+        "quota": "47人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%881%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-新竹-複訓-3612",
+        "label": "115年11月18日（三）",
+        "dates": "115年11月18日（三）",
+        "location": "新竹市",
+        "quota": "46人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8818%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-新竹-複訓-3613",
+        "label": "115年12月16日（三）",
+        "dates": "115年12月16日（三）",
+        "location": "新竹市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8816%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-桃園-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "桃園市",
+    "sessions": [
+      {
+        "id": "fire-桃園-初訓-3722",
+        "label": "115年7月1日（三）～7月2日（四）",
+        "dates": "115年7月1日（三）～7月2日（四）",
+        "location": "桃園市",
+        "quota": "41人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%881%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E7%E6%9C%882%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-初訓-3723",
+        "label": "115年9月16日（三）～9月17日（四）",
+        "dates": "115年9月16日（三）～9月17日（四）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8816%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E9%E6%9C%8817%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-初訓-3729",
+        "label": "115年10月20日（二）～10月21日（三）",
+        "dates": "115年10月20日（二）～10月21日（三）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8820%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E10%E6%9C%8821%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-初訓-3724",
+        "label": "115年11月18日（三）～11月19日（四）",
+        "dates": "115年11月18日（三）～11月19日（四）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8818%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E11%E6%9C%8819%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-初訓-3730",
+        "label": "115年12月1日（二）～12月2日（三）",
+        "dates": "115年12月1日（二）～12月2日（三）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%881%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E12%E6%9C%882%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-桃園-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "桃園市",
+    "sessions": [
+      {
+        "id": "fire-桃園-複訓-3678",
+        "label": "115年6月23日（二）",
+        "dates": "115年6月23日（二）",
+        "location": "桃園市",
+        "quota": "13人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8823%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-複訓-3725",
+        "label": "115年7月11日（六）",
+        "dates": "115年7月11日（六）",
+        "location": "桃園市",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8811%E6%97%A5%EF%BC%88%E5%85%AD%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-複訓-3726",
+        "label": "115年8月15日（六）",
+        "dates": "115年8月15日（六）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8815%E6%97%A5%EF%BC%88%E5%85%AD%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-複訓-3744",
+        "label": "115年9月1日（二）",
+        "dates": "115年9月1日（二）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%881%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-複訓-3731",
+        "label": "115年10月13日（二）",
+        "dates": "115年10月13日（二）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8813%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-複訓-3727",
+        "label": "115年11月10日（二）",
+        "dates": "115年11月10日（二）",
+        "location": "桃園市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8810%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-複訓-3732",
+        "label": "115年12月3日（四）",
+        "dates": "115年12月3日（四）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%883%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-複訓-3728",
+        "label": "115年12月8日（二）",
+        "dates": "115年12月8日（二）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%888%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-澎湖-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "澎湖縣",
+    "sessions": [
+      {
+        "id": "fire-澎湖-初訓-3739",
+        "label": "115年10月5日（一）～10月6日（二）",
+        "dates": "115年10月5日（一）～10月6日（二）",
+        "location": "澎湖縣",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%BE%8E%E6%B9%96%E7%B8%A3&entry.916965652=115%E5%B9%B410%E6%9C%885%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E10%E6%9C%886%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-澎湖-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "澎湖縣",
+    "sessions": [
+      {
+        "id": "fire-澎湖-複訓-3740",
+        "label": "115年10月7日（三）",
+        "dates": "115年10月7日（三）",
+        "location": "澎湖縣",
+        "quota": "44人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%BE%8E%E6%B9%96%E7%B8%A3&entry.916965652=115%E5%B9%B410%E6%9C%887%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-花蓮-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "花蓮縣",
+    "sessions": [
+      {
+        "id": "fire-花蓮-初訓-3552",
+        "label": "115年6月22日（一）～6月23日（二）",
+        "dates": "115年6月22日（一）～6月23日（二）",
+        "location": "花蓮縣",
+        "quota": "25人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E8%8A%B1%E8%93%AE%E7%B8%A3&entry.916965652=115%E5%B9%B46%E6%9C%8822%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E6%E6%9C%8823%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-花蓮-初訓-3745",
+        "label": "115年7月27日（一）～7月28日（二）",
+        "dates": "115年7月27日（一）～7月28日（二）",
+        "location": "花蓮縣",
+        "quota": "46人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E8%8A%B1%E8%93%AE%E7%B8%A3&entry.916965652=115%E5%B9%B47%E6%9C%8827%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E7%E6%9C%8828%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-花蓮-初訓-3746",
+        "label": "115年8月17日（一）～8月18日（二）",
+        "dates": "115年8月17日（一）～8月18日（二）",
+        "location": "花蓮縣",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E8%8A%B1%E8%93%AE%E7%B8%A3&entry.916965652=115%E5%B9%B48%E6%9C%8817%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E8%E6%9C%8818%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-花蓮-初訓-3747",
+        "label": "115年10月19日（一）～10月20日（二）",
+        "dates": "115年10月19日（一）～10月20日（二）",
+        "location": "花蓮縣",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E8%8A%B1%E8%93%AE%E7%B8%A3&entry.916965652=115%E5%B9%B410%E6%9C%8819%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E10%E6%9C%8820%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-花蓮-初訓-3748",
+        "label": "115年12月14日（一）～12月15日（二）",
+        "dates": "115年12月14日（一）～12月15日（二）",
+        "location": "花蓮縣",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E8%8A%B1%E8%93%AE%E7%B8%A3&entry.916965652=115%E5%B9%B412%E6%9C%8814%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E12%E6%9C%8815%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-花蓮-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "花蓮縣",
+    "sessions": [
+      {
+        "id": "fire-花蓮-複訓-3553",
+        "label": "115年6月24日（三）",
+        "dates": "115年6月24日（三）",
+        "location": "花蓮縣",
+        "quota": "31人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E8%8A%B1%E8%93%AE%E7%B8%A3&entry.916965652=115%E5%B9%B46%E6%9C%8824%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-花蓮-複訓-3749",
+        "label": "115年7月29日（三）",
+        "dates": "115年7月29日（三）",
+        "location": "花蓮縣",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E8%8A%B1%E8%93%AE%E7%B8%A3&entry.916965652=115%E5%B9%B47%E6%9C%8829%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-花蓮-複訓-3750",
+        "label": "115年8月19日（三）",
+        "dates": "115年8月19日（三）",
+        "location": "花蓮縣",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E8%8A%B1%E8%93%AE%E7%B8%A3&entry.916965652=115%E5%B9%B48%E6%9C%8819%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-花蓮-複訓-3751",
+        "label": "115年9月14日（一）",
+        "dates": "115年9月14日（一）",
+        "location": "花蓮縣",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E8%8A%B1%E8%93%AE%E7%B8%A3&entry.916965652=115%E5%B9%B49%E6%9C%8814%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-花蓮-複訓-3752",
+        "label": "115年10月21日（三）",
+        "dates": "115年10月21日（三）",
+        "location": "花蓮縣",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E8%8A%B1%E8%93%AE%E7%B8%A3&entry.916965652=115%E5%B9%B410%E6%9C%8821%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-花蓮-複訓-3753",
+        "label": "115年12月16日（三）",
+        "dates": "115年12月16日（三）",
+        "location": "花蓮縣",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E8%8A%B1%E8%93%AE%E7%B8%A3&entry.916965652=115%E5%B9%B412%E6%9C%8816%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-苗栗-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "苗栗縣",
+    "sessions": [
+      {
+        "id": "fire-苗栗-初訓-3733",
+        "label": "115年12月21日（一）～12月22日（二）",
+        "dates": "115年12月21日（一）～12月22日（二）",
+        "location": "苗栗縣",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E8%8B%97%E6%A0%97%E7%B8%A3&entry.916965652=115%E5%B9%B412%E6%9C%8821%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E12%E6%9C%8822%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-苗栗-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "苗栗縣",
+    "sessions": [
+      {
+        "id": "fire-苗栗-複訓-3585",
+        "label": "115年6月29日（一）",
+        "dates": "115年6月29日（一）",
+        "location": "苗栗縣",
+        "quota": "20人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E8%8B%97%E6%A0%97%E7%B8%A3&entry.916965652=115%E5%B9%B46%E6%9C%8829%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-苗栗-複訓-3734",
+        "label": "115年12月23日（三）",
+        "dates": "115年12月23日（三）",
+        "location": "苗栗縣",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E8%8B%97%E6%A0%97%E7%B8%A3&entry.916965652=115%E5%B9%B412%E6%9C%8823%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-金門-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "金門縣",
+    "sessions": [
+      {
+        "id": "fire-金門-複訓-3741",
+        "label": "115年10月2日（五）",
+        "dates": "115年10月2日（五）",
+        "location": "金門縣",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E9%87%91%E9%96%80%E7%B8%A3&entry.916965652=115%E5%B9%B410%E6%9C%882%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-高雄-初訓",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "高雄市",
+    "sessions": [
+      {
+        "id": "fire-高雄-初訓-3653",
+        "label": "115年7月7日（二）～7月8日（三）",
+        "dates": "115年7月7日（二）～7月8日（三）",
+        "location": "高雄市",
+        "quota": "30人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E9%AB%98%E9%9B%84%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%887%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E7%E6%9C%888%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-高雄-初訓-3654",
+        "label": "115年9月7日（一）～9月8日（二）",
+        "dates": "115年9月7日（一）～9月8日（二）",
+        "location": "高雄市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E9%AB%98%E9%9B%84%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%887%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89%EF%BD%9E9%E6%9C%888%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-高雄-初訓-3655",
+        "label": "115年12月9日（三）～12月10日（四）",
+        "dates": "115年12月9日（三）～12月10日（四）",
+        "location": "高雄市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E9%AB%98%E9%9B%84%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%889%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E12%E6%9C%8810%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-高雄-複訓",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "高雄市",
+    "sessions": [
+      {
+        "id": "fire-高雄-複訓-3656",
+        "label": "115年7月8日（三）",
+        "dates": "115年7月8日（三）",
+        "location": "高雄市",
+        "quota": "15人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E9%AB%98%E9%9B%84%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%888%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-高雄-複訓-3657",
+        "label": "115年9月8日（二）",
+        "dates": "115年9月8日（二）",
+        "location": "高雄市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E9%AB%98%E9%9B%84%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%888%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-高雄-複訓-3658",
+        "label": "115年12月10日（四）",
+        "dates": "115年12月10日（四）",
+        "location": "高雄市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E9%AB%98%E9%9B%84%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8810%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "inspector-南投-初訓",
+    "course": "保安檢查員（初訓）",
+    "type": "inspector",
+    "region": "南投縣",
+    "sessions": [
+      {
+        "id": "inspector-南投-初訓-3708",
+        "label": "115年8月7日（五）",
+        "dates": "115年8月7日（五）",
+        "location": "南投縣",
+        "quota": "34人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8D%97%E6%8A%95%E7%B8%A3&entry.916965652=115%E5%B9%B48%E6%9C%887%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "inspector-台中-初訓",
+    "course": "保安檢查員（初訓）",
+    "type": "inspector",
+    "region": "台中市",
+    "sessions": [
+      {
+        "id": "inspector-台中-初訓-3715",
+        "label": "115年9月9日（三）",
+        "dates": "115年9月9日（三）",
+        "location": "台中市",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%889%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "inspector-台北-初訓",
+    "course": "保安檢查員（初訓）",
+    "type": "inspector",
+    "region": "台北市",
+    "sessions": [
+      {
+        "id": "inspector-台北-初訓-3559",
+        "label": "115年7月2日（四）",
+        "dates": "115年7月2日（四）",
+        "location": "台北市",
+        "quota": "0人",
+        "status": "full",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%882%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "inspector-台北-初訓-3560",
+        "label": "115年11月9日（一）",
+        "dates": "115年11月9日（一）",
+        "location": "台北市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%889%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "inspector-台南-初訓",
+    "course": "保安檢查員（初訓）",
+    "type": "inspector",
+    "region": "台南市",
+    "sessions": [
+      {
+        "id": "inspector-台南-初訓-3713",
+        "label": "115年7月30日（四）",
+        "dates": "115年7月30日（四）",
+        "location": "台南市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8D%97%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8830%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "inspector-嘉義-初訓",
+    "course": "保安檢查員（初訓）",
+    "type": "inspector",
+    "region": "嘉義市",
+    "sessions": [
+      {
+        "id": "inspector-嘉義-初訓-3717",
+        "label": "115年9月16日（三）",
+        "dates": "115年9月16日（三）",
+        "location": "嘉義市",
+        "quota": "13人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8816%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "inspector-嘉義-初訓-3719",
+        "label": "115年11月4日（三）",
+        "dates": "115年11月4日（三）",
+        "location": "嘉義市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%884%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "inspector-新竹-初訓",
+    "course": "保安檢查員（初訓）",
+    "type": "inspector",
+    "region": "新竹市",
+    "sessions": [
+      {
+        "id": "inspector-新竹-初訓-3714",
+        "label": "115年7月16日（四）",
+        "dates": "115年7月16日（四）",
+        "location": "新竹市",
+        "quota": "0人",
+        "status": "full",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8816%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "inspector-新竹-初訓-3782",
+        "label": "115年9月3日（四）",
+        "dates": "115年9月3日（四）",
+        "location": "新竹市",
+        "quota": "18人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%883%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "inspector-新竹-初訓-3718",
+        "label": "115年10月2日（五）",
+        "dates": "115年10月2日（五）",
+        "location": "新竹市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%882%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "inspector-桃園-初訓",
+    "course": "保安檢查員（初訓）",
+    "type": "inspector",
+    "region": "桃園市",
+    "sessions": [
+      {
+        "id": "inspector-桃園-初訓-3774",
+        "label": "115年8月1日（六）",
+        "dates": "115年8月1日（六）",
+        "location": "桃園市",
+        "quota": "18人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%881%E6%97%A5%EF%BC%88%E5%85%AD%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "inspector-桃園-初訓-3775",
+        "label": "115年9月30日（三）",
+        "dates": "115年9月30日（三）",
+        "location": "桃園市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8830%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "inspector-桃園-初訓-3777",
+        "label": "115年10月23日（五）",
+        "dates": "115年10月23日（五）",
+        "location": "桃園市",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8823%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "inspector-桃園-初訓-3776",
+        "label": "115年12月4日（五）",
+        "dates": "115年12月4日（五）",
+        "location": "桃園市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%884%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "inspector-苗栗-初訓",
+    "course": "保安檢查員（初訓）",
+    "type": "inspector",
+    "region": "苗栗縣",
+    "sessions": [
+      {
+        "id": "inspector-苗栗-初訓-3705",
+        "label": "115年8月20日（四）",
+        "dates": "115年8月20日（四）",
+        "location": "苗栗縣",
+        "quota": "37人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E8%8B%97%E6%A0%97%E7%B8%A3&entry.916965652=115%E5%B9%B48%E6%9C%8820%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "inspector-雲林-初訓",
+    "course": "保安檢查員（初訓）",
+    "type": "inspector",
+    "region": "雲林縣",
+    "sessions": [
+      {
+        "id": "inspector-雲林-初訓-3781",
+        "label": "115年8月28日（五）",
+        "dates": "115年8月28日（五）",
+        "location": "雲林縣",
+        "quota": "24人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E9%9B%B2%E6%9E%97%E7%B8%A3&entry.916965652=115%E5%B9%B48%E6%9C%8828%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "inspector-高雄-初訓",
+    "course": "保安檢查員（初訓）",
+    "type": "inspector",
+    "region": "高雄市",
+    "sessions": [
+      {
+        "id": "inspector-高雄-初訓-3712",
+        "label": "115年7月8日（三）",
+        "dates": "115年7月8日（三）",
+        "location": "高雄市",
+        "quota": "34人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E9%AB%98%E9%9B%84%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%888%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "inspector-高雄-初訓-3716",
+        "label": "115年9月8日（二）",
+        "dates": "115年9月8日（二）",
+        "location": "高雄市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E9%AB%98%E9%9B%84%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%888%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-台中-初訓3d",
+    "course": "保安監督人（初訓(三天)）",
+    "type": "security",
+    "region": "台中市",
+    "sessions": [
+      {
+        "id": "security-台中-初訓3d-3661",
+        "label": "115年11月10日（二）～11月12日（四）",
+        "dates": "115年11月10日（二）～11月12日（四）",
+        "location": "台中市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8810%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E11%E6%9C%8812%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-台中-初訓2d",
+    "course": "保安監督人（初訓(二天)）",
+    "type": "security",
+    "region": "台中市",
+    "sessions": [
+      {
+        "id": "security-台中-初訓2d-3662",
+        "label": "115年11月11日（三）～11月12日（四）",
+        "dates": "115年11月11日（三）～11月12日（四）",
+        "location": "台中市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8811%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E11%E6%9C%8812%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
+      }
+    ]
+  },
+  {
+    "id": "security-台中-複訓",
+    "course": "保安監督人（複訓）",
+    "type": "security",
+    "region": "台中市",
+    "sessions": [
+      {
+        "id": "security-台中-複訓-3664",
+        "label": "115年10月7日（三）",
+        "dates": "115年10月7日（三）",
+        "location": "台中市",
+        "quota": "43人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E4%B8%AD%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%887%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-台北-初訓3d",
+    "course": "保安監督人（初訓(三天)）",
+    "type": "security",
+    "region": "台北市",
+    "sessions": [
+      {
+        "id": "security-台北-初訓3d-3561",
+        "label": "115年7月14日（二）～7月16日（四）",
+        "dates": "115年7月14日（二）～7月16日（四）",
+        "location": "台北市",
+        "quota": "27人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8814%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E7%E6%9C%8816%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "security-台北-初訓3d-3754",
+        "label": "115年9月9日（三）～9月11日（五）",
+        "dates": "115年9月9日（三）～9月11日（五）",
+        "location": "台北市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%889%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E9%E6%9C%8811%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "security-台北-初訓3d-3755",
+        "label": "115年12月9日（三）～12月11日（五）",
+        "dates": "115年12月9日（三）～12月11日（五）",
+        "location": "台北市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%889%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E12%E6%9C%8811%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-台北-初訓2d",
+    "course": "保安監督人（初訓(二天)）",
+    "type": "security",
+    "region": "台北市",
+    "sessions": [
+      {
+        "id": "security-台北-初訓2d-3562",
+        "label": "115年7月15日（三）～7月16日（四）",
+        "dates": "115年7月15日（三）～7月16日（四）",
+        "location": "台北市",
+        "quota": "15人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8815%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E7%E6%9C%8816%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
+      },
+      {
+        "id": "security-台北-初訓2d-3763",
+        "label": "115年9月10日（四）～9月11日（五）",
+        "dates": "115年9月10日（四）～9月11日（五）",
+        "location": "台北市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8810%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E9%E6%9C%8811%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
+      },
+      {
+        "id": "security-台北-初訓2d-3764",
+        "label": "115年12月10日（四）～12月11日（五）",
+        "dates": "115年12月10日（四）～12月11日（五）",
+        "location": "台北市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8810%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E12%E6%9C%8811%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
+      }
+    ]
+  },
+  {
+    "id": "security-台北-複訓",
+    "course": "保安監督人（複訓）",
+    "type": "security",
+    "region": "台北市",
+    "sessions": [
+      {
+        "id": "security-台北-複訓-3556",
+        "label": "115年8月7日（五）",
+        "dates": "115年8月7日（五）",
+        "location": "台北市",
+        "quota": "35人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%887%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "security-台北-複訓-3557",
+        "label": "115年12月7日（一）",
+        "dates": "115年12月7日（一）",
+        "location": "台北市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%8F%B0%E5%8C%97%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%887%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-嘉義-初訓3d",
+    "course": "保安監督人（初訓(三天)）",
+    "type": "security",
+    "region": "嘉義市",
+    "sessions": [
+      {
+        "id": "security-嘉義-初訓3d-3659",
+        "label": "115年8月25日（二）～8月27日（四）",
+        "dates": "115年8月25日（二）～8月27日（四）",
+        "location": "嘉義市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8825%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E8%E6%9C%8827%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-嘉義-初訓2d",
+    "course": "保安監督人（初訓(二天)）",
+    "type": "security",
+    "region": "嘉義市",
+    "sessions": [
+      {
+        "id": "security-嘉義-初訓2d-3660",
+        "label": "115年8月26日（三）～8月27日（四）",
+        "dates": "115年8月26日（三）～8月27日（四）",
+        "location": "嘉義市",
+        "quota": "46人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8826%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E8%E6%9C%8827%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
+      }
+    ]
+  },
+  {
+    "id": "security-嘉義-複訓",
+    "course": "保安監督人（複訓）",
+    "type": "security",
+    "region": "嘉義市",
+    "sessions": [
+      {
+        "id": "security-嘉義-複訓-3663",
+        "label": "115年7月22日（三）",
+        "dates": "115年7月22日（三）",
+        "location": "嘉義市",
+        "quota": "19人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E5%98%89%E7%BE%A9%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8822%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-新竹-複訓",
+    "course": "保安監督人（複訓）",
+    "type": "security",
+    "region": "新竹市",
+    "sessions": [
+      {
+        "id": "security-新竹-複訓-3665",
+        "label": "115年10月13日（二）",
+        "dates": "115年10月13日（二）",
+        "location": "新竹市",
+        "quota": "46人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%96%B0%E7%AB%B9%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8813%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-桃園-初訓3d",
+    "course": "保安監督人（初訓(三天)）",
+    "type": "security",
+    "region": "桃園市",
+    "sessions": [
+      {
+        "id": "security-桃園-初訓3d-3684",
+        "label": "115年6月24日（三）～6月26日（五）",
+        "dates": "115年6月24日（三）～6月26日（五）",
+        "location": "桃園市",
+        "quota": "15人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8824%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E6%E6%9C%8826%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "security-桃園-初訓3d-3756",
+        "label": "115年8月26日（三）～8月28日（五）",
+        "dates": "115年8月26日（三）～8月28日（五）",
+        "location": "桃園市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8826%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E8%E6%9C%8828%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "security-桃園-初訓3d-3760",
+        "label": "115年10月6日（二）～10月8日（四）",
+        "dates": "115年10月6日（二）～10月8日（四）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%886%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E10%E6%9C%888%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "security-桃園-初訓3d-3758",
+        "label": "115年11月11日（三）～11月13日（五）",
+        "dates": "115年11月11日（三）～11月13日（五）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8811%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E11%E6%9C%8813%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-桃園-初訓2d",
+    "course": "保安監督人（初訓(二天)）",
+    "type": "security",
+    "region": "桃園市",
+    "sessions": [
+      {
+        "id": "security-桃園-初訓2d-3685",
+        "label": "115年6月25日（四）～6月26日（五）",
+        "dates": "115年6月25日（四）～6月26日（五）",
+        "location": "桃園市",
+        "quota": "3人",
+        "status": "few",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8825%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E6%E6%9C%8826%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
+      },
+      {
+        "id": "security-桃園-初訓2d-3757",
+        "label": "115年8月27日（四）～8月28日（五）",
+        "dates": "115年8月27日（四）～8月28日（五）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8827%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E8%E6%9C%8828%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
+      },
+      {
+        "id": "security-桃園-初訓2d-3761",
+        "label": "115年10月7日（三）～10月8日（四）",
+        "dates": "115年10月7日（三）～10月8日（四）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%887%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E10%E6%9C%888%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
+      },
+      {
+        "id": "security-桃園-初訓2d-3759",
+        "label": "115年11月12日（四）～11月13日（五）",
+        "dates": "115年11月12日（四）～11月13日（五）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8812%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E11%E6%9C%8813%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
+      }
+    ]
+  },
+  {
+    "id": "security-桃園-複訓",
+    "course": "保安監督人（複訓）",
+    "type": "security",
+    "region": "桃園市",
+    "sessions": [
+      {
+        "id": "security-桃園-複訓-3768",
+        "label": "115年7月3日（五）",
+        "dates": "115年7月3日（五）",
+        "location": "桃園市",
+        "quota": "44人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%883%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "security-桃園-複訓-3770",
+        "label": "115年9月18日（五）",
+        "dates": "115年9月18日（五）",
+        "location": "桃園市",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8818%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "security-桃園-複訓-3773",
+        "label": "115年10月12日（一）",
+        "dates": "115年10月12日（一）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8812%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "security-桃園-複訓-3771",
+        "label": "115年11月25日（三）",
+        "dates": "115年11月25日（三）",
+        "location": "桃園市",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8825%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "security-桃園-複訓-3772",
+        "label": "115年12月22日（二）",
+        "dates": "115年12月22日（二）",
+        "location": "桃園市",
+        "quota": "49人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8822%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-苗栗-初訓3d",
+    "course": "保安監督人（初訓(三天)）",
+    "type": "security",
+    "region": "苗栗縣",
+    "sessions": [
+      {
+        "id": "security-苗栗-初訓3d-3765",
+        "label": "115年8月4日（二）～8月6日（四）",
+        "dates": "115年8月4日（二）～8月6日（四）",
+        "location": "苗栗縣",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E8%8B%97%E6%A0%97%E7%B8%A3&entry.916965652=115%E5%B9%B48%E6%9C%884%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E8%E6%9C%886%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-苗栗-初訓2d",
+    "course": "保安監督人（初訓(二天)）",
+    "type": "security",
+    "region": "苗栗縣",
+    "sessions": [
+      {
+        "id": "security-苗栗-初訓2d-3766",
+        "label": "115年8月5日（三）～8月6日（四）",
+        "dates": "115年8月5日（三）～8月6日（四）",
+        "location": "苗栗縣",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E8%8B%97%E6%A0%97%E7%B8%A3&entry.916965652=115%E5%B9%B48%E6%9C%885%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E8%E6%9C%886%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
+      }
+    ]
+  }
+];
+
+/* =====================================================================
+   課程類型設定（顯示用）
+===================================================================== */
+const COURSE_TYPE_META = {
+  fire: {
+    label: "防火管理人",
+    badgeClass: "badge-fire",
+    icon: `<img src="防火.png" alt="防火管理人">`
+  },
+  security: {
+    label: "保安監督人",
+    badgeClass: "badge-security",
+    icon: `<img src="保安.png" alt="保安監督人">`
+  },
+  inspector: {
+    label: "保安檢查員",
+    badgeClass: "badge-inspector",
+    icon: `<img src="保檢.png" alt="保安檢查員">`
+  }
+};
+
+const STATUS_META = {
+  open: { label: "報名中", cls: "status-open" },
+  few:  { label: "名額剩餘", cls: "status-few" },
+  full: { label: "額滿", cls: "status-full" }
+};
+
+/* ===== 狀態 ===== */
+let currentStep = 1;
+let selected = { courseType: null, courseLabel: null, courseKind: null, region: null, batch: null };
+
+/* ===== 工具函式 ===== */
+function showStep(n) {
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('visible'));
+  document.getElementById(`panel-${n}`).classList.add('visible');
+  // 更新 stepper
+  for (let i = 1; i <= 3; i++) {
+    const el = document.getElementById(`step-ind-${i}`);
+    el.classList.remove('active', 'done');
+    if (i < n) el.classList.add('done');
+    else if (i === n) el.classList.add('active');
+  }
+  // done step：顯示勾勾
+  document.querySelectorAll('.step-item.done .step-num').forEach(el => {
+    el.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>`;
+  });
+  document.querySelectorAll('.step-item:not(.done) .step-num').forEach((el, idx) => {
+    el.textContent = idx + (idx >= n - 1 ? n : 1);
+  });
+  // 重設數字
+  for (let i = 1; i <= 3; i++) {
+    const numEl = document.querySelector(`#step-ind-${i} .step-num`);
+    const item = document.getElementById(`step-ind-${i}`);
+    if (item.classList.contains('done')) {
+      numEl.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>`;
+    } else {
+      numEl.textContent = i;
+    }
+  }
+  currentStep = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function checkUrl() {
+  const params = new URLSearchParams(location.search);
+  const typeParam = params.get('type');
+  const kindParam = params.get('kind');
+
+  if (!typeParam || !COURSE_TYPE_META[typeParam]) {
+    // No params - redirect back to course selection
+    window.location.href = 'index.html#courses';
+    return;
+  }
+
+  selected.courseType = typeParam;
+  selected.courseLabel = COURSE_TYPE_META[typeParam].label;
+  selected.courseKind = kindParam || null;
+
+  // Show course banner
+  const banner = document.getElementById('course-banner');
+  const bannerText = document.getElementById('course-banner-text');
+  if (banner && bannerText) {
+    const kindLabel = kindParam ? `（${kindParam}）` : '';
+    bannerText.textContent = `${selected.courseLabel}${kindLabel}`;
+    banner.style.display = 'flex';
+  }
+
+  // Render regions filtered by type+kind
+  renderRegions();
+  showStep(1);
+}
+
+/* ===== Step 1：課程卡片 ===== */
+function renderCourses() {
+  const container = document.getElementById('course-cards');
+  // 取出不重複的課程類型
+  const types = [...new Set(COURSE_DATA.map(d => d.type))];
+  container.innerHTML = types.map(type => {
+    const meta = COURSE_TYPE_META[type];
+    // 統計此類型有幾個課程變體
+    const names = [...new Set(COURSE_DATA.filter(d => d.type === type).map(d => d.course))];
+    return `
+    <div class="card course-card" data-type="${type}" onclick="selectCourse('${type}', '${meta.label}')">
+      <div class="card-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <div class="course-icon">${meta.icon}</div>
+      <span class="course-badge ${meta.badgeClass}">${meta.label}</span>
+      <h3>${meta.label}</h3>
+      <p>${names.join('、')}</p>
+    </div>`;
+  }).join('');
+}
+
+function selectCourse(type, label) {
+  selected.courseType = type;
+  selected.courseLabel = label;
+  document.querySelectorAll('#course-cards .card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.type === type);
+  });
+  document.getElementById('btn-1-next').disabled = false;
+}
+
+/* ===== Step 2：訓種卡片 ===== */
+function renderKinds() {
+  const container = document.getElementById('kind-cards');
+  const kinds = [...new Set(COURSE_DATA
+    .filter(d => d.type === selected.courseType)
+    .map(d => {
+      const m = d.course.match(/（([^）]+)）/);
+      return m ? m[1] : d.course;
+    })
+  )];
+
+  // If only one kind, auto-select and skip to step 3
+  if (kinds.length === 1) {
+    selected.courseKind = kinds[0];
+    renderRegions();
+    showStep(3);
+    return;
+  }
+
+  const kindLabels = {
+    '初訓': { desc: '首次取得資格', icon: '📋' },
+    '複訓': { desc: '換照或資格更新', icon: '🔄' },
+    '初訓(三天)': { desc: '完整初訓課程（24小時）', icon: '📋' },
+    '初訓(二天)': { desc: '精簡初訓課程（16小時）', icon: '📝' },
+  };
+
+  container.innerHTML = kinds.map(kind => {
+    const info = kindLabels[kind] || { desc: '', icon: '📌' };
+    return `
+    <div class="card course-card" data-kind="${kind}" onclick="selectKind('${kind}')">
+      <div class="card-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <div style="font-size:2rem;margin-bottom:12px">${info.icon}</div>
+      <h3>${kind}</h3>
+      <p>${selected.courseLabel}${info.desc ? '<br><small style=\'color:var(--text-600);\'>' + info.desc + '</small>' : ''}</p>
+    </div>`;
+  }).join('');
+  document.getElementById('btn-2-next').disabled = true;
+}
+
+function selectKind(kind) {
+  selected.courseKind = kind;
+  document.querySelectorAll('#kind-cards .card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.kind === kind);
+  });
+  document.getElementById('btn-2-next').disabled = false;
+}
+
+/* ===== Step 2：地區卡片 ===== */
+function renderRegions() {
+  const container = document.getElementById('region-cards');
+  const filtered = COURSE_DATA.filter(d => d.type === selected.courseType && (selected.courseKind ? d.course.includes(selected.courseKind) : true));
+  // 地區 → 計算有幾個開放梯次
+  const regionMap = {};
+  filtered.forEach(d => {
+    const openSessions = d.sessions.filter(s => s.status !== 'ended');
+    if (!regionMap[d.region]) regionMap[d.region] = 0;
+    regionMap[d.region] += openSessions.length;
+  });
+  if (Object.keys(regionMap).length === 0) {
+    container.innerHTML = `<div class="empty-state">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <p>此課程目前暫無開課地區，請稍後再查詢。</p>
+    </div>`;
+    return;
+  }
+  container.innerHTML = Object.entries(regionMap).map(([region, count]) => `
+    <div class="card region-card" data-region="${region}" onclick="selectRegion('${region}')">
+      <div class="card-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-500)" stroke-width="1.8" style="margin:0 auto 10px"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <h3>${region}</h3>
+      <div class="region-count">${count} 個梯次可報名</div>
+    </div>`).join('');
+}
+
+function selectRegion(region) {
+  selected.region = region;
+  document.querySelectorAll('#region-cards .card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.region === region);
+  });
+  document.getElementById('btn-1-next').disabled = false;
+}
+
+/* ===== Step 3：梯次卡片 ===== */
+function renderBatches() {
+  const container = document.getElementById('batch-cards');
+  const filtered = COURSE_DATA.filter(d => {
+    if (d.type !== selected.courseType) return false;
+    if (d.region !== selected.region) return false;
+    if (selected.courseKind) {
+      // 精確比對訓種，避免「初訓(二天)」混入「初訓(三天)」
+      const m = d.course.match(/（([^）]+)）/);
+      const kind = m ? m[1] : '';
+      return kind === selected.courseKind;
+    }
+    return true;
+  });
+  const allSessions = [];
+  filtered.forEach(d => {
+    d.sessions.filter(s => s.status !== 'ended').forEach(s => {
+      allSessions.push({ course: d.course, ...s });
+    });
+  });
+  if (allSessions.length === 0) {
+    container.innerHTML = `<div class="empty-state">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <p>此地區目前暫無開放梯次，請選擇其他地區。</p>
+    </div>`;
+    return;
+  }
+  container.innerHTML = allSessions.map(s => {
+    const sm = STATUS_META[s.status] || STATUS_META.open;
+    const isFull = s.status === 'full';
+    return `
+    <div class="card batch-card${isFull ? ' disabled' : ''}" data-id="${s.id}"
+      onclick="${isFull ? '' : `selectBatch('${s.id}', '${s.course.replace(/'/g,"\\'")}', '${s.label}', '${s.dates.replace(/'/g,"\\'")}', '${s.location.replace(/'/g,"\\'")}', '${s.quota}', \`${s.formUrl}\`)`}"
+      style="${isFull ? 'opacity:.55;cursor:not-allowed;' : ''}">
+      <div class="card-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <div class="batch-tag">${s.course}</div>
+      <h3>${s.label}</h3>
+      <div class="batch-meta">
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          ${s.dates}
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          ${s.location}
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          名額 ${s.quota}
+        </span>
+      </div>
+      <div class="batch-status ${sm.cls}">${sm.label}</div>
+    </div>`;
+  }).join('');
+}
+
+function selectBatch(id, course, label, dates, location, quota, formUrl) {
+  selected.batch = { id, course, label, dates, location, quota, formUrl };
+  document.querySelectorAll('#batch-cards .card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.id === id);
+  });
+  document.getElementById('btn-2-next').disabled = false;
+}
+
+/* ===== Step 4：確認 ===== */
+function renderConfirm() {
+  const b = selected.batch;
+  document.getElementById('confirm-detail').innerHTML = `
+    <div class="confirm-row">
+      <div class="confirm-label">課程類別</div>
+      <div class="confirm-value">${selected.courseLabel}</div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-label">課程名稱</div>
+      <div class="confirm-value">${b.course}</div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-label">開課地區</div>
+      <div class="confirm-value">${selected.region}</div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-label">梯次</div>
+      <div class="confirm-value">${b.label}</div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-label">上課日期</div>
+      <div class="confirm-value">${b.dates}</div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-label">上課地點</div>
+      <div class="confirm-value">${b.location}</div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-label">招生名額</div>
+      <div class="confirm-value">${b.quota}</div>
+    </div>
+  `;
+}
+
+/* ===== 按鈕事件 ===== */
+
+// Step 1 → Step 2（梯次）
+document.getElementById('btn-1-next')?.addEventListener('click', () => {
+  renderBatches();
+  showStep(2);
+});
+
+// Step 2 back → Step 1
+document.getElementById('btn-2-back')?.addEventListener('click', () => showStep(1));
+
+// Step 2 → Step 3（確認）
+document.getElementById('btn-2-next')?.addEventListener('click', () => {
+  renderConfirm();
+  showStep(3);
+});
+
+// Step 3 back → Step 2
+document.getElementById('btn-3-back')?.addEventListener('click', () => showStep(2));
+
+// 前往 HTML 報名表單
+document.getElementById('btn-go-form')?.addEventListener('click', () => {
+  if (!selected.batch) return;
+  const params = new URLSearchParams({
+    type:       selected.courseType  || '',
+    kind:       selected.courseKind  || '',
+    region:     selected.region      || '',
+    batch:      selected.batch.id    || '',
+    batchLabel: selected.batch.label || '',
+  });
+  window.location.href = 'form.html?' + params.toString();
+});
+
+/* ===== 漢堡選單 ===== */
+document.getElementById('nav-hamburger')?.addEventListener('click', () => {
+  document.getElementById('nav-drawer').classList.toggle('open');
+});
+
+/* ===== 初始化 ===== */
+checkUrl();
+</script>
+</body>
+</html>

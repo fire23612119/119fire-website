@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>關於我們｜財團法人消防教育學術研究基金會</title>
+<link rel="icon" type="image/png" href="logoicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal-900: #0D3B3D;
+    --teal-800: #134548;
+    --teal-700: #1C5C5F;
+    --cyan-500: #2FBFC4;
+    --cyan-400: #4FD4D8;
+    --cyan-100: #E3F7F7;
+    --bg: #F6FAFA;
+    --surface: #FFFFFF;
+    --text-900: #14242A;
+    --text-600: #5C7274;
+    --border: #DEE8E8;
+    --topbar: #D6E6EF;
+    --topbar-border: rgba(13,59,61,.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--text-900);
+    background: var(--bg);
+    line-height: 1.7;
+  }
+  h1, h2, h3 { font-family: 'Noto Serif TC', serif; line-height: 1.4; }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  /* ===== Header ===== */
+  header {
+    background: var(--topbar);
+    color: var(--teal-900);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(13,59,61,.08);
+    border-bottom: 1px solid var(--topbar-border);
+  }
+  .nav {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: .02em;
+    color: var(--teal-900);
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: .92rem;
+    font-weight: 500;
+  }
+  .nav-links a { color: var(--teal-700); opacity: .85; transition: opacity .15s, color .15s; padding: 6px 0; border-bottom: 2px solid transparent; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--teal-900); border-color: var(--cyan-500); }
+  .nav-cta {
+    background: var(--cyan-500);
+    color: var(--teal-900) !important;
+    padding: 9px 20px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: .88rem;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--cyan-400); }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .brand-name-full { display: none; }
+  }
+
+  /* ===== Page hero ===== */
+  .page-hero {
+    background:
+      linear-gradient(100deg, rgba(13,59,61,.78) 0%, rgba(28,92,95,.32) 100%),
+      url('screen.png') center / cover no-repeat;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    right: -100px; top: -100px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(47,191,196,.25) 0%, transparent 70%);
+  }
+  .page-hero-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+    position: relative;
+    z-index: 1;
+  }
+  .page-hero-inner .eyebrow {
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    color: var(--cyan-400);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; }
+  .page-hero p { color: rgba(255,255,255,.78); margin-top: 12px; max-width: 600px; }
+
+  /* ===== Stats strip ===== */
+  .stats {
+    max-width: 1120px;
+    margin: -48px auto 0;
+    position: relative;
+    z-index: 2;
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(13,59,61,.12);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .stat {
+    padding: 28px 16px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: var(--teal-900);
+  }
+  .stat-num span { color: var(--cyan-500); }
+  .stat-label { font-size: .8rem; color: var(--text-600); margin-top: 4px; }
+  @media (max-width: 720px) {
+    .stats { grid-template-columns: repeat(2, 1fr); margin-top: -32px; }
+    .stat { border-bottom: 1px solid var(--border); }
+    .stat:nth-child(2n) { border-right: none; }
+  }
+
+  /* ===== Section shared ===== */
+  .section { max-width: 1120px; margin: 0 auto; padding: 96px 24px; }
+  .section-head { margin-bottom: 40px; }
+  .section-eyebrow {
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    color: var(--cyan-500);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .section-head h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 900;
+    color: var(--teal-900);
+  }
+
+  /* ===== Mission statement ===== */
+  .mission { padding-bottom: 0; }
+  .mission-inner {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 8px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .mission-inner .section-eyebrow { text-align: center; }
+  .mission-inner h2 {
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 900;
+    color: var(--teal-900);
+    position: relative;
+    display: inline-block;
+  }
+  .mission-inner h2::after {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 4px;
+    background: var(--cyan-500);
+    border-radius: 2px;
+    margin: 20px auto 0;
+  }
+
+  /* ===== Prose block (關於本會) ===== */
+  .prose {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .prose p { color: var(--text-600); font-size: .98rem; }
+
+  /* ===== Chairman section ===== */
+  .chairman-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 860px) { .chairman-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+  .chairman-photo-wrap {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 32px rgba(13,59,61,.10);
+  }
+  .chairman-photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+  .chairman-text .name-block {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 2px solid var(--cyan-100);
+  }
+  .chairman-text .name-block h3 {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--teal-900);
+  }
+  .chairman-text .name-block .title {
+    font-size: .88rem;
+    color: var(--cyan-500);
+    font-weight: 700;
+    letter-spacing: .06em;
+    margin-top: 4px;
+  }
+  .chairman-text p { color: var(--text-600); font-size: .96rem; margin-bottom: 16px; }
+  .chairman-text p:last-child { margin-bottom: 0; }
+  .chairman-signature {
+    text-align: right;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--teal-900) !important;
+    letter-spacing: .1em;
+    margin-top: 8px;
+  }
+
+  /* ===== CTA banner ===== */
+  .cta-banner {
+    background: var(--teal-900);
+    border-radius: 20px;
+    padding: 56px 40px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner::after {
+    content: '';
+    position: absolute;
+    left: -80px; bottom: -80px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(47,191,196,.25) 0%, transparent 70%);
+  }
+  .cta-banner h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 900; margin-bottom: 12px; position: relative; }
+  .cta-banner p { color: rgba(255,255,255,.78); margin-bottom: 28px; position: relative; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: .95rem;
+    transition: transform .15s, box-shadow .15s, background .15s;
+  }
+  .btn-primary { background: var(--cyan-500); color: var(--teal-900); }
+  .btn-primary:hover { background: var(--cyan-400); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(47,191,196,.35); }
+  .btn-ghost { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.25); }
+  .btn-ghost:hover { background: rgba(255,255,255,.16); }
+
+  /* ===== Footer ===== */
+  footer {
+    background: var(--topbar);
+    color: var(--text-600);
+    padding: 48px 24px 28px;
+    font-size: .88rem;
+    border-top: 1px solid var(--topbar-border);
+  }
+  .footer-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 32px;
+    border-bottom: 1px solid rgba(13,59,61,.1);
+    padding-bottom: 32px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 720px) { .footer-inner { grid-template-columns: 1fr; gap: 24px; } }
+  .footer-inner h4 { color: var(--teal-900); font-size: .9rem; margin-bottom: 12px; font-weight: 700; }
+  .footer-inner a, .footer-inner p { color: var(--text-600); display: block; margin-bottom: 6px; }
+  .footer-inner a:hover { color: var(--teal-700); }
+  .footer-bottom { max-width: 1120px; margin: 0 auto; text-align: center; font-size: .8rem; color: var(--text-600); opacity: .7; }
+
+  /* ===== Shared Nav ===== */
+  :root {
+    --teal-900: #0D3B3D;
+    --teal-800: #134548;
+    --teal-700: #1C5C5F;
+    --cyan-500: #2FBFC4;
+    --cyan-400: #4FD4D8;
+  }
+  header {
+    background: #D6E6EF;
+    color: var(--teal-900);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(13,59,61,.08);
+    border-bottom: 1px solid rgba(13,59,61,.08);
+  }
+  .nav {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: .02em;
+    color: var(--teal-900);
+    text-decoration: none;
+  }
+  .brand-name-short { display: none; }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: .92rem;
+    font-weight: 500;
+  }
+  .nav-links a { color: var(--teal-700); opacity: .85; transition: opacity .15s, color .15s; padding: 6px 0; border-bottom: 2px solid transparent; text-decoration: none; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--teal-900); border-color: var(--cyan-500); }
+  .nav-cta {
+    background: var(--cyan-500) !important;
+    color: var(--teal-900) !important;
+    padding: 9px 20px !important;
+    border-radius: 999px !important;
+    font-weight: 700 !important;
+    font-size: .88rem !important;
+    white-space: nowrap;
+    border-bottom: none !important;
+    opacity: 1 !important;
+  }
+  .nav-cta:hover { background: var(--cyan-400) !important; }
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--teal-900); border-radius: 2px; transition: .2s; }
+  .nav-drawer {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    background: #D6E6EF;
+    border-top: 1px solid rgba(13,59,61,.1);
+    padding: 8px 24px 16px;
+  }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer a { color: var(--teal-700); padding: 10px 0; border-bottom: 1px solid rgba(13,59,61,.06); font-size: .95rem; font-weight: 500; text-decoration: none; }
+  .nav-drawer .nav-cta-drawer {
+    margin-top: 8px;
+    background: var(--cyan-500);
+    color: var(--teal-900) !important;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: none;
+  }
+  /* ===== Shared Footer ===== */
+  footer {
+    background: var(--teal-900);
+    color: rgba(255,255,255,.65);
+    padding: 48px 24px 28px;
+    font-size: .88rem;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .footer-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 2fr;
+    gap: 32px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    padding-bottom: 32px;
+    margin-bottom: 20px;
+  }
+  .footer-inner h4 { color: #fff; font-size: .9rem; margin-bottom: 12px; font-weight: 700; }
+  .footer-inner a, .footer-inner p { color: rgba(255,255,255,.6); display: block; margin-bottom: 6px; text-decoration: none; }
+  .footer-inner a:hover { color: var(--cyan-400); }
+  .footer-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .footer-contact-block h5 { color: #fff; font-size: .85rem; font-weight: 700; margin-bottom: 8px; }
+  .footer-contact-block p, .footer-contact-block a { font-size: .82rem; color: rgba(255,255,255,.6); display: block; margin-bottom: 4px; }
+  .footer-contact-block a:hover { color: var(--cyan-400); }
+  .footer-bottom { max-width: 1120px; margin: 0 auto; text-align: center; font-size: .8rem; color: rgba(255,255,255,.4); padding-top: 4px; }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .brand-name-full { display: none; }
+    .brand-name-short { display: inline; }
+    .nav-hamburger { display: flex; }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+    .footer-contact-grid { grid-template-columns: 1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <img src="logo_nav.png" alt="財團法人消防教育學術研究基金會" height="44" style="display:block;">
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" data-page="index">首頁</a>
+      <a href="about.html" data-page="about">關於我們</a>
+      <a href="index.html#courses" data-page="register">課程報名</a>
+      <a href="lookup.html" data-page="lookup">查詢專區</a>
+      <a href="contact.html" data-page="contact">聯絡我們</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-drawer" id="nav-drawer">
+    <a href="index.html" data-page="index">首頁</a>
+    <a href="about.html" data-page="about">關於我們</a>
+    <a href="index.html#courses" data-page="register">課程報名</a>
+    <a href="lookup.html" data-page="lookup">查詢專區</a>
+    <a href="contact.html" data-page="contact">聯絡我們</a>
+  </div>
+</header>
+
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="eyebrow">About Us</div>
+    <h1>關於我們</h1>
+    <p>財團法人消防教育學術研究基金會自成立以來，秉持「教育先行、防患未然」的理念，致力於消防安全專業訓練與學術研究的推廣。</p>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num"><span>1996</span></div>
+    <div class="stat-label">基金會成立年</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num"><span>10萬+</span></div>
+    <div class="stat-label">防火管理人累計培訓人次</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num"><span>1萬+</span></div>
+    <div class="stat-label">保安監督人累計培訓人次</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num"><span>15</span></div>
+    <div class="stat-label">全國開課地區</div>
+  </div>
+</div>
+
+<section class="section mission">
+  <div class="mission-inner">
+    <div class="section-eyebrow">Our Mission</div>
+    <h2>以教育推動防災，以研究支持實務</h2>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow">About FEAF</div>
+    <h2>關於本會</h2>
+  </div>
+  <div class="prose">
+    <p>「財團法人消防教育學術研究基金會」自民國 85 年 7 月 25 日成立以來，在歷任董事長的帶領下，秉持促進消防學術交流、提倡消防學術研究風氣及服務防災各界為宗旨，積極配合消防主管機關政策，宣導各項政令及辦理消防學術合作交流，並進行各項防火宣導活動。</p>
+    <p>本會以「關懷人群、回饋社會、愛護台灣」的使命，於 94 年成立消防人員急難救助專戶，經由各項活動集合廣大社會民眾的弘大善心，為英勇的消防人員募集基金，給予不幸因公傷亡的消防人員及家屬最崇高敬意。</p>
+    <p>基金會本著永續經營的理念，將持續為台灣盡力，提供各項消防教育訓練，建立民眾防災意識，創造安全生活環境。</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="section-head">
+    <div class="section-eyebrow">Chairman's Message</div>
+    <h2>董事長的話</h2>
+  </div>
+  <div class="chairman-grid">
+    <div class="chairman-photo-wrap">
+      <img src="chairman.jpg" alt="董事長照片">
+    </div>
+    <div class="chairman-text">
+      <div class="name-block">
+        <h3>董事長</h3>
+        <div class="title">財團法人消防教育學術研究基金會</div>
+      </div>
+      <p>自投入消防防災領域逾 12 年時間，2014 年受董監事推選為本會董事長，帶領基金會為台灣消防防災教育奉獻一份心力，在此，感謝董監事和同仁的提攜與支持。</p>
+      <p>在災害發生時，除了仰賴消防人員搶救外，更應具備於災害初期的應變能力，該如何進行初期緊急應變及是否已具備消防演練計畫？透過平時的訓練，災時才能有效縮短及控制災害的損失及居民生命財產的安全，「認識災害、預防災害的發生」是人民應共同努力的目標，以期居家環境的安全無虞。</p>
+      <p class="chairman-signature">蕭文億　董事長</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="cta-banner">
+    <h2>共建安全社會，從專業開始</h2>
+    <p>無論是企業防火管理人課程，或是場所保安監督人、保安檢查員訓練，立即線上報名，掌握全國各地最新開課梯次</p>
+    <div class="cta-actions">
+      <a href="register.html" class="btn btn-primary">前往線上報名</a>
+      <a href="mailto:feaf@119fire.org.tw" class="btn btn-ghost">聯絡我們</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h4>財團法人消防教育學術研究基金會</h4>
+      <p>以教育推動防災，以研究支持實務</p>
+    </div>
+    <div>
+      <h4>課程資訊</h4>
+      <a href="course-fire.html">防火管理人</a>
+      <a href="course-security.html">保安監督人</a>
+      <a href="course-inspector.html">保安檢查員</a>
+    </div>
+    <div>
+      <h4>網站導覽</h4>
+      <a href="index.html">首頁</a>
+      <a href="about.html">關於我們</a>
+      <a href="register.html">線上報名</a>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <h4 style="margin:0">服務據點</h4>
+      </div>
+      <div class="footer-contact-grid">
+        <div class="footer-contact-block">
+          <h5>台北總管理處</h5>
+          <p>台北市中正區延平南路65號2樓</p>
+          <p>TEL：(02)2361-2119</p>
+          <p>FAX：(02)2361-6915</p>
+          <a href="mailto:feaf@119fire.org.tw">feaf@119fire.org.tw</a>
+        </div>
+        <div class="footer-contact-block">
+          <h5>中區南區營運中心</h5>
+          <p>TEL：(05)283-8119</p>
+          <p>FAX：(05)285-7289</p>
+          <a href="mailto:sfireman119@gmail.com">sfireman119@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 財團法人消防教育學術研究基金會. 版權所有。
+  </div>
+</footer>
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('nav-hamburger');
+  var drawer = document.getElementById('nav-drawer');
+  if (btn && drawer) btn.addEventListener('click', function(){ drawer.classList.toggle('open'); });
+  document.querySelectorAll('[data-page]').forEach(function(link) {
+    if (link.tagName === 'A' && link.getAttribute('data-page') === 'about') link.classList.add('active');
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('nav-hamburger');
+  var drawer = document.getElementById('nav-drawer');
+  if (btn && drawer) btn.addEventListener('click', function(){ drawer.classList.toggle('open'); });
+  document.querySelectorAll('[data-page]').forEach(function(link) {
+    if (link.tagName === 'A' && link.getAttribute('data-page') === 'about') link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
