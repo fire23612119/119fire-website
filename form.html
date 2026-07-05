@@ -338,11 +338,6 @@
         </div>
 
         <div class="form-group">
-          <label>市話<span class="opt">（選填）</span></label>
-          <input type="tel" id="f-phone" placeholder="02-12345678">
-        </div>
-
-        <div class="form-group">
           <label>Email<span class="opt">（無 Email 請填傳真）</span></label>
           <input type="email" id="f-email" placeholder="example@email.com">
           <span class="field-error" id="err-email">請填寫正確的 Email，或改填下方傳真號碼</span>
@@ -350,15 +345,8 @@
 
         <div class="form-group">
           <label>傳真<span class="opt">（無 Email 者請務必填寫，若皆無請填「無」）</span></label>
-          <input type="tel" id="f-fax" placeholder="02-12345678，若皆無請填「無」">
+          <input type="tel" id="f-fax" placeholder="02-12345678，若皆無請填「無」" autocomplete="off">
           <span class="field-hint">沒有 Email 的學員，請填寫傳真號碼；若電話與傳真皆無，請填寫「無」，本會將以電話人工聯繫。</span>
-        </div>
-
-        <div class="form-group full">
-          <label>證書郵寄地址<span class="req">*</span></label>
-          <input type="text" id="f-addr" placeholder="白天可收掛號信的地址">
-          <span class="field-hint">請填寫白天可以收掛號信的地方，以利證書寄送。</span>
-          <span class="field-error" id="err-addr">請填寫證書郵寄地址</span>
         </div>
 
         <!-- 條件欄位：上次上課時間（複訓才顯示） -->
@@ -380,15 +368,22 @@
           <span class="field-error" id="err-cert">請選擇</span>
         </div>
 
-        <div class="form-group full">
-          <label>用餐習慣<span class="req">*</span></label>
-          <select id="f-meal">
+        <div class="form-group full" style="align-items:center;">
+          <label style="align-self:center;">用餐習慣<span class="req">*</span></label>
+          <select id="f-meal" style="max-width:280px;">
             <option value="">請選擇</option>
             <option value="葷">葷</option>
             <option value="方便素（奶蛋素）">方便素（奶蛋素）</option>
             <option value="不需便當">不需便當</option>
           </select>
           <span class="field-error" id="err-meal">請選擇用餐習慣</span>
+        </div>
+
+        <div class="form-group full">
+          <label>證書郵寄地址<span class="req">*</span></label>
+          <input type="text" id="f-addr" placeholder="白天可收掛號信的地址" autocomplete="off">
+          <span class="field-hint">請填寫白天可以收掛號信的地方，以利證書寄送。</span>
+          <span class="field-error" id="err-addr">請填寫證書郵寄地址</span>
         </div>
 
       </div>
@@ -407,6 +402,11 @@
         <div class="form-group">
           <label>公司統編<span class="opt">（選填）</span></label>
           <input type="text" id="f-taxid" placeholder="發票開立之統編">
+        </div>
+
+        <div class="form-group">
+          <label>市話<span class="opt">（選填）</span></label>
+          <input type="tel" id="f-phone" placeholder="02-12345678">
         </div>
 
       </div>
