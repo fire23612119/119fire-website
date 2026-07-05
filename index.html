@@ -318,6 +318,15 @@
   .announce-date { font-size: .75rem; color: var(--text-600); margin-bottom: 4px; }
   .announce-item a { font-size: .9rem; font-weight: 500; color: var(--teal-900); transition: color .15s; }
   .announce-item a:hover { color: var(--cyan-500); }
+  .announce-item.urgent {
+    background: #FFF0F0;
+    border: 1.5px solid #E8A0A0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+  .announce-item.urgent .announce-date { color: #B32020; font-weight: 700; }
+  .announce-item.urgent .announce-text { font-size: .9rem; font-weight: 600; color: #7A1010; line-height: 1.6; }
   .announce-ext {
     display: flex;
     align-items: center;
@@ -653,6 +662,28 @@
         </span>
         <span class="announce-tag-label">最新公告</span>
       </div>
+
+      <!--
+        ▼▼▼ 颱風天／緊急停課公告使用說明 ▼▼▼
+        平常這一區塊維持隱藏狀態（不會顯示在網站上）。
+        遇到颱風天需要公告停課時：
+        1. 到 GitHub 編輯這個檔案（index.html）
+        2. 找到「緊急公告區塊開始」跟「緊急公告區塊結束」這兩行
+        3. 把這兩行本身，以及包住整段的隱藏符號拿掉（也就是移除這段說明文字上方
+           那一行，跟最下面對應的那一行），把日期、內容改成實際情況即可，不需要 PDF
+        4. 公告完畢、恢復正常後，記得把整段重新包回隱藏狀態
+
+      <div class="announce-item urgent">
+        <div class="announce-date">2026-08-04　緊急公告</div>
+        <div class="announce-text">
+          因應中度颱風來襲，8月4日（二）高雄場「防火管理人（初訓）」課程停止上課，
+          復課日期另行通知，造成不便敬請見諒。如有疑問請來電 (02)2361-2119 洽詢。
+        </div>
+      </div>
+
+        ▲▲▲ 緊急公告區塊結束 ▲▲▲
+      -->
+
       <div class="announce-item">
         <div class="announce-date">2026-06-21</div>
         <a href="天然災害停班課辦法.pdf" target="_blank" rel="noopener">天然災害停班課辦法</a>
