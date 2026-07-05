@@ -289,12 +289,13 @@
   /* ===== Announcements ===== */
   .announce-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 24px;
     max-width: 1120px;
     margin: 0 auto;
     padding: 0 24px 72px;
   }
+  @media (max-width: 960px) { .announce-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 720px) { .announce-grid { grid-template-columns: 1fr; } }
   .announce-card {
     background: var(--surface);
@@ -695,6 +696,30 @@
       <div class="announce-item">
         <div class="announce-date">2026-06-21</div>
         <a href="年度受贈與捐贈名冊.pdf" target="_blank" rel="noopener">年度受贈與捐贈名冊</a>
+      </div>
+    </div>
+
+    <div class="announce-card" style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <span class="announce-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>
+        </span>
+        <span class="announce-tag-label">常見問題</span>
+      </div>
+      <div class="announce-item">
+        <a href="faq.html#cat0">候補多久之後會收到通知？</a>
+      </div>
+      <div class="announce-item">
+        <a href="faq.html#cat1">證書效期是多久？</a>
+      </div>
+      <div class="announce-item">
+        <a href="faq.html#cat5">證書大概什麼時候會收到？</a>
+      </div>
+      <div class="announce-item" style="border-bottom:none;padding-top:8px;">
+        <a href="faq.html" style="font-weight:700;color:var(--cyan-500);display:inline-flex;align-items:center;gap:4px;">
+          查看全部常見問題
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
       </div>
     </div>
 

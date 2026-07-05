@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>常見問題 Q&A｜財團法人消防教育學術研究基金會</title>
+<link rel="icon" type="image/png" href="logo_nav.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal-900:#0D3B3D;
+    --teal-800:#134548;
+    --teal-700:#1C5C5F;
+    --cyan-500:#2FBFC4;
+    --cyan-400:#4FD4D8;
+    --cyan-100:#E3F7F7;
+    --bg:#F6FAFA;
+    --surface:#FFFFFF;
+    --text-900:#14242A;
+    --text-600:#5C7274;
+    --border:#DEE8E8;
+    --topbar:#D6E6EF;
+    --accent:#0AADCE;
+    --accent-soft:#E6F9FB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text-900);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px 80px;}
+
+  .page-header{
+    background:linear-gradient(135deg, var(--teal-900), var(--teal-700));
+    color:#fff;
+    padding:46px 20px 54px;
+    position:relative;
+    overflow:hidden;
+  }
+  .page-header::after{
+    content:"";
+    position:absolute;
+    right:-60px;top:-60px;
+    width:220px;height:220px;
+    border:2px solid rgba(255,255,255,0.10);
+    border-radius:50%;
+  }
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:0.14em;
+    color:var(--cyan-400);
+    font-weight:700;
+    margin:0 0 10px;
+    text-transform:uppercase;
+  }
+  .page-header h1{
+    font-family:"Noto Serif TC",serif;
+    font-weight:900;
+    font-size:clamp(26px,5vw,34px);
+    margin:0 0 12px;
+    letter-spacing:0.02em;
+  }
+  .page-header p{
+    margin:0;
+    max-width:520px;
+    color:#CFE9EA;
+    font-size:15px;
+  }
+  .header-inner{max-width:820px;margin:0 auto;position:relative;z-index:1;}
+
+  .search-bar{
+    margin:-26px auto 0;
+    max-width:780px;
+    padding:0 20px;
+    position:relative;
+    z-index:2;
+  }
+  .search-bar input{
+    width:100%;
+    padding:16px 20px;
+    font-size:16px;
+    font-family:inherit;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--surface);
+    box-shadow:0 8px 24px rgba(13,59,61,0.12);
+    color:var(--text-900);
+  }
+  .search-bar input:focus{
+    outline:none;
+    border-color:var(--accent);
+    box-shadow:0 8px 24px rgba(10,173,206,0.20);
+  }
+
+  .cat-nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:26px 0 34px;
+  }
+  .cat-btn{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:13px;
+    font-weight:700;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text-600);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .cat-btn:hover{border-color:var(--accent);}
+  .cat-btn.active{
+    background:var(--teal-900);
+    color:#fff;
+    border-color:var(--teal-900);
+  }
+
+  .section{margin-bottom:38px;}
+  .section-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  .tag-num{
+    flex:none;
+    width:38px;height:38px;
+    border-radius:8px;
+    background:var(--teal-900);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .tag-num::before{
+    content:"";
+    position:absolute;
+    left:6px;top:50%;
+    transform:translateY(-50%);
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--bg);
+  }
+  .tag-num span{
+    font-family:"Noto Serif TC",serif;
+    font-weight:700;
+    font-size:15px;
+    padding-left:6px;
+  }
+  .section-head h2{
+    font-family:"Noto Serif TC",serif;
+    font-size:19px;
+    font-weight:700;
+    margin:0;
+    color:var(--teal-900);
+  }
+
+  .qa{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-left:4px solid var(--accent);
+    border-radius:6px;
+    margin-bottom:10px;
+    overflow:hidden;
+  }
+  .qa summary{
+    list-style:none;
+    cursor:pointer;
+    padding:16px 44px 16px 18px;
+    font-weight:500;
+    font-size:15.5px;
+    position:relative;
+    color:var(--text-900);
+  }
+  .qa summary::-webkit-details-marker{display:none;}
+  .qa summary::after{
+    content:"+";
+    position:absolute;
+    right:18px;top:50%;
+    transform:translateY(-50%);
+    font-size:20px;
+    color:var(--accent);
+    font-weight:700;
+    transition:transform .15s ease;
+  }
+  .qa[open] summary::after{
+    content:"−";
+  }
+  .qa .a{
+    padding:0 18px 18px 18px;
+    color:var(--text-600);
+    font-size:14.5px;
+  }
+  .qa .a p{margin:0 0 10px;}
+  .qa .a p:last-child{margin-bottom:0;}
+
+  table.cmp{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:6px;
+    font-size:14px;
+  }
+  table.cmp th,table.cmp td{
+    border:1px solid var(--border);
+    padding:9px 10px;
+    text-align:left;
+    vertical-align:top;
+  }
+  table.cmp th{
+    background:var(--accent-soft);
+    color:var(--teal-900);
+    font-weight:700;
+    width:26%;
+  }
+
+  .note{
+    background:var(--accent-soft);
+    border:1px dashed var(--cyan-500);
+    border-radius:8px;
+    padding:14px 16px;
+    font-size:14px;
+    color:var(--text-600);
+    margin-top:22px;
+  }
+  .note strong{color:var(--teal-900);}
+
+  .empty-state{
+    text-align:center;
+    color:var(--text-600);
+    padding:40px 0;
+    display:none;
+  }
+
+  @media (max-width:480px){
+    .page-header{padding:38px 16px 48px;}
+    .search-bar{padding:0 16px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="nav-placeholder"></div>
+
+<div class="page-header">
+  <div class="header-inner">
+    <p class="eyebrow">財團法人消防教育學術研究基金會</p>
+    <h1>常見問題 Q&amp;A</h1>
+    <p>報名流程、候補通知、證書效期、上課時數、班別差異一次查清楚。找不到答案，歡迎再來電詢問。</p>
+  </div>
+</div>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="輸入關鍵字搜尋，例如：候補、效期、時數、監督人…">
+</div>
+
+<div class="wrap">
+
+  <div class="cat-nav" id="catNav">
+    <button class="cat-btn active" data-cat="all">全部</button>
+    <button class="cat-btn" data-cat="cat0">報名與候補</button>
+    <button class="cat-btn" data-cat="cat1">證書效期</button>
+    <button class="cat-btn" data-cat="cat2">上課時數</button>
+    <button class="cat-btn" data-cat="cat3">保安監督人班別差異</button>
+    <button class="cat-btn" data-cat="cat4">保安監督人／保安檢查員差異</button>
+    <button class="cat-btn" data-cat="cat5">通知與收件</button>
+    <button class="cat-btn" data-cat="cat6">攜帶物品</button>
+    <button class="cat-btn" data-cat="cat7">匯款與退費</button>
+  </div>
+
+  <!-- 0. 報名與候補（新增） -->
+  <section class="section" id="cat0" data-cat="cat0">
+    <div class="section-head">
+      <div class="tag-num"><span>00</span></div>
+      <h2>報名與候補</h2>
+    </div>
+
+    <details class="qa">
+      <summary>什麼是候補？場次額滿後還能報名嗎？</summary>
+      <div class="a">
+        <p>可以。場次額滿後，網站上該場次會顯示「額滿．可候補」，仍然可以填寫報名資料，系統會將您列入<strong>候補名單</strong>。</p>
+        <p>候補並不代表已確定取得名額，需等待正式遞補通知。</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>候補多久之後會收到通知？</summary>
+      <div class="a">
+        <p><strong>只要原班級有學員取消或異動名額，本會就會立即通知候補學員遞補</strong>，並非固定等待某個時間點才處理，也沒有統一的等待天數。</p>
+        <p>建議候補期間留意電話與 Email（或傳真），以免錯過遞補通知；若一直未收到通知，代表目前尚無名額釋出。</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>候補遞補是依照什麼順序？</summary>
+      <div class="a">
+        <p>依照<strong>候補登記時間先後</strong>依序遞補，先登記候補者優先遞補。</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>已經報名了，還可以取消或改期嗎？</summary>
+      <div class="a">
+        <p>可以，請直接來電本會辦理，並請參考「匯款與退費」分類中的退費規則說明。</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 1. 證書效期 -->
+  <section class="section" id="cat1" data-cat="cat1">
+    <div class="section-head">
+      <div class="tag-num"><span>01</span></div>
+      <h2>證書效期</h2>
+    </div>
+
+    <details class="qa">
+      <summary>防火管理人、保安監督人、保安檢查員的證書效期分別是多久？</summary>
+      <div class="a">
+        <p>三張證書的效期都一樣，都是<strong>三年</strong>，自課程結束日的隔日開始起算。</p>
+        <p>例如課程於 6 月 10 日結束，效期則從 6 月 11 日起算三年。建議在效期到期前提早安排複訓，以免證書過期。</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 2. 上課時數 -->
+  <section class="section" data-cat="cat2">
+    <div class="section-head">
+      <div class="tag-num"><span>02</span></div>
+      <h2>上課時數／天數</h2>
+    </div>
+
+    <details class="qa">
+      <summary>各課程的初訓、複訓時數分別是多少？</summary>
+      <div class="a">
+        <table class="cmp">
+          <tr><th>課程類別</th><th>初訓</th><th>複訓</th></tr>
+          <tr><td>防火管理人</td><td>12 小時（約 1.5 天）</td><td>6 小時（1 天）</td></tr>
+          <tr><td>保安監督人</td><td>24 小時（3 天）</td><td>8 小時（1 天）</td></tr>
+          <tr><td>保安檢查員</td><td>8 小時（1 天）</td><td>8 小時（1 天）</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>保安檢查員複訓課程為何那麼少？</summary>
+      <div class="a">
+        <p>保安檢查員<strong>初訓與複訓課程，依法規規定的時數跟課程名稱皆一致</strong>，因此欲參加複訓之學員，<strong>也可以直接報名參加初訓課程</strong>，效力相同。</p>
+        <p>由於兩者內容一致，本會會將梯次資源優先安排在初訓班次，複訓學員可放心選擇初訓場次報名。</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 3. 監督人 2天 vs 3天 -->
+  <section class="section" data-cat="cat3">
+    <div class="section-head">
+      <div class="tag-num"><span>03</span></div>
+      <h2>保安監督人初訓：2天版與3天版的差異</h2>
+    </div>
+
+    <details class="qa">
+      <summary>保安監督人初訓有 2 天版和 3 天版，兩者差在哪裡？</summary>
+      <div class="a">
+        <p>保安監督人初訓標準時數為 24 小時（3 天）。<strong>報名 2 天班者，僅適用於已持有「有效」防火管理人證書</strong>的學員 —— 由於部分課程內容與防火管理人課程重疊，可抵免其中 8 小時課程，因此縮短為 2 天。</p>
+        <p>換句話說，是否能上 2 天版，取決於報名當下手上的防火管理人證書是否仍在效期內，並非自由選擇。</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 4. 監督人 vs 檢查員 -->
+  <section class="section" data-cat="cat4">
+    <div class="section-head">
+      <div class="tag-num"><span>04</span></div>
+      <h2>保安監督人與保安檢查員的差異</h2>
+    </div>
+
+    <details class="qa">
+      <summary>保安監督人和保安檢查員的工作內容有什麼不同？</summary>
+      <div class="a">
+        <table class="cmp">
+          <tr><th>保安監督人</th><td>場所的防災核心與管理階層，負責擬定消防防災計畫，並指揮監督相關人員執行。</td></tr>
+          <tr><th>保安檢查員</th><td>第一線執行人員，接受保安監督人指揮，負責構造與設備的維護，並執行每月自主檢查。</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>報考資格或適用場所會不會不一樣？</summary>
+      <div class="a">
+        <p>兩者的報考資格、適用場所類型並無差異，主要差別在於<strong>業務職掌與角色分工</strong>（管理指揮 vs. 第一線執行）。</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>同一個人可以同時擔任保安監督人和保安檢查員嗎？</summary>
+      <div class="a">
+        <p>不可以。為落實分工，<strong>保安監督人與保安檢查員不得互相兼任</strong>，兩者業務職掌不同，需由不同人分別擔任。</p>
+        <p>不過，<strong>防火管理人可以兼任保安監督人</strong>，兩者身分並無限制衝突。</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- 5. 通知與收件 -->
+  <section class="section" id="cat5" data-cat="cat5">
+    <div class="section-head">
+      <div class="tag-num"><span>05</span></div>
+      <h2>上課通知／證書收件／匯款確認</h2>
+    </div>
+
+    <details class="qa">
+      <summary>上課通知什麼時候會收到？</summary>
+      <div class="a">
+        <p>上課通知會在<strong>開課前兩週</strong>統一發出，寄送到報名時留下的 Email 信箱或傳真號碼。</p>
+        <p>如果開課前兩週左右都還沒收到，建議先確認信箱的垃圾郵件匣，或確認報名時留的聯絡資訊是否正確，再來電與我們確認。</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>候補多久之後會收到通知？</summary>
+      <div class="a">
+        <p>只要原班級有學員取消或異動名額，本會就會<strong>立即通知</strong>候補學員遞補，請留意來電、Email 或傳真通知。</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>證書大概什麼時候會收到？</summary>
+      <div class="a">
+        <p>證書會在<strong>課程結束後約三到四週</strong>以郵寄方式寄出，請留意信箱收件。</p>
+        <p>若超過四週仍未收到，歡迎來電或至證書進度查詢系統確認寄送狀態。</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>匯款後要怎麼確認款項有沒有收到？</summary>
+      <div class="a">
+        <p>只要使用<strong>正確的帳號資訊</strong>匯款成功，我們這邊就能對應到是哪一筆款項，通常不需要另外通知。</p>
+        <p>不過還是建議<strong>保留匯款截圖或單據</strong>，若上課當天現場核對資料有出入，出示匯款截圖或單據即可協助核對，會更快處理。</p>
+      </div>
+    </details>
+    <details class="qa">
+      <summary>上課會拿到收據或發票嗎？</summary>
+      <div class="a">
+        <p>會的，本會開立<strong>電子發票</strong>。原則上上課當天，學員會領到電子發票證明聯。</p>
+        <p>如當天來不及提供，也會在課後將電子發票以 <strong>Email</strong> 寄送至學員信箱，請留意信箱收件（含垃圾郵件匣）。</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>發票可以開立公司抬頭嗎？</summary>
+      <div class="a">
+        <p>可以。本會開立電子發票，<strong>可依需求開立統編抬頭</strong>，報名時請提前告知公司抬頭與統一編號，以便正確開立。</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>學費裡面有包含營業稅嗎？</summary>
+      <div class="a">
+        <p>是的，<strong>學費金額已包含營業稅稅金</strong>，不會另外加收。</p>
+      </div>
+    </details>
+
+  </section>
+
+  <!-- 6. 攜帶物品 -->
+  <section class="section" data-cat="cat6">
+    <div class="section-head">
+      <div class="tag-num"><span>06</span></div>
+      <h2>上課當天需要攜帶什麼物品？</h2>
+    </div>
+
+    <details class="qa">
+      <summary>防火管理人初訓需要帶什麼？</summary>
+      <div class="a">
+        <p>三項：</p>
+        <p>1. 一寸照片一張，<strong>背面請用油性筆寫上姓名</strong><br>
+        2. 身分證明文件正本（備查用，如身分證、健保卡、護照、駕照等擇一即可）<br>
+        3. 原子筆（測驗作答使用）</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>防火管理人複訓需要帶什麼？</summary>
+      <div class="a">
+        <p>與初訓相同，另外多帶一項「上期證書影本」：</p>
+        <p>1. 一寸照片一張，<strong>背面請用油性筆寫上姓名</strong><br>
+        2. 身分證明文件正本（備查用，如身分證、健保卡、護照、駕照等擇一即可）<br>
+        3. 原子筆（測驗作答使用）<br>
+        4. <strong>上期證書影本</strong></p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>保安監督人初訓（兩天班）需要帶什麼？</summary>
+      <div class="a">
+        <p>提醒：兩天班僅限已持有<strong>有效</strong>防火管理人證書者報名，需帶：</p>
+        <p>1. 一寸照片一張，<strong>背面請用油性筆寫上姓名</strong><br>
+        2. 身分證明文件正本（備查用，如身分證、健保卡、護照、駕照等擇一即可）<br>
+        3. 原子筆（測驗作答使用）<br>
+        4. <strong>有效防火管理人證書影本</strong></p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>各班別需要攜帶的物品，整理成一張表方便對照</summary>
+      <div class="a">
+        <table class="cmp">
+          <tr><th>需攜帶物品</th><th>防火初訓</th><th>防火複訓</th><th>保安初訓（兩天班）</th></tr>
+          <tr><td>一寸照片一張（背面寫姓名）</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td>身分證明文件正本（備查）</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td>原子筆</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td>上期證書影本</td><td>－</td><td>✓</td><td>－</td></tr>
+          <tr><td>有效防火管理人證書影本</td><td>－</td><td>－</td><td>✓</td></tr>
+        </table>
+      </div>
+    </details>
+    <details class="qa">
+      <summary>相片可以用兩吋的嗎？</summary>
+      <div class="a">
+        <p>可以。若攜帶兩吋照片，我們會在製作證書時<strong>稍加裁剪</strong>使用，不影響證書辦理，不需要特地換成一寸照片。</p>
+      </div>
+    </details>
+
+  </section>
+
+  <!-- 7. 匯款與退費 -->
+  <section class="section" data-cat="cat7">
+    <div class="section-head">
+      <div class="tag-num"><span>07</span></div>
+      <h2>匯款與退費</h2>
+    </div>
+
+    <details class="qa">
+      <summary>匯款帳號是多少？學員匯款帳號為何？</summary>
+      <div class="a">
+        <p><strong>每位學員的匯款帳號皆不同</strong>，為專屬帳號，計算方式如下：</p>
+        <table class="cmp">
+          <tr><th>銀行</th><td>第一銀行（代號 007）</td></tr>
+          <tr><th>分行</th><td>營業部</td></tr>
+          <tr><th>帳號</th><td>41704 ＋ 身分證字號後 9 碼數字（不含英文字母）</td></tr>
+          <tr><th>戶名</th><td>財團法人消防教育學術研究基金會</td></tr>
+        </table>
+        <p>例如身分證字號為 A123456789，帳號後段取後 9 碼數字，即 123456789，完整帳號為 <strong>41704123456789</strong>。</p>
+        <p><strong>請以匯款方式支付，勿扣除匯費</strong>，以免款項金額與應繳學費不符，影響核對。</p>
+      </div>
+    </details>
+
+    <details class="qa">
+      <summary>已經報名了，還可以退費嗎？</summary>
+      <div class="a">
+        <p>退費依「職業訓練機構設立及管理辦法」第 16 條辦理，規則如下：</p>
+        <table class="cmp">
+          <tr><th>開訓前退訓</th><td>退還所繳費用之七成（需扣除必要手續費）</td></tr>
+          <tr><th>開課當日申請</th><td>不予退費</td></tr>
+          <tr><th>已開立報名證明後</th><td>開立後恕不退款</td></tr>
+        </table>
+        <p>本退費標準自 <strong>111 年 8 月 1 日</strong>起生效施行。如有退費需求，建議儘早提出申請，以爭取較高的退費比例。</p>
+      </div>
+    </details>
+  </section>
+
+  <p class="empty-state" id="emptyState">查無符合的問題，建議直接來電詢問，或換個關鍵字再試試。</p>
+
+  <div class="note">
+    <strong>提醒：</strong>以上為一般性資訊，實際規定仍以最新公告及主管機關函釋為準。如有個人證書進度、報名或發票查詢需求，請至本會查詢專區辦理。
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script>
+  const search = document.getElementById('searchInput');
+  const sections = Array.from(document.querySelectorAll('.section'));
+  const catBtns = Array.from(document.querySelectorAll('.cat-btn'));
+  const emptyState = document.getElementById('emptyState');
+  let activeCat = 'all';
+
+  function applyFilters(){
+    const kw = search.value.trim().toLowerCase();
+    let anyVisible = false;
+
+    sections.forEach(sec => {
+      const matchesCat = activeCat === 'all' || sec.dataset.cat === activeCat;
+      let sectionHasMatch = false;
+
+      sec.querySelectorAll('.qa').forEach(qa => {
+        const text = qa.textContent.toLowerCase();
+        const matchesKw = kw === '' || text.includes(kw);
+        const visible = matchesCat && matchesKw;
+        qa.style.display = visible ? '' : 'none';
+        if (visible) sectionHasMatch = true;
+      });
+
+      sec.style.display = sectionHasMatch ? '' : 'none';
+      if (sectionHasMatch) anyVisible = true;
+    });
+
+    emptyState.style.display = anyVisible ? 'none' : 'block';
+  }
+
+  search.addEventListener('input', applyFilters);
+
+  catBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      catBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.dataset.cat;
+      applyFilters();
+    });
+  });
+</script>
+
+<script src="shared.js" data-page="faq"></script>
+
+</body>
+</html>
