@@ -319,7 +319,7 @@
           </div>
           <div class="form-group">
             <label for="r-id">身分證字號</label>
-            <input type="text" id="r-id" placeholder="A123456789" maxlength="10" style="letter-spacing:.06em">
+            <input type="text" id="r-id" placeholder="A123456789" maxlength="10" style="letter-spacing:.06em" onfocus="if(this.readOnly){this.readOnly=false;this.value='';}">
             <span class="form-hint">英文字母大寫開頭，共 10 碼</span>
           </div>
         </div>
@@ -526,6 +526,11 @@ async function queryRecord() {
       tbody.appendChild(tr);
     });
     document.getElementById('table-record').style.display = 'block';
+
+    // 查詢成功後，遮蔽身分證字號輸入框，避免學員截圖時外流完整個資
+    var idInput = document.getElementById('r-id');
+    idInput.value = id.substring(0,4) + '****' + id.substring(8);
+    idInput.readOnly = true;
 
   } catch(e) {
     document.getElementById('loading-record').style.display = 'none';

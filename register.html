@@ -2570,6 +2570,50 @@ const COURSE_DATA = [
 ];
 
 /* =====================================================================
+   場次日期狀態判斷
+   ── 解析 dates 欄位（例：115年8月4日（二）～8月5日（三）），
+      取出「開始日期」與「結束日期」，與今天比對：
+      - 結束日期已過 → 完全下架，不顯示
+      - 開始日期已到、結束日期未到（已開課中）→ 顯示但灰階不可點選
+      - 開始日期未到 → 正常顯示，可點選報名
+===================================================================== */
+function getSessionDateRange(session) {
+  var text = session.dates || session.label || '';
+  var matches = text.match(/(\d{1,2})月(\d{1,2})日/g);
+  if (!matches || matches.length === 0) return null;
+
+  var yearMatch = text.match(/(\d{2,3})年/);
+  var rocYear = yearMatch ? parseInt(yearMatch[1], 10) : null;
+  var year = rocYear ? rocYear + 1911 : new Date().getFullYear();
+
+  function toDate(m, endOfDay) {
+    var md = m.match(/(\d{1,2})月(\d{1,2})日/);
+    var month = parseInt(md[1], 10);
+    var day   = parseInt(md[2], 10);
+    return endOfDay
+      ? new Date(year, month - 1, day, 23, 59, 59)
+      : new Date(year, month - 1, day, 0, 0, 0);
+  }
+
+  var startDate = toDate(matches[0], false);
+  var endDate   = toDate(matches[matches.length - 1], true);
+  return { startDate: startDate, endDate: endDate };
+}
+
+function isSessionExpired(session) {
+  var range = getSessionDateRange(session);
+  if (!range) return false; // 格式無法解析時，保守起見不隱藏
+  return new Date() > range.endDate;
+}
+
+function isSessionOngoing(session) {
+  var range = getSessionDateRange(session);
+  if (!range) return false;
+  var now = new Date();
+  return now >= range.startDate && now <= range.endDate;
+}
+
+/* =====================================================================
    課程類型設定（顯示用）
 ===================================================================== */
 const COURSE_TYPE_META = {
@@ -2744,7 +2788,7 @@ function renderRegions() {
   // 地區 → 計算有幾個開放梯次
   const regionMap = {};
   filtered.forEach(d => {
-    const openSessions = d.sessions.filter(s => s.status !== 'ended');
+    const openSessions = d.sessions.filter(s => s.status !== 'ended' && !isSessionExpired(s));
     if (!regionMap[d.region]) regionMap[d.region] = 0;
     regionMap[d.region] += openSessions.length;
   });
@@ -2788,7 +2832,7 @@ function renderBatches() {
   });
   const allSessions = [];
   filtered.forEach(d => {
-    d.sessions.filter(s => s.status !== 'ended').forEach(s => {
+    d.sessions.filter(s => s.status !== 'ended' && !isSessionExpired(s)).forEach(s => {
       allSessions.push({ course: d.course, ...s });
     });
   });
@@ -2801,7 +2845,10 @@ function renderBatches() {
   }
   container.innerHTML = allSessions.map(s => {
     const sm = STATUS_META[s.status] || STATUS_META.open;
-    const isFull = s.status === 'full';
+    const ongoing = isSessionOngoing(s);
+    const isFull = s.status === 'full' || ongoing;
+    const statusLabel = ongoing ? '已開課' : sm.label;
+    const statusCls = ongoing ? 'status-full' : sm.cls;
     return `
     <div class="card batch-card${isFull ? ' disabled' : ''}" data-id="${s.id}"
       onclick="${isFull ? '' : `selectBatch('${s.id}', '${s.course.replace(/'/g,"\\'")}', '${s.label}', '${s.dates.replace(/'/g,"\\'")}', '${s.location.replace(/'/g,"\\'")}', '${s.quota}', \`${s.formUrl}\`)`}"
@@ -2823,7 +2870,7 @@ function renderBatches() {
           名額 ${s.quota}
         </span>
       </div>
-      <div class="batch-status ${sm.cls}">${sm.label}</div>
+      <div class="batch-status ${statusCls}">${statusLabel}</div>
     </div>`;
   }).join('');
 }
