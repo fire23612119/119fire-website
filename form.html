@@ -241,7 +241,17 @@
 <div class="page-header">
   <div class="page-header-inner">
     <div class="eyebrow">Online Registration</div>
-    <h1>課程報名表</h1>
+    <h1 id="page-title">課程報名表</h1>
+  </div>
+</div>
+
+<!-- 候補提示橫幅 -->
+<div id="waitlist-banner" style="display:none;background:#FFF0DC;border-bottom:1px solid #F0B26B;">
+  <div style="max-width:720px;margin:0 auto;padding:14px 20px;display:flex;gap:10px;align-items:flex-start;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B35A00" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+    <div style="font-size:.86rem;color:#7A4300;line-height:1.5;">
+      <strong>此場次目前已額滿，您正在登記候補名單。</strong>若有名額釋出，本會將依候補順序主動聯繫您，請留意電話與 Email 通知，謝謝您的耐心等候。
+    </div>
   </div>
 </div>
 
@@ -269,8 +279,8 @@
           <polyline points="20 6 9 17 4 12"/>
         </svg>
       </div>
-      <h2>報名資料已送出！</h2>
-      <p>
+      <h2 id="success-title">報名資料已送出！</h2>
+      <p id="success-message">
         感謝您的報名，我們已收到您的資料。<br>
         確認信將寄送至您填寫的 Email，請注意查收。<br>
         如有疑問請聯絡本會。
@@ -457,6 +467,7 @@ const courseKind = params.get('kind') || '';
 const region     = params.get('region') || '';
 const batch      = params.get('batch') || '';
 const batchLabel = params.get('batchLabel') || '';
+const isWaitlist = params.get('waitlist') === '1';
 
 // 課程中文對應
 const typeMap = {
@@ -478,6 +489,15 @@ document.getElementById('f-type').value   = courseType;
 document.getElementById('banner-course').textContent = courseFull || '（未指定課程）';
 document.getElementById('banner-meta').textContent =
   [region, batchLabel || batch].filter(Boolean).join('　|　') || '請確認課程資訊';
+
+// 候補模式：顯示提示橫幅、調整標題與文字
+if (isWaitlist) {
+  document.getElementById('waitlist-banner').style.display = 'block';
+  document.getElementById('page-title').textContent = '課程候補登記表';
+  document.title = document.title.replace('報名表', '候補登記表');
+  document.getElementById('btn-submit').innerHTML =
+    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> 送出候補登記';
+}
 
 // ── 條件欄位顯示 ──
 function updateCondFields() {
@@ -558,6 +578,7 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
     batch:         batchLabel || batch,
     kind:          courseKind,
     type:          courseType,
+    waitlist:      isWaitlist,
     website:       document.getElementById('f-website').value.trim(),
     name:          document.getElementById('f-name').value.trim(),
     idNum:         document.getElementById('f-id').value.trim().toUpperCase(),
@@ -588,6 +609,13 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
 
     if (result.status === 'ok') {
       document.getElementById('reg-form').style.display = 'none';
+      if (isWaitlist) {
+        document.getElementById('success-title').textContent = '候補登記已送出！';
+        document.getElementById('success-message').innerHTML =
+          '感謝您的登記，我們已收到您的候補資料。<br>' +
+          '若有名額釋出，本會將依候補順序主動以電話或 Email 聯繫您。<br>' +
+          '如有疑問請聯絡本會。';
+      }
       document.getElementById('success-screen').classList.add('show');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -596,7 +624,9 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
   } catch(err) {
     alert('送出失敗，請稍後再試或聯絡本會。\n錯誤：' + err.message);
     btn.disabled = false;
-    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> 送出報名資料';
+    btn.innerHTML = isWaitlist
+      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> 送出候補登記'
+      : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> 送出報名資料';
   }
 });
 </script>

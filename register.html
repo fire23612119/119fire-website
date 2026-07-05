@@ -368,6 +368,9 @@
   .status-open { background: #E6F9EE; color: #1A7A3C; }
   .status-few { background: #FFF4E0; color: #9A5500; }
   .status-full { background: #F5E8E8; color: #8A1A1A; }
+  .status-waitlist { background: #FFF0DC; color: #B35A00; }
+  .batch-card.waitlist { border-color: #F0B26B; }
+  .batch-card.waitlist:hover { border-color: #E08E3A; box-shadow: 0 2px 10px rgba(224,142,58,.15); }
 
   /* ===== 確認區 ===== */
   .confirm-card {
@@ -2846,13 +2849,14 @@ function renderBatches() {
   container.innerHTML = allSessions.map(s => {
     const sm = STATUS_META[s.status] || STATUS_META.open;
     const ongoing = isSessionOngoing(s);
-    const isFull = s.status === 'full' || ongoing;
-    const statusLabel = ongoing ? '已開課' : sm.label;
-    const statusCls = ongoing ? 'status-full' : sm.cls;
+    const isFullNotStarted = s.status === 'full' && !ongoing;
+    const locked = ongoing; // 只有「已開課」才完全鎖定不可點選
+    const statusLabel = ongoing ? '已開課' : (isFullNotStarted ? '額滿．可候補' : sm.label);
+    const statusCls = ongoing ? 'status-full' : (isFullNotStarted ? 'status-waitlist' : sm.cls);
     return `
-    <div class="card batch-card${isFull ? ' disabled' : ''}" data-id="${s.id}"
-      onclick="${isFull ? '' : `selectBatch('${s.id}', '${s.course.replace(/'/g,"\\'")}', '${s.label}', '${s.dates.replace(/'/g,"\\'")}', '${s.location.replace(/'/g,"\\'")}', '${s.quota}', \`${s.formUrl}\`)`}"
-      style="${isFull ? 'opacity:.55;cursor:not-allowed;' : ''}">
+    <div class="card batch-card${locked ? ' disabled' : ''}${isFullNotStarted ? ' waitlist' : ''}" data-id="${s.id}"
+      onclick="${locked ? '' : `selectBatch('${s.id}', '${s.course.replace(/'/g,"\\'")}', '${s.label}', '${s.dates.replace(/'/g,"\\'")}', '${s.location.replace(/'/g,"\\'")}', '${s.quota}', \`${s.formUrl}\`, ${isFullNotStarted})`}"
+      style="${locked ? 'opacity:.55;cursor:not-allowed;' : ''}">
       <div class="card-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
       <div class="batch-tag">${s.course}</div>
       <h3>${s.label}</h3>
@@ -2875,8 +2879,8 @@ function renderBatches() {
   }).join('');
 }
 
-function selectBatch(id, course, label, dates, location, quota, formUrl) {
-  selected.batch = { id, course, label, dates, location, quota, formUrl };
+function selectBatch(id, course, label, dates, location, quota, formUrl, isWaitlist) {
+  selected.batch = { id, course, label, dates, location, quota, formUrl, isWaitlist: !!isWaitlist };
   document.querySelectorAll('#batch-cards .card').forEach(c => {
     c.classList.toggle('selected', c.dataset.id === id);
   });
@@ -2886,7 +2890,16 @@ function selectBatch(id, course, label, dates, location, quota, formUrl) {
 /* ===== Step 4：確認 ===== */
 function renderConfirm() {
   const b = selected.batch;
+  const waitlistBanner = b.isWaitlist ? `
+    <div style="background:#FFF0DC;border:1px solid #F0B26B;border-radius:10px;padding:14px 16px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B35A00" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <div style="font-size:.88rem;color:#7A4300;line-height:1.5;">
+        <strong>此場次目前已額滿，您將登記為候補名單。</strong><br>
+        若有名額釋出，本會將依候補順序主動聯繫您，請留意電話與 Email 通知。
+      </div>
+    </div>` : '';
   document.getElementById('confirm-detail').innerHTML = `
+    ${waitlistBanner}
     <div class="confirm-row">
       <div class="confirm-label">課程類別</div>
       <div class="confirm-value">${selected.courseLabel}</div>
@@ -2916,6 +2929,12 @@ function renderConfirm() {
       <div class="confirm-value">${b.quota}</div>
     </div>
   `;
+  const goBtn = document.getElementById('btn-go-form');
+  if (goBtn) {
+    goBtn.innerHTML = b.isWaitlist
+      ? `前往填寫候補登記資料 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`
+      : `前往填寫報名資料 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+  }
 }
 
 /* ===== 按鈕事件 ===== */
@@ -2947,6 +2966,7 @@ document.getElementById('btn-go-form')?.addEventListener('click', () => {
     region:     selected.region      || '',
     batch:      selected.batch.id    || '',
     batchLabel: selected.batch.label || '',
+    waitlist:   selected.batch.isWaitlist ? '1' : '0',
   });
   window.location.href = 'form.html?' + params.toString();
 });
