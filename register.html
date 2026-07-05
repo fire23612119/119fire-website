@@ -368,7 +368,14 @@
   .status-open { background: #E6F9EE; color: #1A7A3C; }
   .status-few { background: #FFF4E0; color: #9A5500; }
   .status-full { background: #F5E8E8; color: #8A1A1A; }
-  .status-waitlist { background: #FFF0DC; color: #B35A00; }
+  .status-waitlist {
+    background: #FFF0DC;
+    color: #B35A00;
+    font-size: .9rem;
+    font-weight: 800;
+    padding: 5px 14px;
+  }
+  .status-cancelled { background: #EDEDED; color: #666; }
   .batch-card.waitlist { border-color: #F0B26B; }
   .batch-card.waitlist:hover { border-color: #E08E3A; box-shadow: 0 2px 10px rgba(224,142,58,.15); }
 
@@ -2679,6 +2686,74 @@ function showStep(n) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+/* =====================================================================
+   即時名額查詢
+   ── 頁面載入時，向報名主資料庫查詢每個場次目前「正取」人數，
+      跟 quota 比對，只要達到名額就視為額滿（可候補）。
+   ── 查詢失敗（網路問題等）時，自動退回原本手動設定的 status 欄位，
+      確保報名功能不會因為查詢失敗而整個掛掉。
+===================================================================== */
+const CAPACITY_API = 'https://script.google.com/macros/s/AKfycbzkIaz1EegxlRQ9NjeygvC3iah7nuT7clXfMXc3NKLar94bpMBfJ9Lnb-FFC0sBi734/exec';
+let liveCapacity = null; // 查詢成功後存放 { "課程|地區|梯次": 人數 }
+let capacityReady = false;
+
+function jsonpCapacity(url, timeoutMs) {
+  return new Promise(function(resolve, reject) {
+    const cbName = 'capCb_' + Date.now();
+    const script = document.createElement('script');
+    let done = false;
+    window[cbName] = function(data) {
+      done = true;
+      resolve(data);
+      delete window[cbName];
+      script.remove();
+    };
+    script.onerror = function() {
+      if (!done) { reject(new Error('網路錯誤')); delete window[cbName]; script.remove(); }
+    };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName;
+    document.body.appendChild(script);
+    setTimeout(function() {
+      if (!done) { reject(new Error('逾時')); delete window[cbName]; script.remove(); }
+    }, timeoutMs || 6000);
+  });
+}
+
+let capacityPromise = null;
+function ensureCapacityLoaded() {
+  if (!capacityPromise) capacityPromise = loadLiveCapacity();
+  return capacityPromise;
+}
+
+async function loadLiveCapacity() {
+  try {
+    const data = await jsonpCapacity(CAPACITY_API + '?action=capacity', 6000);
+    if (data && data.status === 'ok' && data.counts) {
+      liveCapacity = data.counts;
+    }
+  } catch (e) {
+    liveCapacity = null; // 查詢失敗，維持 null，後續會自動退回手動 status
+  }
+  capacityReady = true;
+}
+
+function getQuotaNumber(quotaStr) {
+  const m = String(quotaStr || '').match(/\d+/);
+  return m ? parseInt(m[0], 10) : null;
+}
+
+// 判斷場次是否額滿：優先用即時人數計算，查詢失敗時退回手動 status
+function isSessionFull(courseFullName, region, session) {
+  if (liveCapacity) {
+    const key = courseFullName + '|' + region + '|' + (session.dates || session.label);
+    const registered = liveCapacity[key] || 0;
+    const quota = getQuotaNumber(session.quota);
+    if (quota !== null) return registered >= quota;
+  }
+  // 查詢失敗或無法解析名額時，退回手動設定的 status
+  return session.status === 'full';
+}
+
 function checkUrl() {
   const params = new URLSearchParams(location.search);
   const typeParam = params.get('type');
@@ -2820,7 +2895,8 @@ function selectRegion(region) {
 }
 
 /* ===== Step 3：梯次卡片 ===== */
-function renderBatches() {
+async function renderBatches() {
+  await ensureCapacityLoaded();
   const container = document.getElementById('batch-cards');
   const filtered = COURSE_DATA.filter(d => {
     if (d.type !== selected.courseType) return false;
@@ -2836,7 +2912,7 @@ function renderBatches() {
   const allSessions = [];
   filtered.forEach(d => {
     d.sessions.filter(s => s.status !== 'ended' && !isSessionExpired(s)).forEach(s => {
-      allSessions.push({ course: d.course, ...s });
+      allSessions.push({ course: d.course, region: d.region, ...s });
     });
   });
   if (allSessions.length === 0) {
@@ -2847,12 +2923,12 @@ function renderBatches() {
     return;
   }
   container.innerHTML = allSessions.map(s => {
-    const sm = STATUS_META[s.status] || STATUS_META.open;
+    const cancelled = s.status === 'cancelled';
     const ongoing = isSessionOngoing(s);
-    const isFullNotStarted = s.status === 'full' && !ongoing;
-    const locked = ongoing; // 只有「已開課」才完全鎖定不可點選
-    const statusLabel = ongoing ? '已開課' : (isFullNotStarted ? '額滿．可候補' : sm.label);
-    const statusCls = ongoing ? 'status-full' : (isFullNotStarted ? 'status-waitlist' : sm.cls);
+    const isFullNotStarted = !cancelled && isSessionFull(s.course, s.region, s) && !ongoing;
+    const locked = cancelled || ongoing; // 已取消或已開課都完全鎖定不可點選
+    const statusLabel = cancelled ? '本梯次已取消' : (ongoing ? '已開課' : (isFullNotStarted ? '額滿．可候補' : '報名中'));
+    const statusCls = cancelled ? 'status-cancelled' : (ongoing ? 'status-full' : (isFullNotStarted ? 'status-waitlist' : 'status-open'));
     return `
     <div class="card batch-card${locked ? ' disabled' : ''}${isFullNotStarted ? ' waitlist' : ''}" data-id="${s.id}"
       onclick="${locked ? '' : `selectBatch('${s.id}', '${s.course.replace(/'/g,"\\'")}', '${s.label}', '${s.dates.replace(/'/g,"\\'")}', '${s.location.replace(/'/g,"\\'")}', '${s.quota}', \`${s.formUrl}\`, ${isFullNotStarted})`}"
@@ -2940,8 +3016,8 @@ function renderConfirm() {
 /* ===== 按鈕事件 ===== */
 
 // Step 1 → Step 2（梯次）
-document.getElementById('btn-1-next')?.addEventListener('click', () => {
-  renderBatches();
+document.getElementById('btn-1-next')?.addEventListener('click', async () => {
+  await renderBatches();
   showStep(2);
 });
 
@@ -2977,6 +3053,7 @@ document.getElementById('nav-hamburger')?.addEventListener('click', () => {
 });
 
 /* ===== 初始化 ===== */
+ensureCapacityLoaded(); // 頁面載入時就先發出查詢，不等使用者走到第三步
 checkUrl();
 </script>
 </body>
