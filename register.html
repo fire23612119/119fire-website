@@ -329,8 +329,8 @@
 
   /* 地區卡片 */
   .region-card { text-align: center; }
-  .region-card h3 { font-size: .97rem; font-weight: 700; color: var(--teal-900); }
-  .region-card .region-count { font-size: .78rem; color: var(--text-600); margin-top: 2px; }
+  .region-card h3 { font-size: 1.25rem; font-weight: 700; color: var(--teal-900); }
+  .region-card .region-count { font-size: .88rem; color: var(--text-600); margin-top: 4px; }
 
   /* 梯次卡片 */
   .batch-card { padding: 18px 22px; }
@@ -345,12 +345,12 @@
     margin-bottom: 10px;
   }
   .batch-card.selected .batch-tag { background: rgba(47,179,196,.3); }
-  .batch-card h3 { font-size: .95rem; font-weight: 700; color: var(--teal-900); margin-bottom: 6px; }
+  .batch-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--teal-900); margin-bottom: 8px; }
   .batch-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 16px;
-    font-size: .82rem;
+    gap: 10px 16px;
+    font-size: 1rem;
     color: var(--text-600);
   }
   .batch-meta span { display: flex; align-items: center; gap: 4px; }
@@ -1537,13 +1537,13 @@ const COURSE_DATA = [
     "id": "fire-桃園-初訓",
     "course": "防火管理人（初訓）",
     "type": "fire",
-    "region": "桃園市",
+    "region": "桃園區",
     "sessions": [
       {
         "id": "fire-桃園-初訓-3722",
         "label": "115年7月1日（三）～7月2日（四）",
         "dates": "115年7月1日（三）～7月2日（四）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "41人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%881%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E7%E6%9C%882%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
@@ -1552,39 +1552,45 @@ const COURSE_DATA = [
         "id": "fire-桃園-初訓-3723",
         "label": "115年9月16日（三）～9月17日（四）",
         "dates": "115年9月16日（三）～9月17日（四）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "50人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8816%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E9%E6%9C%8817%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       },
       {
-        "id": "fire-桃園-初訓-3729",
-        "label": "115年10月20日（二）～10月21日（三）",
-        "dates": "115年10月20日（二）～10月21日（三）",
-        "location": "桃園市",
-        "quota": "50人",
-        "status": "open",
-        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8820%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E10%E6%9C%8821%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B",
-        "address": "桃園市中壢區新興路102巷11號4樓"
-      },
-      {
         "id": "fire-桃園-初訓-3724",
         "label": "115年11月18日（三）～11月19日（四）",
         "dates": "115年11月18日（三）～11月19日（四）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "50人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8818%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E11%E6%9C%8819%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-桃園-初訓-zhongli",
+    "course": "防火管理人（初訓）",
+    "type": "fire",
+    "region": "中壢區",
+    "sessions": [
+      {
+        "id": "fire-桃園-初訓-3729",
+        "label": "115年10月20日（二）～10月21日（三）",
+        "dates": "115年10月20日（二）～10月21日（三）",
+        "location": "中壢區",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8820%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E10%E6%9C%8821%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       },
       {
         "id": "fire-桃園-初訓-3730",
         "label": "115年12月1日（二）～12月2日（三）",
         "dates": "115年12月1日（二）～12月2日（三）",
-        "location": "桃園市",
+        "location": "中壢區",
         "quota": "50人",
         "status": "open",
-        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%881%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E12%E6%9C%882%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B",
-        "address": "桃園市中壢區新興路102巷11號4樓"
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%881%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E12%E6%9C%882%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       }
     ]
   },
@@ -1592,13 +1598,13 @@ const COURSE_DATA = [
     "id": "fire-桃園-複訓",
     "course": "防火管理人（複訓）",
     "type": "fire",
-    "region": "桃園市",
+    "region": "桃園區",
     "sessions": [
       {
         "id": "fire-桃園-複訓-3678",
         "label": "115年6月23日（二）",
         "dates": "115年6月23日（二）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "13人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8823%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
@@ -1607,7 +1613,7 @@ const COURSE_DATA = [
         "id": "fire-桃園-複訓-3725",
         "label": "115年7月11日（六）",
         "dates": "115年7月11日（六）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "48人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%8811%E6%97%A5%EF%BC%88%E5%85%AD%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
@@ -1616,7 +1622,7 @@ const COURSE_DATA = [
         "id": "fire-桃園-複訓-3726",
         "label": "115年8月15日（六）",
         "dates": "115年8月15日（六）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "50人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8815%E6%97%A5%EF%BC%88%E5%85%AD%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
@@ -1625,48 +1631,54 @@ const COURSE_DATA = [
         "id": "fire-桃園-複訓-3744",
         "label": "115年9月1日（二）",
         "dates": "115年9月1日（二）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "50人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%881%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       },
       {
-        "id": "fire-桃園-複訓-3731",
-        "label": "115年10月13日（二）",
-        "dates": "115年10月13日（二）",
-        "location": "桃園市",
-        "quota": "50人",
-        "status": "open",
-        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8813%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B",
-        "address": "桃園市中壢區新興路102巷11號4樓"
-      },
-      {
         "id": "fire-桃園-複訓-3727",
         "label": "115年11月10日（二）",
         "dates": "115年11月10日（二）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "49人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8810%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       },
       {
-        "id": "fire-桃園-複訓-3732",
-        "label": "115年12月3日（四）",
-        "dates": "115年12月3日（四）",
-        "location": "桃園市",
-        "quota": "50人",
-        "status": "open",
-        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%883%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B",
-        "address": "桃園市中壢區新興路102巷11號4樓"
-      },
-      {
         "id": "fire-桃園-複訓-3728",
         "label": "115年12月8日（二）",
         "dates": "115年12月8日（二）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "50人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%888%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "fire-桃園-複訓-zhongli",
+    "course": "防火管理人（複訓）",
+    "type": "fire",
+    "region": "中壢區",
+    "sessions": [
+      {
+        "id": "fire-桃園-複訓-3731",
+        "label": "115年10月13日（二）",
+        "dates": "115年10月13日（二）",
+        "location": "中壢區",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8813%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      },
+      {
+        "id": "fire-桃園-複訓-3732",
+        "label": "115年12月3日（四）",
+        "dates": "115年12月3日（四）",
+        "location": "中壢區",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%883%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       }
     ]
   },
@@ -2091,13 +2103,13 @@ const COURSE_DATA = [
     "id": "inspector-桃園-初訓",
     "course": "保安檢查員（初訓）",
     "type": "inspector",
-    "region": "桃園市",
+    "region": "桃園區",
     "sessions": [
       {
         "id": "inspector-桃園-初訓-3774",
         "label": "115年8月1日（六）",
         "dates": "115年8月1日（六）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "18人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%881%E6%97%A5%EF%BC%88%E5%85%AD%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
@@ -2106,29 +2118,36 @@ const COURSE_DATA = [
         "id": "inspector-桃園-初訓-3775",
         "label": "115年9月30日（三）",
         "dates": "115年9月30日（三）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "49人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8830%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       },
       {
-        "id": "inspector-桃園-初訓-3777",
-        "label": "115年10月23日（五）",
-        "dates": "115年10月23日（五）",
-        "location": "桃園市",
-        "quota": "48人",
-        "status": "open",
-        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8823%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B",
-        "address": "桃園市中壢區新興路102巷11號4樓"
-      },
-      {
         "id": "inspector-桃園-初訓-3776",
         "label": "115年12月4日（五）",
         "dates": "115年12月4日（五）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "49人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%884%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "inspector-桃園-初訓-zhongli",
+    "course": "保安檢查員（初訓）",
+    "type": "inspector",
+    "region": "中壢區",
+    "sessions": [
+      {
+        "id": "inspector-桃園-初訓-3777",
+        "label": "115年10月23日（五）",
+        "dates": "115年10月23日（五）",
+        "location": "中壢區",
+        "quota": "48人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E6%AA%A2%E6%9F%A5%E5%93%A1%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8823%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       }
     ]
   },
@@ -2411,13 +2430,13 @@ const COURSE_DATA = [
     "id": "security-桃園-初訓3d",
     "course": "保安監督人（初訓(三天)）",
     "type": "security",
-    "region": "桃園市",
+    "region": "桃園區",
     "sessions": [
       {
         "id": "security-桃園-初訓3d-3684",
         "label": "115年6月24日（三）～6月26日（五）",
         "dates": "115年6月24日（三）～6月26日（五）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "15人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8824%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E6%E6%9C%8826%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
@@ -2426,26 +2445,16 @@ const COURSE_DATA = [
         "id": "security-桃園-初訓3d-3756",
         "label": "115年8月26日（三）～8月28日（五）",
         "dates": "115年8月26日（三）～8月28日（五）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "49人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8826%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E8%E6%9C%8828%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       },
       {
-        "id": "security-桃園-初訓3d-3760",
-        "label": "115年10月6日（二）～10月8日（四）",
-        "dates": "115年10月6日（二）～10月8日（四）",
-        "location": "桃園市",
-        "quota": "50人",
-        "status": "open",
-        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%886%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E10%E6%9C%888%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B",
-        "address": "桃園市中壢區新興路102巷11號4樓"
-      },
-      {
         "id": "security-桃園-初訓3d-3758",
         "label": "115年11月11日（三）～11月13日（五）",
         "dates": "115年11月11日（三）～11月13日（五）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "50人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8811%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E11%E6%9C%8813%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
@@ -2453,16 +2462,33 @@ const COURSE_DATA = [
     ]
   },
   {
+    "id": "security-桃園-初訓3d-zhongli",
+    "course": "保安監督人（初訓(三天)）",
+    "type": "security",
+    "region": "中壢區",
+    "sessions": [
+      {
+        "id": "security-桃園-初訓3d-3760",
+        "label": "115年10月6日（二）～10月8日（四）",
+        "dates": "115年10月6日（二）～10月8日（四）",
+        "location": "中壢區",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%B8%89%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%886%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BD%9E10%E6%9C%888%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
     "id": "security-桃園-初訓2d",
     "course": "保安監督人（初訓(二天)）",
     "type": "security",
-    "region": "桃園市",
+    "region": "桃園區",
     "sessions": [
       {
         "id": "security-桃園-初訓2d-3685",
         "label": "115年6月25日（四）～6月26日（五）",
         "dates": "115年6月25日（四）～6月26日（五）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "3人",
         "status": "few",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B46%E6%9C%8825%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E6%E6%9C%8826%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
@@ -2471,7 +2497,7 @@ const COURSE_DATA = [
         "id": "security-桃園-初訓2d-3757",
         "label": "115年8月27日（四）～8月28日（五）",
         "dates": "115年8月27日（四）～8月28日（五）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "50人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8827%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E8%E6%9C%8828%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
@@ -2480,7 +2506,7 @@ const COURSE_DATA = [
         "id": "security-桃園-初訓2d-3761",
         "label": "115年10月7日（三）～10月8日（四）",
         "dates": "115年10月7日（三）～10月8日（四）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "50人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%887%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E10%E6%9C%888%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
@@ -2489,7 +2515,7 @@ const COURSE_DATA = [
         "id": "security-桃園-初訓2d-3759",
         "label": "115年11月12日（四）～11月13日（五）",
         "dates": "115年11月12日（四）～11月13日（五）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "50人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8812%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BD%9E11%E6%9C%8813%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%E5%88%9D%E8%A8%93%28%E4%BA%8C%E5%A4%A9%29"
@@ -2500,13 +2526,13 @@ const COURSE_DATA = [
     "id": "security-桃園-複訓",
     "course": "保安監督人（複訓）",
     "type": "security",
-    "region": "桃園市",
+    "region": "桃園區",
     "sessions": [
       {
         "id": "security-桃園-複訓-3768",
         "label": "115年7月3日（五）",
         "dates": "115年7月3日（五）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "44人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B47%E6%9C%883%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
@@ -2515,26 +2541,16 @@ const COURSE_DATA = [
         "id": "security-桃園-複訓-3770",
         "label": "115年9月18日（五）",
         "dates": "115年9月18日（五）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "48人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8818%E6%97%A5%EF%BC%88%E4%BA%94%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       },
       {
-        "id": "security-桃園-複訓-3773",
-        "label": "115年10月12日（一）",
-        "dates": "115年10月12日（一）",
-        "location": "桃園市",
-        "quota": "50人",
-        "status": "open",
-        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8812%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B",
-        "address": "桃園市中壢區新興路102巷11號4樓"
-      },
-      {
         "id": "security-桃園-複訓-3771",
         "label": "115年11月25日（三）",
         "dates": "115年11月25日（三）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "50人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B411%E6%9C%8825%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
@@ -2543,10 +2559,27 @@ const COURSE_DATA = [
         "id": "security-桃園-複訓-3772",
         "label": "115年12月22日（二）",
         "dates": "115年12月22日（二）",
-        "location": "桃園市",
+        "location": "桃園區",
         "quota": "49人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B412%E6%9C%8822%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
+      }
+    ]
+  },
+  {
+    "id": "security-桃園-複訓-zhongli",
+    "course": "保安監督人（複訓）",
+    "type": "security",
+    "region": "中壢區",
+    "sessions": [
+      {
+        "id": "security-桃園-複訓-3773",
+        "label": "115年10月12日（一）",
+        "dates": "115年10月12日（一）",
+        "location": "中壢區",
+        "quota": "50人",
+        "status": "open",
+        "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E4%BF%9D%E5%AE%89%E7%9B%A3%E7%9D%A3%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B410%E6%9C%8812%E6%97%A5%EF%BC%88%E4%B8%80%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       }
     ]
   },
@@ -2932,10 +2965,7 @@ async function renderBatches() {
 /* =====================================================================
    各地區實際上課地址 / 初訓複訓時段
    ── 雲林縣地址待補（目前用暫定文字）
-   ── 桃園市預設為「桃園教室」；若該場次實際在中壢教室上課，
-      請在該筆 session 物件加上 "address": "中壢教室地址..." 覆蓋
-   ── 桃園、新竹 7-8月期間可能改用替代教室，若該場次在此期間，
-      同樣請在該筆 session 加上 "address" 欄位覆蓋預設值
+   ── 桃園市已依實際場地拆分為「桃園區」「中壢區」兩個獨立地區
 ===================================================================== */
 const DEFAULT_CLASS_TIME = '09:00～17:00';
 const REGION_INFO = {
@@ -2945,7 +2975,9 @@ const REGION_INFO = {
               time: { 初訓: '第一天13:00~17:00／第二天08:00~17:00', 複訓: '10:00~16:30' } },
   '台北市': { address: '台北市開封街一段32號5樓',
               time: { 初訓: '第一天13:30~17:30／第二天08:30~17:30', 複訓: '09:00~16:00' } },
-  '桃園市': { address: '桃園市桃園區中華路27號3樓',
+  '桃園區': { address: '桃園市桃園區中華路27號3樓',
+              time: { 初訓: '第一天13:30~17:30／第二天08:30~17:30', 複訓: '13:00~18:30（依講師時間安排）' } },
+  '中壢區': { address: '桃園市中壢區新興路102巷11號4樓',
               time: { 初訓: '第一天13:30~17:30／第二天08:30~17:30', 複訓: '13:00~18:30（依講師時間安排）' } },
   '新竹市': { address: '新竹市中華路二段310號3樓(直航租車樓上)',
               time: { 初訓: '第一天13:30~17:30／第二天08:30~17:30', 複訓: '10:00~17:00（依講師時間安排）' } },
@@ -3065,10 +3097,6 @@ function renderConfirm() {
     <div class="confirm-row">
       <div class="confirm-label">上課地點</div>
       <div class="confirm-value">${getSessionAddress(pseudoSession)}</div>
-    </div>
-    <div class="confirm-row">
-      <div class="confirm-label">招生名額</div>
-      <div class="confirm-value">${b.quota}</div>
     </div>
   `;
   const goBtn = document.getElementById('btn-go-form');
