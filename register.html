@@ -2935,33 +2935,6 @@ function selectRegion(region) {
 }
 
 /* ===== Step 3：梯次卡片 ===== */
-async function renderBatches() {
-  await ensureCapacityLoaded();
-  const container = document.getElementById('batch-cards');
-  const filtered = COURSE_DATA.filter(d => {
-    if (d.type !== selected.courseType) return false;
-    if (d.region !== selected.region) return false;
-    if (selected.courseKind) {
-      // 精確比對訓種，避免「初訓(二天)」混入「初訓(三天)」
-      const m = d.course.match(/（([^）]+)）/);
-      const kind = m ? m[1] : '';
-      return kind === selected.courseKind;
-    }
-    return true;
-  });
-  const allSessions = [];
-  filtered.forEach(d => {
-    d.sessions.filter(s => s.status !== 'ended' && !isSessionExpired(s)).forEach(s => {
-      allSessions.push({ course: d.course, region: d.region, ...s });
-    });
-  });
-  if (allSessions.length === 0) {
-    container.innerHTML = `<div class="empty-state">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-      <p>此地區目前暫無開放梯次，請選擇其他地區。</p>
-    </div>`;
-    return;
-  }
 /* =====================================================================
    各地區實際上課地址 / 初訓複訓時段
    ── 雲林縣地址待補（目前用暫定文字）
@@ -3018,6 +2991,33 @@ function getSessionTime(session) {
   var kind = getSessionKind(session);
   return info.time[kind] || DEFAULT_CLASS_TIME;
 }
+
+async function renderBatches() {
+  const container = document.getElementById('batch-cards');
+  const filtered = COURSE_DATA.filter(d => {
+    if (d.type !== selected.courseType) return false;
+    if (d.region !== selected.region) return false;
+    if (selected.courseKind) {
+      // 精確比對訓種，避免「初訓(二天)」混入「初訓(三天)」
+      const m = d.course.match(/（([^）]+)）/);
+      const kind = m ? m[1] : '';
+      return kind === selected.courseKind;
+    }
+    return true;
+  });
+  const allSessions = [];
+  filtered.forEach(d => {
+    d.sessions.filter(s => s.status !== 'ended' && !isSessionExpired(s)).forEach(s => {
+      allSessions.push({ course: d.course, region: d.region, ...s });
+    });
+  });
+  if (allSessions.length === 0) {
+    container.innerHTML = `<div class="empty-state">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <p>此地區目前暫無開放梯次，請選擇其他地區。</p>
+    </div>`;
+    return;
+  }
 
   container.innerHTML = allSessions.map(s => {
     const cancelled = s.status === 'cancelled';
