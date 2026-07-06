@@ -23,7 +23,7 @@
     --text-600: #5C6B74;
     --border: #DEE5E8;
     --topbar: #D6DEEF;
-    --topbar-border: rgba(13,59,61,.08);
+    --topbar-border: rgba(13,45,61,.08);
     --step-inactive: #B0CACA;
     --card-hover: #EEF8F8;
   }
@@ -47,7 +47,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 12px rgba(13,59,61,.08);
+    box-shadow: 0 2px 12px rgba(13,45,61,.08);
     border-bottom: 1px solid var(--topbar-border);
   }
   .nav {
@@ -84,7 +84,7 @@
     border-bottom: 2px solid transparent;
     white-space: nowrap;
   }
-  .nav-links a:hover { opacity: 1; color: var(--teal-900); background: rgba(13,59,61,.05); }
+  .nav-links a:hover { opacity: 1; color: var(--teal-900); background: rgba(13,45,61,.05); }
   .nav-links a.active { opacity: 1; color: var(--teal-900); border-color: var(--cyan-500); }
   .nav-cta {
     background: var(--cyan-500) !important;
@@ -115,7 +115,7 @@
     gap: 2px;
   }
   .nav-drawer a { padding: 10px 8px; color: var(--teal-700); font-size: .93rem; border-radius: 6px; }
-  .nav-drawer a:hover { background: rgba(13,59,61,.05); }
+  .nav-drawer a:hover { background: rgba(13,45,61,.05); }
   .nav-drawer .nav-cta-drawer {
     margin-top: 8px;
     background: var(--cyan-500);
@@ -136,7 +136,7 @@
   /* ===== Page Hero ===== */
   .page-hero {
     background:
-      linear-gradient(100deg, rgba(13,59,61,.82) 0%, rgba(28,92,95,.38) 100%),
+      linear-gradient(100deg, rgba(13,45,61,.82) 0%, rgba(28,72,95,.38) 100%),
       url('about-hero-bg.jpg') center / cover no-repeat;
     color: #fff;
     position: relative;
@@ -148,7 +148,7 @@
     right: -80px; top: -80px;
     width: 320px; height: 320px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(47,191,196,.22) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(47,146,196,.22) 0%, transparent 70%);
   }
   .page-hero-inner {
     max-width: 1120px;
@@ -175,7 +175,7 @@
     position: sticky;
     top: 65px;
     z-index: 90;
-    box-shadow: 0 2px 8px rgba(13,59,61,.05);
+    box-shadow: 0 2px 8px rgba(13,45,61,.05);
   }
   .stepper {
     max-width: 760px;
@@ -276,12 +276,12 @@
     border-color: var(--cyan-400);
     background: var(--card-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(47,191,196,.12);
+    box-shadow: 0 6px 20px rgba(47,146,196,.12);
   }
   .card.selected {
     border-color: var(--cyan-500);
     background: var(--cyan-100);
-    box-shadow: 0 0 0 3px rgba(47,191,196,.18);
+    box-shadow: 0 0 0 3px rgba(47,146,196,.18);
   }
   .card-check {
     position: absolute;
@@ -305,7 +305,7 @@
     transition: opacity .18s;
   }
   .course-card .course-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .course-card.selected .course-icon { background: rgba(47,191,196,.25); }
+  .course-card.selected .course-icon { background: rgba(47,146,196,.25); }
   .course-card .course-icon svg { stroke: var(--teal-700); }
   .course-card h3 {
     font-size: 1rem;
@@ -344,7 +344,7 @@
     display: inline-block;
     margin-bottom: 10px;
   }
-  .batch-card.selected .batch-tag { background: rgba(47,191,196,.3); }
+  .batch-card.selected .batch-tag { background: rgba(47,146,196,.3); }
   .batch-card h3 { font-size: .95rem; font-weight: 700; color: var(--teal-900); margin-bottom: 6px; }
   .batch-meta {
     display: flex;
@@ -385,7 +385,7 @@
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 32px;
-    box-shadow: 0 4px 16px rgba(13,59,61,.06);
+    box-shadow: 0 4px 16px rgba(13,45,61,.06);
   }
   .confirm-row {
     display: flex;
@@ -437,7 +437,7 @@
   .btn-primary:not(:disabled):hover {
     background: var(--cyan-400);
     transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(47,191,196,.35);
+    box-shadow: 0 6px 18px rgba(47,146,196,.35);
   }
   .btn-ghost {
     background: transparent;
@@ -454,7 +454,7 @@
   .btn-go:not(:disabled):hover {
     background: var(--teal-700);
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(13,59,61,.25);
+    box-shadow: 0 6px 20px rgba(13,45,61,.25);
   }
 
   /* ===== 無資料 ===== */

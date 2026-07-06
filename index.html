@@ -22,7 +22,7 @@
     --text-600: #5C6B74;
     --border: #DEE5E8;
     --topbar: #D6DEEF;
-    --topbar-border: rgba(13,59,61,.08);
+    --topbar-border: rgba(13,45,61,.08);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -43,7 +43,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 12px rgba(13,59,61,.08);
+    box-shadow: 0 2px 12px rgba(13,45,61,.08);
     border-bottom: 1px solid var(--topbar-border);
   }
   .nav {
@@ -91,7 +91,7 @@
   /* ===== Hero ===== */
   .hero {
     background:
-      linear-gradient(100deg, rgba(13,59,61,.78) 0%, rgba(28,92,95,.32) 100%),
+      linear-gradient(100deg, rgba(13,45,61,.78) 0%, rgba(28,72,95,.32) 100%),
       url('screen.png') center / cover no-repeat;
     color: #fff;
     position: relative;
@@ -103,7 +103,7 @@
     right: -120px; top: -120px;
     width: 420px; height: 420px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(47,191,196,.28) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(47,146,196,.28) 0%, transparent 70%);
     pointer-events: none;
   }
   .hero-inner {
@@ -154,7 +154,7 @@
     transition: transform .15s, box-shadow .15s, background .15s;
   }
   .btn-primary { background: var(--cyan-500); color: var(--teal-900); }
-  .btn-primary:hover { background: var(--cyan-400); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(47,191,196,.35); }
+  .btn-primary:hover { background: var(--cyan-400); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(47,146,196,.35); }
   .btn-ghost { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.25); }
   .btn-ghost:hover { background: rgba(255,255,255,.16); }
 
@@ -166,7 +166,7 @@
     z-index: 2;
     background: var(--surface);
     border-radius: 16px;
-    box-shadow: 0 12px 32px rgba(13,59,61,.12);
+    box-shadow: 0 12px 32px rgba(13,45,61,.12);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     border: 1px solid var(--border);
@@ -238,7 +238,7 @@
   .course-card:hover {
     border-color: var(--cyan-500);
     transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(13,59,61,.08);
+    box-shadow: 0 10px 28px rgba(13,45,61,.08);
   }
   .course-icon {
     width: 48px; height: 48px;
@@ -359,7 +359,7 @@
     left: -80px; bottom: -80px;
     width: 260px; height: 260px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(47,191,196,.25) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(47,146,196,.25) 0%, transparent 70%);
   }
   .cta-banner h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 900; margin-bottom: 12px; position: relative; }
   .cta-banner p { color: rgba(255,255,255,.78); margin-bottom: 28px; position: relative; }
@@ -410,8 +410,8 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 12px rgba(13,59,61,.08);
-    border-bottom: 1px solid rgba(13,59,61,.08);
+    box-shadow: 0 2px 12px rgba(13,45,61,.08);
+    border-bottom: 1px solid rgba(13,45,61,.08);
   }
   .nav {
     max-width: 1120px;
@@ -467,11 +467,11 @@
     flex-direction: column;
     gap: 0;
     background: #D6DEEF;
-    border-top: 1px solid rgba(13,59,61,.1);
+    border-top: 1px solid rgba(13,45,61,.1);
     padding: 8px 24px 16px;
   }
   .nav-drawer.open { display: flex; }
-  .nav-drawer a { color: var(--teal-700); padding: 10px 0; border-bottom: 1px solid rgba(13,59,61,.06); font-size: .95rem; font-weight: 500; text-decoration: none; }
+  .nav-drawer a { color: var(--teal-700); padding: 10px 0; border-bottom: 1px solid rgba(13,45,61,.06); font-size: .95rem; font-weight: 500; text-decoration: none; }
   .nav-drawer .nav-cta-drawer {
     margin-top: 8px;
     background: var(--cyan-500);
@@ -791,16 +791,6 @@
 
 
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var btn = document.getElementById('nav-hamburger');
-  var drawer = document.getElementById('nav-drawer');
-  if (btn && drawer) btn.addEventListener('click', function(){ drawer.classList.toggle('open'); });
-  document.querySelectorAll('[data-page]').forEach(function(link) {
-    if (link.tagName === 'A' && link.getAttribute('data-page') === 'index') link.classList.add('active');
-  });
-});
-</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   var btn = document.getElementById('nav-hamburger');
