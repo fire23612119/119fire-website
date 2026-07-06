@@ -10,19 +10,19 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --teal-dark: #00558C;
-    --teal: #0079C8;
-    --teal-light: #E6F3FB;
+    --teal-dark: #007C8C;
+    --teal: #00B1C8;
+    --teal-light: #E6F9FB;
     --teal-mid: #A8E4EC;
-    --accent: #0079C8;
-    --text-primary: #1A2C4A;
+    --accent: #00B1C8;
+    --text-primary: #1A444A;
     --text-secondary: #666666;
     --text-light: #999999;
-    --bg: #F4F8FB;
+    --bg: #F4FAFB;
     --white: #ffffff;
-    --border: #DDEEF2;
+    --border: #DDF0F2;
     --card-bg: #ffffff;
-    --footer-bg: #1A2C4A;
+    --footer-bg: #1A444A;
   }
 
   body {
@@ -35,8 +35,8 @@
 
   /* NAVBAR */
   nav {
-    background: #D6DEEF;
-    border-bottom: 1px solid rgba(13,45,61,.08);
+    background: #D6ECEF;
+    border-bottom: 1px solid rgba(13,55,61,.08);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -92,7 +92,7 @@
   /* HERO */
     .hero {
     background:
-        linear-gradient(100deg, rgba(13,45,61,.78) 0%, rgba(28,72,95,.32) 100%),
+        linear-gradient(100deg, rgba(13,55,61,.78) 0%, rgba(28,87,95,.32) 100%),
         url('保檢.png') center / cover no-repeat;
     color: #fff;
     padding: 72px 48px 56px;
@@ -125,7 +125,7 @@
     color: #ffffff;
     margin-bottom: 28px;
   }
-  .hero-title span { color: #4FABD8; }
+  .hero-title span { color: #4FC8D8; }
   .hero-desc {
     list-style: none;
     max-width: 560px;
@@ -142,7 +142,7 @@
     content: attr(data-before);
     position: absolute;
     left: 0;
-    color: #4FABD8;
+    color: #4FC8D8;
     font-weight: 600;
     white-space: nowrap;
   }
@@ -199,7 +199,7 @@
     padding: 32px;
     transition: box-shadow 0.2s, transform 0.2s;
   }
-  .card:hover { box-shadow: 0 8px 32px rgba(13,78,110,0.10); transform: translateY(-2px); }
+  .card:hover { box-shadow: 0 8px 32px rgba(13,99,110,0.10); transform: translateY(-2px); }
   .card-icon {
     width: 48px; height: 48px;
     background: var(--teal-dark);
@@ -230,7 +230,7 @@
     gap: 6px;
     font-size: 13px;
     font-weight: 600;
-    color: #00558C;
+    color: #007C8C;
     margin: 20px 0 10px;
     letter-spacing: 0.02em;
   }
@@ -249,7 +249,7 @@
 
   /* MANDATORY NOTICE */
   .notice-box {
-    background: linear-gradient(135deg, #e6f6f6, #f0fafa);
+    background: linear-gradient(135deg, #E6F4F6, #F0F9FA);
     border: 1px solid var(--teal-mid);
     border-left: 4px solid var(--teal-dark);
     border-radius: 12px;
@@ -259,9 +259,9 @@
     gap: 14px;
     align-items: flex-start;
   }
-  .notice-box .material-symbols-outlined { color: #00558C; font-size: 22px; flex-shrink: 0; margin-top: 1px; }
-  .notice-box strong { font-size: 14px; font-weight: 700; color: #0D2D3D; display: block; margin-bottom: 4px; }
-  .notice-box p { font-size: 13.5px; color: #3A505C; line-height: 1.7; }
+  .notice-box .material-symbols-outlined { color: #007C8C; font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .notice-box strong { font-size: 14px; font-weight: 700; color: #0D373D; display: block; margin-bottom: 4px; }
+  .notice-box p { font-size: 13.5px; color: #3A585C; line-height: 1.7; }
 
   /* LEGAL SECTION */
   .legal-section {
@@ -328,7 +328,7 @@
   /* FOOTER */
   footer {
     background: var(--footer-bg);
-    color: #A8BEC9;
+    color: #A8C5C9;
     padding: 56px 24px 32px;
     font-size: 13.5px;
   }
@@ -340,16 +340,16 @@
     gap: 48px;
     margin-bottom: 40px;
   }
-  .footer-brand p { line-height: 1.8; color: #7eaaab; font-size: 13px; margin-top: 10px; }
+  .footer-brand p { line-height: 1.8; color: #7EA6AB; font-size: 13px; margin-top: 10px; }
   .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .footer-links a { color: #A8BEC9; text-decoration: none; transition: color 0.2s; font-size: 13.5px; }
+  .footer-links a { color: #A8C5C9; text-decoration: none; transition: color 0.2s; font-size: 13.5px; }
   .footer-links a:hover { color: var(--white); }
   .footer-col h4 { color: var(--white); font-weight: 600; font-size: 13.5px; margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
   .footer-col h4 .material-symbols-outlined { font-size: 16px; color: var(--accent); }
-  .contact-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; color: #7eaaab; font-size: 13px; }
+  .contact-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; color: #7EA6AB; font-size: 13px; }
   .contact-item .material-symbols-outlined { font-size: 15px; color: var(--accent); margin-top: 2px; flex-shrink: 0; }
   .footer-bottom {
-    border-top: 1px solid #1e5254;
+    border-top: 1px solid #1E4E54;
     padding-top: 24px;
     display: flex;
     justify-content: space-between;
@@ -359,18 +359,18 @@
     max-width: 1100px;
     margin: 0 auto;
     font-size: 12.5px;
-    color: #5a8a8b;
+    color: #5A858B;
   }
   .footer-bottom-links { display: flex; gap: 20px; }
-  .footer-bottom-links a { color: #5a8a8b; text-decoration: none; }
-  .footer-bottom-links a:hover { color: #A8BEC9; }
+  .footer-bottom-links a { color: #5A858B; text-decoration: none; }
+  .footer-bottom-links a:hover { color: #A8C5C9; }
   .social-icons { display: flex; gap: 10px; }
   .social-icons a {
     width: 30px; height: 30px;
-    border: 1px solid #2a6062;
+    border: 1px solid #2A5B62;
     border-radius: 6px;
     display: flex; align-items: center; justify-content: center;
-    color: #A8BEC9;
+    color: #A8C5C9;
     text-decoration: none;
     transition: all 0.2s;
   }
@@ -384,24 +384,24 @@
   }
 
   /* ===== Shared Nav ===== */
-  header { background: #D6DEEF; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(13,45,61,.08); border-bottom: 1px solid rgba(13,45,61,.08); }
+  header { background: #D6ECEF; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(13,55,61,.08); border-bottom: 1px solid rgba(13,55,61,.08); }
   .nav { max-width: 1120px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.02rem; letter-spacing: .02em; color: #0D2D3D; text-decoration: none; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.02rem; letter-spacing: .02em; color: #0D373D; text-decoration: none; }
   .brand-name-short { display: none; }
   .nav-links { display: flex; gap: 28px; font-size: .92rem; font-weight: 500; }
-  .nav-links a { color: #1C485F; opacity: .85; transition: opacity .15s, color .15s; padding: 6px 0; border-bottom: 2px solid transparent; text-decoration: none; }
-  .nav-links a:hover, .nav-links a.active { opacity: 1; color: #0D2D3D; border-color: #2F92C4; }
+  .nav-links a { color: #1C575F; opacity: .85; transition: opacity .15s, color .15s; padding: 6px 0; border-bottom: 2px solid transparent; text-decoration: none; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; color: #0D373D; border-color: #2FB3C4; }
   .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
-  .nav-hamburger span { display: block; width: 24px; height: 2px; background: #0D2D3D; border-radius: 2px; }
-  .nav-drawer { display: none; flex-direction: column; background: #D6DEEF; border-top: 1px solid rgba(13,45,61,.1); padding: 8px 24px 16px; }
+  .nav-hamburger span { display: block; width: 24px; height: 2px; background: #0D373D; border-radius: 2px; }
+  .nav-drawer { display: none; flex-direction: column; background: #D6ECEF; border-top: 1px solid rgba(13,55,61,.1); padding: 8px 24px 16px; }
   .nav-drawer.open { display: flex; }
-  .nav-drawer a { color: #1C485F; padding: 10px 0; border-bottom: 1px solid rgba(13,45,61,.06); font-size: .95rem; font-weight: 500; text-decoration: none; }
+  .nav-drawer a { color: #1C575F; padding: 10px 0; border-bottom: 1px solid rgba(13,55,61,.06); font-size: .95rem; font-weight: 500; text-decoration: none; }
   /* ===== Shared Footer ===== */
-  footer { background: #0D2D3D; color: rgba(255,255,255,.65); padding: 48px 24px 28px; font-size: .88rem; }
+  footer { background: #0D373D; color: rgba(255,255,255,.65); padding: 48px 24px 28px; font-size: .88rem; }
   .footer-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr 1fr 2fr; gap: 32px; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 32px; margin-bottom: 20px; }
   .footer-inner h4 { color: #fff; font-size: .9rem; margin-bottom: 12px; font-weight: 700; }
   .footer-inner a, .footer-inner p { color: rgba(255,255,255,.6); display: block; margin-bottom: 6px; text-decoration: none; }
-  .footer-inner a:hover { color: #4FABD8; }
+  .footer-inner a:hover { color: #4FC8D8; }
   .footer-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .footer-contact-block h5 { color: #fff; font-size: .85rem; font-weight: 700; margin-bottom: 8px; }
   .footer-contact-block p, .footer-contact-block a { font-size: .82rem; color: rgba(255,255,255,.6); display: block; margin-bottom: 4px; }
@@ -418,10 +418,10 @@
   .info-section-title {
     font-size: 1.4rem;
     font-weight: 900;
-    color: var(--teal-dark, #00558C);
+    color: var(--teal-dark, #007C8C);
     margin-bottom: 32px;
     padding-bottom: 12px;
-    border-bottom: 2px solid var(--teal, #0079C8);
+    border-bottom: 2px solid var(--teal, #00B1C8);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -437,13 +437,13 @@
     border: 1px solid #dceef0;
     border-radius: 14px;
     padding: 24px;
-    box-shadow: 0 2px 12px rgba(0,121,200,.06);
+    box-shadow: 0 2px 12px rgba(0,177,200,.06);
   }
   .info-card.full-width { grid-column: 1 / -1; }
   .info-card h4 {
     font-size: .88rem;
     font-weight: 700;
-    color: var(--teal, #0079C8);
+    color: var(--teal, #00B1C8);
     letter-spacing: .08em;
     text-transform: uppercase;
     margin-bottom: 14px;
@@ -453,38 +453,38 @@
   }
   .info-card h4 svg { flex-shrink: 0; }
   .fee-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-  .fee-table tr { border-bottom: 1px solid #EEF3F6; }
+  .fee-table tr { border-bottom: 1px solid #EEF5F6; }
   .fee-table tr:last-child { border-bottom: none; }
-  .fee-table td { padding: 8px 4px; color: #1A2C4A; }
-  .fee-table td:last-child { font-weight: 700; color: var(--teal-dark, #00558C); text-align: right; }
+  .fee-table td { padding: 8px 4px; color: #1A444A; }
+  .fee-table td:last-child { font-weight: 700; color: var(--teal-dark, #007C8C); text-align: right; }
   .info-list { list-style: none; padding: 0; }
   .info-list li {
     padding: 6px 0 6px 20px;
     position: relative;
     font-size: .9rem;
-    color: #3A505C;
+    color: #3A585C;
     line-height: 1.6;
-    border-bottom: 1px solid #EEF3F6;
+    border-bottom: 1px solid #EEF5F6;
   }
   .info-list li:last-child { border-bottom: none; }
   .info-list li::before {
     content: '›';
     position: absolute;
     left: 0;
-    color: var(--teal, #0079C8);
+    color: var(--teal, #00B1C8);
     font-weight: 700;
   }
   .info-highlight {
-    background: linear-gradient(135deg, rgba(0,121,200,.08), rgba(0,121,200,.03));
-    border: 1.5px solid rgba(0,121,200,.25);
+    background: linear-gradient(135deg, rgba(0,177,200,.08), rgba(0,177,200,.03));
+    border: 1.5px solid rgba(0,177,200,.25);
     border-radius: 10px;
     padding: 14px 16px;
     font-size: .88rem;
-    color: #1A2C4A;
+    color: #1A444A;
     line-height: 1.7;
     margin-bottom: 12px;
   }
-  .info-highlight strong { color: var(--teal-dark, #00558C); }
+  .info-highlight strong { color: var(--teal-dark, #007C8C); }
   .info-notice {
     background: #fffbea;
     border: 1px solid #ffe082;
@@ -502,8 +502,8 @@
     margin-top: 4px;
   }
   .badge-item {
-    background: var(--teal-light, #E6F3FB);
-    color: var(--teal-dark, #00558C);
+    background: var(--teal-light, #E6F9FB);
+    color: var(--teal-dark, #007C8C);
     border-radius: 999px;
     padding: 5px 14px;
     font-size: .84rem;
@@ -575,7 +575,7 @@
           <span class="material-symbols-outlined">school</span>
         </div>
         <h3>保安檢查員初訓</h3>
-        <p style="margin:8px 0 12px;padding:8px 12px;background:rgba(0,121,200,.1);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;font-size:.85rem;color:var(--teal-dark);font-weight:500;">＊初訓與複訓學員均可參加，效力相同</p>
+        <p style="margin:8px 0 12px;padding:8px 12px;background:rgba(0,177,200,.1);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;font-size:.85rem;color:var(--teal-dark);font-weight:500;">＊初訓與複訓學員均可參加，效力相同</p>
         <div class="meta-row">
           <span class="material-symbols-outlined">schedule</span>
           <span>上課時數：8 小時</span>
@@ -610,12 +610,12 @@
             測　驗（1小時）
           </li>
         </ul>
-        <p style="font-size:.82rem;color:#5A707C;line-height:1.7;margin-top:10px;padding:10px 12px;background:#f8f8f8;border-radius:6px;">
+        <p style="font-size:.82rem;color:#5A787C;line-height:1.7;margin-top:10px;padding:10px 12px;background:#f8f8f8;border-radius:6px;">
           採筆試方式進行，測驗成績以 <strong style="color:#e53e3e;">七十分</strong> 為合格。<br>
           筆試之題目，由中央主管機關統一製作題庫於網頁公告，並不定期更新。<br>
           題型：選擇20題，是非20題，問答2題。（選擇、是非每題2分，問答每題10分）
         </p>
-        <a href="register.html?type=inspector&kind=初訓" class="btn-register" style="margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#0079C8,#00558C);color:#fff;padding:14px 24px;border-radius:10px;font-weight:700;font-size:.95rem;text-decoration:none;">
+        <a href="register.html?type=inspector&kind=初訓" class="btn-register" style="margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#00B1C8,#007C8C);color:#fff;padding:14px 24px;border-radius:10px;font-weight:700;font-size:.95rem;text-decoration:none;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
           立即報名
         </a>
@@ -661,12 +661,12 @@
             測　驗（1小時）
           </li>
         </ul>
-        <p style="font-size:.82rem;color:#5A707C;line-height:1.7;margin-top:10px;padding:10px 12px;background:#f8f8f8;border-radius:6px;">
+        <p style="font-size:.82rem;color:#5A787C;line-height:1.7;margin-top:10px;padding:10px 12px;background:#f8f8f8;border-radius:6px;">
           採筆試方式進行，測驗成績以 <strong style="color:#e53e3e;">七十分</strong> 為合格。<br>
           筆試之題目，由中央主管機關統一製作題庫於網頁公告，並不定期更新。<br>
           題型：選擇20題，是非20題，問答2題。（選擇、是非每題2分，問答每題10分）
         </p>
-        <a href="register.html?type=inspector&kind=初訓" class="btn-register" style="margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#0079C8,#00558C);color:#fff;padding:14px 24px;border-radius:10px;font-weight:700;font-size:.95rem;text-decoration:none;">
+        <a href="register.html?type=inspector&kind=初訓" class="btn-register" style="margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#00B1C8,#007C8C);color:#fff;padding:14px 24px;border-radius:10px;font-weight:700;font-size:.95rem;text-decoration:none;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
           立即報名
         </a>
@@ -697,23 +697,23 @@
 
 
 <!-- ── 繳費方式 / 攜帶物品 ── -->
-<section style="background:#F6F9FA;padding:40px 24px 56px;">
+<section style="background:#F6FAFA;padding:40px 24px 56px;">
   <div style="max-width:1100px;margin:0 auto;">
-    <div style="border:1px solid #D0E1E8;border-radius:12px;overflow:hidden;background:#fff;">
-      <div style="display:flex;border-bottom:2px solid #D0E1E8;background:#F6F9FA;" id="rn-nav">
-        <button style="flex:1;padding:13px 0;font-size:.9rem;font-weight:700;color:#00558C;background:#fff;border:none;border-bottom:3px solid #0079C8;cursor:pointer;font-family:'Noto Sans TC',sans-serif;" onclick="rnTab('rn-p',this)">繳費方式</button>
-        <button style="flex:1;padding:13px 0;font-size:.9rem;font-weight:700;color:#5A707C;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-family:'Noto Sans TC',sans-serif;" onclick="rnTab('rn-i',this)">上課應備物品</button>
+    <div style="border:1px solid #D0E5E8;border-radius:12px;overflow:hidden;background:#fff;">
+      <div style="display:flex;border-bottom:2px solid #D0E5E8;background:#F6FAFA;" id="rn-nav">
+        <button style="flex:1;padding:13px 0;font-size:.9rem;font-weight:700;color:#007C8C;background:#fff;border:none;border-bottom:3px solid #00B1C8;cursor:pointer;font-family:'Noto Sans TC',sans-serif;" onclick="rnTab('rn-p',this)">繳費方式</button>
+        <button style="flex:1;padding:13px 0;font-size:.9rem;font-weight:700;color:#5A787C;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-family:'Noto Sans TC',sans-serif;" onclick="rnTab('rn-i',this)">上課應備物品</button>
       </div>
       <div id="rn-p" style="padding:24px 28px;">
-          <p style="font-size:.82rem;color:#5A707C;margin-bottom:12px;">學員專屬匯款帳號（請勿扣除匯費）</p>
-          <div style="background:#E6F3FB;border-left:3px solid #0079C8;border-radius:0 6px 6px 0;padding:12px 16px;font-size:.88rem;color:#1A2C4A;line-height:1.8;margin-bottom:14px;">
+          <p style="font-size:.82rem;color:#5A787C;margin-bottom:12px;">學員專屬匯款帳號（請勿扣除匯費）</p>
+          <div style="background:#E6F9FB;border-left:3px solid #00B1C8;border-radius:0 6px 6px 0;padding:12px 16px;font-size:.88rem;color:#1A444A;line-height:1.8;margin-bottom:14px;">
             銀行：第一銀行（代號 007）<br>
             分行：營業部<br>
             帳號：<strong>41704 + 身分證字號後9碼數字</strong>（不含英文字母）<br>
             戶名：財團法人消防教育學術研究基金會
           </div>
-          <p style="font-size:.82rem;color:#5A707C;margin-bottom:8px;">退費辦法（依職業訓練機構設立及管理辦法第16條）</p>
-          <ol style="padding-left:18px;font-size:.86rem;color:#3A505C;line-height:1.8;margin:0;">
+          <p style="font-size:.82rem;color:#5A787C;margin-bottom:8px;">退費辦法（依職業訓練機構設立及管理辦法第16條）</p>
+          <ol style="padding-left:18px;font-size:.86rem;color:#3A585C;line-height:1.8;margin:0;">
             <li>開訓前退訓者，退還所繳費用之<strong>七成</strong>（扣除必要手續費）</li>
             <li>開課當日提出退費申請者，<strong>不予退費</strong></li>
             <li>課前已開立報名證明者，開立後<strong>恕不退款</strong></li>
@@ -721,18 +721,18 @@
           </ol>
       </div>
       <div id="rn-i" style="padding:24px 28px;display:none;">
-          <p style="font-size:.82rem;font-weight:700;color:#00558C;margin-bottom:6px;">初訓學員</p>
+          <p style="font-size:.82rem;font-weight:700;color:#007C8C;margin-bottom:6px;">初訓學員</p>
           <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
-            <span style="background:#E6F3FB;color:#00558C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">照片一張（一吋尤佳，背面油性筆書寫姓名）</span>
-            <span style="background:#E6F3FB;color:#00558C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">身份證明文件（備查）</span>
-            <span style="background:#E6F3FB;color:#00558C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">原字筆（作答用）</span>
+            <span style="background:#E6F9FB;color:#007C8C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">照片一張（一吋尤佳，背面油性筆書寫姓名）</span>
+            <span style="background:#E6F9FB;color:#007C8C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">身份證明文件（備查）</span>
+            <span style="background:#E6F9FB;color:#007C8C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">原字筆（作答用）</span>
           </div>
-          <p style="font-size:.82rem;font-weight:700;color:#00558C;margin-bottom:6px;">複訓學員</p>
+          <p style="font-size:.82rem;font-weight:700;color:#007C8C;margin-bottom:6px;">複訓學員</p>
           <div style="display:flex;flex-wrap:wrap;gap:6px;">
-            <span style="background:#E6F3FB;color:#00558C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">照片一張（一吋尤佳，背面油性筆書寫姓名）</span>
-            <span style="background:#E6F3FB;color:#00558C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">身份證明文件（備查）</span>
-            <span style="background:#E6F3FB;color:#00558C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">原字筆（作答用）</span>
-            <span style="background:#E6F3FB;color:#00558C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">上期證書影本</span>
+            <span style="background:#E6F9FB;color:#007C8C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">照片一張（一吋尤佳，背面油性筆書寫姓名）</span>
+            <span style="background:#E6F9FB;color:#007C8C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">身份證明文件（備查）</span>
+            <span style="background:#E6F9FB;color:#007C8C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">原字筆（作答用）</span>
+            <span style="background:#E6F9FB;color:#007C8C;border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:600;">上期證書影本</span>
           </div>
       </div>
     </div>
@@ -744,9 +744,9 @@ function rnTab(id, btn) {
   document.getElementById('rn-i').style.display = 'none';
   document.getElementById(id).style.display = 'block';
   document.querySelectorAll('#rn-nav button').forEach(function(b){
-    b.style.color='#5A707C'; b.style.background='none'; b.style.borderBottom='3px solid transparent';
+    b.style.color='#5A787C'; b.style.background='none'; b.style.borderBottom='3px solid transparent';
   });
-  btn.style.color='#00558C'; btn.style.background='#fff'; btn.style.borderBottom='3px solid #0079C8';
+  btn.style.color='#007C8C'; btn.style.background='#fff'; btn.style.borderBottom='3px solid #00B1C8';
 }
 </script>
 
