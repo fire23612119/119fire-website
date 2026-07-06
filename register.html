@@ -3039,6 +3039,7 @@ function renderConfirm() {
         若有名額釋出，本會將依候補順序主動聯繫您，請留意電話與 Email 通知。
       </div>
     </div>` : '';
+  const pseudoSession = { region: selected.region, course: b.course };
   document.getElementById('confirm-detail').innerHTML = `
     ${waitlistBanner}
     <div class="confirm-row">
@@ -3058,12 +3059,12 @@ function renderConfirm() {
       <div class="confirm-value">${b.label}</div>
     </div>
     <div class="confirm-row">
-      <div class="confirm-label">上課日期</div>
-      <div class="confirm-value">${b.dates}</div>
+      <div class="confirm-label">上課時間</div>
+      <div class="confirm-value">${getSessionTime(pseudoSession)}</div>
     </div>
     <div class="confirm-row">
       <div class="confirm-label">上課地點</div>
-      <div class="confirm-value">${b.location}</div>
+      <div class="confirm-value">${getSessionAddress(pseudoSession)}</div>
     </div>
     <div class="confirm-row">
       <div class="confirm-label">招生名額</div>
