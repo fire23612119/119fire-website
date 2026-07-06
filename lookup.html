@@ -377,7 +377,7 @@
           </div>
           <div class="result-table-wrap" id="table-cert">
             <table class="result-table">
-              <thead><tr><th>課程名稱</th><th>公文核准字號</th><th>證書編號</th></tr></thead>
+              <thead><tr><th>課程名稱</th><th>證書有效期</th><th>公文核准字號</th><th>證書編號</th></tr></thead>
               <tbody id="tbody-cert"></tbody>
             </table>
           </div>
@@ -576,7 +576,7 @@ async function queryCert() {
     tbody.innerHTML = '';
     data.records.forEach(function(r) {
       var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + r.course + '</td><td>' + r.approvalNo + '</td><td>' + r.certNo + '</td>';
+      tr.innerHTML = '<td>' + r.course + '</td><td>' + r.validity + '</td><td>' + r.approvalNo + '</td><td>' + r.certNo + '</td>';
       tbody.appendChild(tr);
     });
     document.getElementById('table-cert').style.display = 'block';
