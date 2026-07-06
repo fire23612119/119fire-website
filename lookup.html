@@ -355,12 +355,12 @@
             </div>
             <div class="form-group">
               <label for="c-id">身分證字號</label>
-              <input type="text" id="c-id" placeholder="A123456789" maxlength="10" style="letter-spacing:.06em">
+              <input type="text" id="c-id" placeholder="A123456789" maxlength="10" style="letter-spacing:.06em" onfocus="if(this.readOnly){this.readOnly=false;this.value='';}">
               <span class="form-hint">英文字母大寫開頭，共 10 碼</span>
             </div>
             <div class="form-group">
               <label for="c-birth">出生年月日</label>
-              <input type="text" id="c-birth" placeholder="yyyy/mm/dd" maxlength="10">
+              <input type="text" id="c-birth" placeholder="yyyy/mm/dd" maxlength="10" onfocus="if(this.readOnly){this.readOnly=false;this.value='';}">
               <span class="form-hint">請輸入西元年，格式：yyyy/mm/dd</span>
             </div>
           </div>
@@ -377,7 +377,7 @@
           </div>
           <div class="result-table-wrap" id="table-cert">
             <table class="result-table">
-              <thead><tr><th>證書號碼</th><th>課程名稱</th><th>結業日期</th><th>有效期限</th></tr></thead>
+              <thead><tr><th>課程名稱</th><th>公文核准字號</th><th>證書編號</th></tr></thead>
               <tbody id="tbody-cert"></tbody>
             </table>
           </div>
@@ -543,20 +543,56 @@ async function queryRecord() {
   }
 }
 
+const CERT_API = 'https://script.google.com/macros/s/AKfycbw-1WI-hsfMRe6THZTmer8Siire_tdNf6INOvVcAqpCywSgqba82NBmu8TL7H9LyBX_sA/exec';
+
 async function queryCert() {
-  var name = document.getElementById('c-name').value.trim();
-  var id   = document.getElementById('c-id').value.trim().toUpperCase();
-  if (!name || !id) { alert('請輸入姓名與身分證字號'); return; }
+  var name  = document.getElementById('c-name').value.trim();
+  var id    = document.getElementById('c-id').value.trim().toUpperCase();
+  var birth = document.getElementById('c-birth').value.trim();
+
+  if (!name || !id || !birth) { alert('請輸入姓名、身分證字號與出生年月日'); return; }
   if (!/^[A-Z][12]\d{8}$/.test(id)) { alert('身分證字號格式不正確，請確認後再試'); return; }
+  if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(birth)) { alert('出生年月日格式不正確，請填寫西元年，格式：yyyy/mm/dd'); return; }
+
   hideAll('cert');
   document.getElementById('loading-cert').style.display = 'block';
+
   try {
-    await new Promise(r => setTimeout(r, 900));
+    const url  = CERT_API + '?name=' + encodeURIComponent(name) + '&id=' + encodeURIComponent(id) + '&birth=' + encodeURIComponent(birth);
+    const data = await jsonp(url);
+
     document.getElementById('loading-cert').style.display = 'none';
-    showNotice('cert', '⚙️ &nbsp;查詢功能建置中，正式上線後即可使用。如需緊急查詢，請電洽 <strong>(02)&nbsp;2361-2119</strong>。');
+
+    if (data.status === 'not_found') {
+      document.getElementById('empty-cert').style.display = 'block';
+      return;
+    }
+    if (data.status === 'error') {
+      showNotice('cert', '查詢失敗：' + data.message);
+      return;
+    }
+
+    var tbody = document.getElementById('tbody-cert');
+    tbody.innerHTML = '';
+    data.records.forEach(function(r) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + r.course + '</td><td>' + r.approvalNo + '</td><td>' + r.certNo + '</td>';
+      tbody.appendChild(tr);
+    });
+    document.getElementById('table-cert').style.display = 'block';
+
+    // 查詢成功後，遮蔽身分證字號與出生年月日，避免截圖外流完整個資
+    var idInput = document.getElementById('c-id');
+    idInput.value = id.substring(0,4) + '****' + id.substring(8);
+    idInput.readOnly = true;
+    var birthInput = document.getElementById('c-birth');
+    var by = birth.split('/')[0] || '';
+    birthInput.value = by + '/**/**';
+    birthInput.readOnly = true;
+
   } catch(e) {
     document.getElementById('loading-cert').style.display = 'none';
-    showNotice('cert', '查詢時發生錯誤，請稍後再試或來電洽詢。');
+    showNotice('cert', '查詢時發生錯誤，請稍後再試或來電洽詢 <strong>(02)&nbsp;2361-2119</strong>。');
   }
 }
 
