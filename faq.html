@@ -1,267 +1,188 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>常見問題 Q&A｜財團法人消防教育學術研究基金會</title>
+<title>常見問題 Q&amp;A — 財團法人消防教育學術研究基金會</title>
 <link rel="icon" type="image/png" href="logo_nav.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --teal-900:#0D373D;
-    --teal-800:#134248;
-    --teal-700:#1C575F;
-    --cyan-500:#2FB3C4;
-    --cyan-400:#4FC8D8;
-    --cyan-100:#E3F5F7;
-    --bg:#F6FAFA;
-    --surface:#FFFFFF;
-    --text-900:#14272A;
-    --text-600:#5C7174;
-    --border:#DEE7E8;
-    --topbar:#D6ECEF;
-    --accent:#0AB7CE;
-    --accent-soft:#E6F9FB;
+  :root {
+    --teal-900: #0D373D; --teal-800: #134248; --teal-700: #1C575F;
+    --cyan-500: #2FB3C4; --cyan-400: #4FC8D8; --cyan-100: #E3F5F7;
+    --bg: #F6FAFA; --surface: #FFFFFF;
+    --text-900: #14272A; --text-600: #5C7174; --border: #DEE7E8;
+    --topbar: #D6ECEF; --topbar-border: rgba(13,55,61,.08);
   }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg);
-    color:var(--text-900);
-    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{color:inherit;}
-  .wrap{max-width:820px;margin:0 auto;padding:0 20px 80px;}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans TC', sans-serif; color: var(--text-900); background: var(--bg); line-height: 1.7; }
+  h1,h2,h3,h4 { font-family: 'Noto Serif TC', serif; line-height: 1.4; }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
 
-  .page-header{
-    background:linear-gradient(135deg, var(--teal-900), var(--teal-700));
-    color:#fff;
-    padding:46px 20px 54px;
-    position:relative;
-    overflow:hidden;
-  }
-  .page-header::after{
-    content:"";
-    position:absolute;
-    right:-60px;top:-60px;
-    width:220px;height:220px;
-    border:2px solid rgba(255,255,255,0.10);
-    border-radius:50%;
-  }
-  .eyebrow{
-    font-size:13px;
-    letter-spacing:0.14em;
-    color:var(--cyan-400);
-    font-weight:700;
-    margin:0 0 10px;
-    text-transform:uppercase;
-  }
-  .page-header h1{
-    font-family:"Noto Serif TC",serif;
-    font-weight:900;
-    font-size:clamp(26px,5vw,34px);
-    margin:0 0 12px;
-    letter-spacing:0.02em;
-  }
-  .page-header p{
-    margin:0;
-    max-width:520px;
-    color:#CFE7EA;
-    font-size:15px;
-  }
-  .header-inner{max-width:820px;margin:0 auto;position:relative;z-index:1;}
-
-  .search-bar{
-    margin:-26px auto 0;
-    max-width:780px;
-    padding:0 20px;
-    position:relative;
-    z-index:2;
-  }
-  .search-bar input{
-    width:100%;
-    padding:16px 20px;
-    font-size:16px;
-    font-family:inherit;
-    border:1px solid var(--border);
-    border-radius:10px;
-    background:var(--surface);
-    box-shadow:0 8px 24px rgba(13,55,61,0.12);
-    color:var(--text-900);
-  }
-  .search-bar input:focus{
-    outline:none;
-    border-color:var(--accent);
-    box-shadow:0 8px 24px rgba(10,183,206,0.20);
+  header { background: var(--topbar); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(13,55,61,.08); border-bottom: 1px solid var(--topbar-border); }
+  .nav { max-width: 1120px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.02rem; letter-spacing: .02em; color: var(--teal-900); }
+  .nav-links { display: flex; gap: 26px; font-size: .92rem; font-weight: 500; }
+  .nav-links a { color: var(--teal-700); opacity: .85; transition: opacity .15s, color .15s; padding: 6px 0; border-bottom: 2px solid transparent; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--teal-900); border-color: var(--cyan-500); }
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--teal-900); border-radius: 2px; }
+  .nav-drawer { display: none; flex-direction: column; background: var(--topbar); border-top: 1px solid rgba(13,55,61,.1); padding: 8px 24px 16px; }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer a { color: var(--teal-700); padding: 10px 0; border-bottom: 1px solid rgba(13,55,61,.06); font-size: .95rem; font-weight: 500; text-decoration: none; }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
   }
 
-  .cat-nav{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin:26px 0 34px;
+  .hero {
+    background:
+      linear-gradient(100deg, rgba(13,55,61,.82) 0%, rgba(28,87,95,.38) 100%),
+      url('aboutherobg.jpg') center / cover no-repeat;
+    color: #fff; position: relative; overflow: hidden;
   }
-  .cat-btn{
-    font-family:"Noto Sans TC",sans-serif;
-    font-size:13px;
-    font-weight:700;
-    padding:8px 14px;
-    border-radius:999px;
-    border:1px solid var(--border);
-    background:var(--surface);
-    color:var(--text-600);
-    cursor:pointer;
-    transition:all .15s ease;
+  .hero::after {
+    content: ''; position: absolute;
+    right: -120px; top: -120px; width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(47,179,196,.28) 0%, transparent 70%);
+    pointer-events: none;
   }
-  .cat-btn:hover{border-color:var(--accent);}
-  .cat-btn.active{
-    background:var(--teal-900);
-    color:#fff;
-    border-color:var(--teal-900);
+  .hero-inner { max-width: 1120px; margin: 0 auto; padding: 72px 24px 56px; position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+    border-radius: 999px; padding: 6px 16px;
+    font-size: .82rem; font-weight: 600; letter-spacing: .08em; margin-bottom: 24px;
   }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; margin-bottom: 16px; }
+  .hero h1 em { font-style: normal; color: var(--cyan-400); }
+  .hero p { font-size: 1rem; color: rgba(255,255,255,.82); max-width: 560px; }
 
-  .section{margin-bottom:38px;}
-  .section-head{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:14px;
+  .search-wrap { max-width: 780px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; margin-top: -28px; }
+  .search-wrap input {
+    width: 100%; padding: 16px 20px; font-size: 15px; font-family: inherit;
+    border: 1px solid var(--border); border-radius: 12px; background: var(--surface);
+    box-shadow: 0 8px 28px rgba(13,55,61,.14); color: var(--text-900);
   }
-  .tag-num{
-    flex:none;
-    width:38px;height:38px;
-    border-radius:8px;
-    background:var(--teal-900);
-    color:#fff;
-    display:flex;align-items:center;justify-content:center;
-    position:relative;
-  }
-  .tag-num::before{
-    content:"";
-    position:absolute;
-    left:6px;top:50%;
-    transform:translateY(-50%);
-    width:6px;height:6px;
-    border-radius:50%;
-    background:var(--bg);
-  }
-  .tag-num span{
-    font-family:"Noto Serif TC",serif;
-    font-weight:700;
-    font-size:15px;
-    padding-left:6px;
-  }
-  .section-head h2{
-    font-family:"Noto Serif TC",serif;
-    font-size:19px;
-    font-weight:700;
-    margin:0;
-    color:var(--teal-900);
-  }
+  .search-wrap input:focus { outline: none; border-color: var(--cyan-500); box-shadow: 0 8px 28px rgba(47,179,196,.22); }
 
-  .qa{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-left:4px solid var(--accent);
-    border-radius:6px;
-    margin-bottom:10px;
-    overflow:hidden;
-  }
-  .qa summary{
-    list-style:none;
-    cursor:pointer;
-    padding:16px 44px 16px 18px;
-    font-weight:500;
-    font-size:15.5px;
-    position:relative;
-    color:var(--text-900);
-  }
-  .qa summary::-webkit-details-marker{display:none;}
-  .qa summary::after{
-    content:"+";
-    position:absolute;
-    right:18px;top:50%;
-    transform:translateY(-50%);
-    font-size:20px;
-    color:var(--accent);
-    font-weight:700;
-    transition:transform .15s ease;
-  }
-  .qa[open] summary::after{
-    content:"−";
-  }
-  .qa .a{
-    padding:0 18px 18px 18px;
-    color:var(--text-600);
-    font-size:14.5px;
-  }
-  .qa .a p{margin:0 0 10px;}
-  .qa .a p:last-child{margin-bottom:0;}
+  .page-body { max-width: 900px; margin: 0 auto; padding: 48px 24px 96px; }
 
-  table.cmp{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:6px;
-    font-size:14px;
+  .cat-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+  .cat-btn {
+    font-family: 'Noto Sans TC', sans-serif; font-size: 13px; font-weight: 700;
+    padding: 8px 15px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text-600); cursor: pointer; transition: all .15s ease;
   }
-  table.cmp th,table.cmp td{
-    border:1px solid var(--border);
-    padding:9px 10px;
-    text-align:left;
-    vertical-align:top;
-  }
-  table.cmp th{
-    background:var(--accent-soft);
-    color:var(--teal-900);
-    font-weight:700;
-    width:26%;
-  }
+  .cat-btn:hover { border-color: var(--cyan-500); }
+  .cat-btn.active { background: var(--teal-900); color: #fff; border-color: var(--teal-900); }
 
-  .note{
-    background:var(--accent-soft);
-    border:1px dashed var(--cyan-500);
-    border-radius:8px;
-    padding:14px 16px;
-    font-size:14px;
-    color:var(--text-600);
-    margin-top:22px;
+  .section { margin-bottom: 44px; }
+  .section-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .tag-num {
+    flex: none; width: 38px; height: 38px; border-radius: 10px;
+    background: var(--teal-900); color: #fff; display: flex; align-items: center; justify-content: center;
+    font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: 15px;
   }
-  .note strong{color:var(--teal-900);}
+  .section-head h2 { font-size: 1.15rem; font-weight: 700; color: var(--teal-900); }
 
-  .empty-state{
-    text-align:center;
-    color:var(--text-600);
-    padding:40px 0;
-    display:none;
+  .qa {
+    background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--cyan-500);
+    border-radius: 10px; margin-bottom: 10px; overflow: hidden;
   }
+  .qa summary {
+    list-style: none; cursor: pointer; padding: 16px 44px 16px 18px;
+    font-weight: 500; font-size: 15.5px; position: relative; color: var(--text-900);
+  }
+  .qa summary::-webkit-details-marker { display: none; }
+  .qa summary::after {
+    content: '+'; position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+    font-size: 20px; color: var(--cyan-500); font-weight: 700;
+  }
+  .qa[open] summary::after { content: '−'; }
+  .qa .a { padding: 0 18px 18px; color: var(--text-600); font-size: 14.5px; }
+  .qa .a p { margin: 0 0 10px; }
+  .qa .a p:last-child { margin-bottom: 0; }
+  .qa .a strong { color: var(--teal-900); }
 
-  @media (max-width:480px){
-    .page-header{padding:38px 16px 48px;}
-    .search-bar{padding:0 16px;}
+  table.cmp { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 13.5px; }
+  table.cmp th, table.cmp td { border: 1px solid var(--border); padding: 9px 10px; text-align: left; vertical-align: top; }
+  table.cmp th { background: var(--cyan-100); color: var(--teal-900); font-weight: 700; width: 26%; }
+
+  .faq-note {
+    background: var(--cyan-100); border: 1px dashed var(--cyan-500); border-radius: 10px;
+    padding: 16px 18px; font-size: 14px; color: var(--text-600); margin-top: 8px;
+  }
+  .faq-note strong { color: var(--teal-900); }
+
+  .empty-state { text-align: center; color: var(--text-600); padding: 40px 0; display: none; }
+
+  footer { background: var(--teal-900); color: rgba(255,255,255,.65); padding: 48px 24px 28px; font-size: .88rem; }
+  .footer-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr 1fr 2fr; gap: 32px; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 32px; margin-bottom: 20px; }
+  .footer-inner h4 { color: #fff; font-size: .9rem; margin-bottom: 12px; font-weight: 700; }
+  .footer-inner a, .footer-inner p { color: rgba(255,255,255,.6); display: block; margin-bottom: 6px; text-decoration: none; }
+  .footer-inner a:hover { color: var(--cyan-400); }
+  .footer-contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .footer-contact-block h5 { color: #fff; font-size: .85rem; font-weight: 700; margin-bottom: 8px; }
+  .footer-contact-block p, .footer-contact-block a { font-size: .82rem; color: rgba(255,255,255,.6); display: block; margin-bottom: 4px; }
+  .footer-bottom { max-width: 1120px; margin: 0 auto; text-align: center; font-size: .8rem; color: rgba(255,255,255,.4); padding-top: 4px; }
+
+  @media (max-width: 720px) {
+    .hero-inner { padding: 56px 20px 48px; }
+    .page-body { padding: 40px 20px 72px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+    .footer-contact-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<div id="nav-placeholder"></div>
+<header>
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <img src="logo_nav.png" alt="財團法人消防教育學術研究基金會" height="44" style="display:block;">
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" data-page="index">首頁</a>
+      <a href="about.html" data-page="about">關於我們</a>
+      <a href="index.html#courses" data-page="register">課程報名</a>
+      <a href="lookup.html" data-page="lookup">查詢專區</a>
+      <a href="contact.html" data-page="contact">聯絡我們</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="開啟選單">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-drawer" id="nav-drawer">
+    <a href="index.html" data-page="index">首頁</a>
+    <a href="about.html" data-page="about">關於我們</a>
+    <a href="index.html#courses" data-page="register">課程報名</a>
+    <a href="lookup.html" data-page="lookup">查詢專區</a>
+    <a href="contact.html" data-page="contact">聯絡我們</a>
+  </div>
+</header>
 
-<div class="page-header">
-  <div class="header-inner">
-    <p class="eyebrow">財團法人消防教育學術研究基金會</p>
-    <h1>常見問題 Q&amp;A</h1>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>
+      FAQ
+    </div>
+    <h1>常見<em>問題</em> Q&amp;A</h1>
     <p>彙整報名流程、候補通知、證書效期、上課時數及班別差異等相關說明；如未能於本頁尋得所需資訊，歡迎另行來電洽詢。</p>
   </div>
-</div>
+</section>
 
-<div class="search-bar">
+<div class="search-wrap">
   <input type="text" id="searchInput" placeholder="輸入關鍵字搜尋，例如：候補、效期、時數、監督人…">
 </div>
 
-<div class="wrap">
+<div class="page-body">
 
   <div class="cat-nav" id="catNav">
     <button class="cat-btn active" data-cat="all">全部</button>
@@ -275,10 +196,9 @@
     <button class="cat-btn" data-cat="cat7">匯款與退費</button>
   </div>
 
-  <!-- 0. 報名與候補（新增） -->
   <section class="section" id="cat0" data-cat="cat0">
     <div class="section-head">
-      <div class="tag-num"><span>00</span></div>
+      <div class="tag-num">00</div>
       <h2>報名與候補</h2>
     </div>
 
@@ -313,10 +233,9 @@
     </details>
   </section>
 
-  <!-- 1. 證書效期 -->
   <section class="section" id="cat1" data-cat="cat1">
     <div class="section-head">
-      <div class="tag-num"><span>01</span></div>
+      <div class="tag-num">01</div>
       <h2>證書效期</h2>
     </div>
 
@@ -329,10 +248,9 @@
     </details>
   </section>
 
-  <!-- 2. 上課時數 -->
-  <section class="section" data-cat="cat2">
+  <section class="section" id="cat2" data-cat="cat2">
     <div class="section-head">
-      <div class="tag-num"><span>02</span></div>
+      <div class="tag-num">02</div>
       <h2>上課時數／天數</h2>
     </div>
 
@@ -357,11 +275,10 @@
     </details>
   </section>
 
-  <!-- 3. 監督人 2天 vs 3天 -->
-  <section class="section" data-cat="cat3">
+  <section class="section" id="cat3" data-cat="cat3">
     <div class="section-head">
-      <div class="tag-num"><span>03</span></div>
-      <h2>保安監督人初訓：2天版與3天版的差異</h2>
+      <div class="tag-num">03</div>
+      <h2>保安監督人初訓：2 天班與 3 天班的差異</h2>
     </div>
 
     <details class="qa">
@@ -373,10 +290,9 @@
     </details>
   </section>
 
-  <!-- 4. 監督人 vs 檢查員 -->
-  <section class="section" data-cat="cat4">
+  <section class="section" id="cat4" data-cat="cat4">
     <div class="section-head">
-      <div class="tag-num"><span>04</span></div>
+      <div class="tag-num">04</div>
       <h2>保安監督人與保安檢查員的差異</h2>
     </div>
 
@@ -406,10 +322,9 @@
     </details>
   </section>
 
-  <!-- 5. 通知與收件 -->
   <section class="section" id="cat5" data-cat="cat5">
     <div class="section-head">
-      <div class="tag-num"><span>05</span></div>
+      <div class="tag-num">05</div>
       <h2>上課通知／證書收件／匯款確認</h2>
     </div>
 
@@ -418,13 +333,6 @@
       <div class="a">
         <p>上課通知將於<strong>開課前兩週</strong>統一發送至報名時所留 Email 信箱或傳真號碼。</p>
         <p>倘開課前兩週左右仍未收到，建議先查核信箱垃圾郵件匣，並確認報名時所留聯絡資訊是否正確，如仍未尋獲，請來電本會確認。</p>
-      </div>
-    </details>
-
-    <details class="qa">
-      <summary>候補學員將於何時收到遞補通知？</summary>
-      <div class="a">
-        <p>凡原班級學員取消或名額異動，本會將<strong>即時通知</strong>候補學員遞補，請留意來電、Email 或傳真通知。</p>
       </div>
     </details>
 
@@ -443,6 +351,7 @@
         <p>惟仍建議<strong>保留匯款截圖或單據</strong>，倘上課當日現場核對資料有所出入，出示匯款憑證即可協助核對，俾利加速處理。</p>
       </div>
     </details>
+
     <details class="qa">
       <summary>上課是否會取得收據或發票？</summary>
       <div class="a">
@@ -464,13 +373,11 @@
         <p><strong>學費金額已內含營業稅</strong>，不另行加收。</p>
       </div>
     </details>
-
   </section>
 
-  <!-- 6. 攜帶物品 -->
-  <section class="section" data-cat="cat6">
+  <section class="section" id="cat6" data-cat="cat6">
     <div class="section-head">
-      <div class="tag-num"><span>06</span></div>
+      <div class="tag-num">06</div>
       <h2>上課當天需要攜帶什麼物品？</h2>
     </div>
 
@@ -510,7 +417,7 @@
       <summary>各班別應攜帶物品一覽表</summary>
       <div class="a">
         <table class="cmp">
-          <tr><th>需攜帶物品</th><th>防火初訓</th><th>防火複訓</th><th>保安初訓（兩天班）</th></tr>
+          <tr><th>需攜帶物品</th><th>防火初訓</th><th>防火複訓</th><th>保安初訓（2天班）</th></tr>
           <tr><td>一寸照片一張（背面寫姓名）</td><td>✓</td><td>✓</td><td>✓</td></tr>
           <tr><td>身分證明文件正本（備查）</td><td>✓</td><td>✓</td><td>✓</td></tr>
           <tr><td>原子筆</td><td>✓</td><td>✓</td><td>✓</td></tr>
@@ -519,19 +426,18 @@
         </table>
       </div>
     </details>
+
     <details class="qa">
       <summary>是否得以兩吋照片替代？</summary>
       <div class="a">
         <p>可以。如攜帶兩吋照片，本會將於製作證書時<strong>進行裁剪套用</strong>，不影響證書辦理，無須特地更換為一寸照片。</p>
       </div>
     </details>
-
   </section>
 
-  <!-- 7. 匯款與退費 -->
-  <section class="section" data-cat="cat7">
+  <section class="section" id="cat7" data-cat="cat7">
     <div class="section-head">
-      <div class="tag-num"><span>07</span></div>
+      <div class="tag-num">07</div>
       <h2>匯款與退費</h2>
     </div>
 
@@ -566,32 +472,81 @@
 
   <p class="empty-state" id="emptyState">查無符合的問題，建議直接來電詢問，或換個關鍵字再試試。</p>
 
-  <div class="note">
+  <div class="faq-note">
     <strong>提醒：</strong>上開內容僅供一般參考，實際規定悉以最新公告及主管機關函釋為準；如有個人證書進度、報名或發票查詢需求，請至本會查詢專區辦理。
   </div>
 </div>
 
-<div id="footer-placeholder"></div>
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h4>財團法人消防教育學術研究基金會</h4>
+      <p>以教育推動防災，以研究支持實務</p>
+    </div>
+    <div>
+      <h4>課程資訊</h4>
+      <a href="course-fire.html">防火管理人</a>
+      <a href="course-security.html">保安監督人</a>
+      <a href="course-inspector.html">保安檢查員</a>
+    </div>
+    <div>
+      <h4>網站導覽</h4>
+      <a href="index.html">首頁</a>
+      <a href="about.html">關於我們</a>
+      <a href="register.html">課程報名</a>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <h4 style="margin:0">服務據點</h4>
+      </div>
+      <div class="footer-contact-grid">
+        <div class="footer-contact-block">
+          <h5>台北總管理處</h5>
+          <p>台北市中正區延平南路65號2樓</p>
+          <p>TEL：(02)2361-2119</p>
+          <p>FAX：(02)2361-6915</p>
+          <a href="mailto:feaf@119fire.org.tw">feaf@119fire.org.tw</a>
+        </div>
+        <div class="footer-contact-block">
+          <h5>中區南區營運中心</h5>
+          <p>TEL：(05)283-8119</p>
+          <p>FAX：(05)285-7289</p>
+          <a href="mailto:sfireman119@gmail.com">sfireman119@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 財團法人消防教育學術研究基金會. 版權所有。</div>
+</footer>
 
 <script>
-  const search = document.getElementById('searchInput');
-  const sections = Array.from(document.querySelectorAll('.section'));
-  const catBtns = Array.from(document.querySelectorAll('.cat-btn'));
-  const emptyState = document.getElementById('emptyState');
-  let activeCat = 'all';
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('nav-hamburger');
+  var drawer = document.getElementById('nav-drawer');
+  if (btn && drawer) btn.addEventListener('click', function(){ drawer.classList.toggle('open'); });
+  document.querySelectorAll('[data-page]').forEach(function(link) {
+    if (link.tagName === 'A' && link.getAttribute('data-page') === 'faq') link.classList.add('active');
+  });
+
+  var search = document.getElementById('searchInput');
+  var sections = Array.from(document.querySelectorAll('.section'));
+  var catBtns = Array.from(document.querySelectorAll('.cat-btn'));
+  var emptyState = document.getElementById('emptyState');
+  var activeCat = 'all';
 
   function applyFilters(){
-    const kw = search.value.trim().toLowerCase();
-    let anyVisible = false;
+    var kw = search.value.trim().toLowerCase();
+    var anyVisible = false;
 
-    sections.forEach(sec => {
-      const matchesCat = activeCat === 'all' || sec.dataset.cat === activeCat;
-      let sectionHasMatch = false;
+    sections.forEach(function(sec) {
+      var matchesCat = activeCat === 'all' || sec.dataset.cat === activeCat;
+      var sectionHasMatch = false;
 
-      sec.querySelectorAll('.qa').forEach(qa => {
-        const text = qa.textContent.toLowerCase();
-        const matchesKw = kw === '' || text.includes(kw);
-        const visible = matchesCat && matchesKw;
+      sec.querySelectorAll('.qa').forEach(function(qa) {
+        var text = qa.textContent.toLowerCase();
+        var matchesKw = kw === '' || text.indexOf(kw) !== -1;
+        var visible = matchesCat && matchesKw;
         qa.style.display = visible ? '' : 'none';
         if (visible) sectionHasMatch = true;
       });
@@ -605,17 +560,16 @@
 
   search.addEventListener('input', applyFilters);
 
-  catBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      catBtns.forEach(b => b.classList.remove('active'));
+  catBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      catBtns.forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
       activeCat = btn.dataset.cat;
       applyFilters();
     });
   });
+});
 </script>
-
-<script src="shared.js" data-page="faq"></script>
 
 </body>
 </html>
