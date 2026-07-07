@@ -664,25 +664,31 @@
         <span class="announce-tag-label">最新公告</span>
       </div>
 
-      <!--
-        ▼▼▼ 颱風天／緊急停課公告使用說明 ▼▼▼
-        平常這一區塊維持隱藏狀態（不會顯示在網站上）。
-        遇到颱風天需要公告停課時：
-        1. 到 GitHub 編輯這個檔案（index.html）
-        2. 找到「緊急公告區塊開始」跟「緊急公告區塊結束」這兩行
-        3. 把這兩行本身，以及包住整段的隱藏符號拿掉（也就是移除這段說明文字上方
-           那一行，跟最下面對應的那一行），把日期、內容改成實際情況即可，不需要 PDF
-        4. 公告完畢、恢復正常後，記得把整段重新包回隱藏狀態
-
       <div class="announce-item urgent">
-        <div class="announce-date">2026-08-04　緊急公告</div>
-        <div class="announce-text">
-          因應中度颱風來襲，8月4日（二）高雄場「防火管理人（初訓）」課程停止上課，
-          復課日期另行通知，造成不便敬請見諒。如有疑問請來電 (02)2361-2119 洽詢。
-        </div>
+        <details>
+          <summary style="cursor:pointer;list-style:none;">
+            <div class="announce-date">2026-07-07　緊急公告</div>
+            <div class="announce-text">巴威颱風來襲，請注意防颱措施，並留意各縣市政府的停班課公告！</div>
+          </summary>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid #E8A0A0;font-size:.86rem;color:#7A1010;line-height:1.8;">
+            <strong>115年7月10日　防火管理人複訓　台北地區</strong><br>
+            因應巴威颱風來襲，<span style="color:#D40000;font-weight:800;font-size:1.15em;">如遇台北市政府宣布停課</span>，課程將延期至<strong>115年7月17日</strong>！
+          </div>
+        </details>
       </div>
 
-        ▲▲▲ 緊急公告區塊結束 ▲▲▲
+      <!--
+        ▼▼▼ 颱風天／緊急停課公告使用說明 ▼▼▼
+        目前上方這則是啟用中的緊急公告範例。
+        遇到新的颱風天／緊急停課情況時：
+        1. 到 GitHub 編輯這個檔案（index.html）
+        2. 找到上方 <div class="announce-item urgent"> 那一整塊
+        3. 把日期、標題文字、詳細說明改成實際情況即可，不需要 PDF
+        4. 紅色加粗的那句（例如「如遇台北市政府宣布停課」）就是條件式提醒，
+           記得保留醒目樣式，避免學員誤以為已經確定停課
+        5. 不需要顯示緊急公告時，把上方 announce-item urgent 那一整塊
+           直接刪除即可
+        ▲▲▲ 使用說明結束 ▲▲▲
       -->
 
       <div class="announce-item">
@@ -707,13 +713,13 @@
         <span class="announce-tag-label">常見問題</span>
       </div>
       <div class="announce-item">
-        <a href="faq.html#cat0">候補多久之後會收到通知？</a>
+        <a href="faq.html#cat1">證書效期為何？</a>
       </div>
       <div class="announce-item">
-        <a href="faq.html#cat1">證書效期是多久？</a>
+        <a href="faq.html#cat7">匯款帳號為何？</a>
       </div>
       <div class="announce-item">
-        <a href="faq.html#cat5">證書大概什麼時候會收到？</a>
+        <a href="faq.html#cat2">保安檢查員複訓班次為何開課較少？</a>
       </div>
       <div class="announce-item" style="border-bottom:none;padding-top:8px;">
         <a href="faq.html" style="font-weight:700;color:var(--cyan-500);display:inline-flex;align-items:center;gap:4px;">
