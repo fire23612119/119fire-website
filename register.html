@@ -3021,6 +3021,17 @@ async function renderBatches() {
       allSessions.push({ course: d.course, region: d.region, ...s });
     });
   });
+
+  // 依「開課日期」由早到晚排序，不依資料鍵入的先後順序
+  function getSortKey(s) {
+    const text = s.dates || s.label || '';
+    const m = text.match(/(\d+)年(\d+)月(\d+)日/);
+    if (!m) return 999999;
+    const y = parseInt(m[1], 10), mo = parseInt(m[2], 10), d = parseInt(m[3], 10);
+    return y * 10000 + mo * 100 + d;
+  }
+  allSessions.sort((a, b) => getSortKey(a) - getSortKey(b));
+
   if (allSessions.length === 0) {
     container.innerHTML = `<div class="empty-state">
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
