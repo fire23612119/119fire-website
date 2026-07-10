@@ -229,6 +229,7 @@
       .form-card { padding: 20px 16px; }
     }
   </style>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LfimkwtAAAAALAROwLS7mWhq6CwFMLPz4uRhkfB"></script>
 </head>
 <body>
 
@@ -458,6 +459,10 @@
         </svg>
         送出報名資料
       </button>
+      <p style="font-size:.75rem;color:var(--text-600);text-align:center;margin-top:12px;">
+        本網站已受 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--cyan-500);">Google 隱私權政策</a>
+        與 <a href="https://policies.google.com/terms" target="_blank" rel="noopener" style="color:var(--cyan-500);">服務條款</a> 所規範之 reCAPTCHA 保護。
+      </p>
 
     </form>
   </div>
@@ -593,6 +598,23 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
   btn.disabled = true;
   btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 送出中…';
 
+  let recaptchaToken = '';
+  try {
+    recaptchaToken = await new Promise((resolve, reject) => {
+      grecaptcha.ready(async () => {
+        try {
+          const token = await grecaptcha.execute('6LfimkwtAAAAALAROwLS7mWhq6CwFMLPz4uRhkfB', { action: 'submit_registration' });
+          resolve(token);
+        } catch (err) {
+          reject(err);
+        }
+      });
+    });
+  } catch (e) {
+    // 驗證服務暫時取不到，不擋住學員報名，讓後端自行判斷（沒有token時後端會放行，僅記錄）
+    recaptchaToken = '';
+  }
+
   const payload = {
     course:        courseFull,
     region:        region,
@@ -601,6 +623,7 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
     type:          courseType,
     waitlist:      isWaitlist,
     website:       document.getElementById('f-website').value.trim(),
+    recaptchaToken: recaptchaToken,
     name:          document.getElementById('f-name').value.trim(),
     idNum:         document.getElementById('f-id').value.trim().toUpperCase(),
     birth:         document.getElementById('f-birth').value.trim(),

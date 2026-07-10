@@ -2998,27 +2998,32 @@ function getSessionAddress(session) {
 const INSPECTOR_EARLY_TIME_REGIONS = ['台北市', '中壢區', '苗栗縣'];
 const SUPERVISOR_EARLY_TIME_REGIONS = ['台北市', '中壢區', '苗栗縣'];
 
+function withScheduleNote(t) {
+  if (!t) return t;
+  return t.indexOf('依講師時間安排') > -1 ? t : t + '（依講師時間安排）';
+}
+
 function getSessionTime(session) {
-  if (session.time) return session.time;
+  if (session.time) return withScheduleNote(session.time);
 
   // 保安檢查員初訓為單日課程，時段規則單獨判斷
   if (session.course && session.course.indexOf('保安檢查員') > -1 && session.course.indexOf('初訓') > -1) {
-    return INSPECTOR_EARLY_TIME_REGIONS.indexOf(session.region) > -1
-      ? '09:00～17:30'
-      : '08:30～17:30';
+    return withScheduleNote(
+      INSPECTOR_EARLY_TIME_REGIONS.indexOf(session.region) > -1 ? '09:00～17:30' : '08:30～17:30'
+    );
   }
 
   // 保安監督人（初訓三天／初訓二天／複訓）：每天時間一致，不分第一天第二天
   if (session.course && session.course.indexOf('保安監督人') > -1) {
-    return SUPERVISOR_EARLY_TIME_REGIONS.indexOf(session.region) > -1
-      ? '09:00～17:30'
-      : '08:30～17:00';
+    return withScheduleNote(
+      SUPERVISOR_EARLY_TIME_REGIONS.indexOf(session.region) > -1 ? '09:00～17:30' : '08:30～17:00'
+    );
   }
 
   var info = REGION_INFO[session.region];
-  if (!info) return DEFAULT_CLASS_TIME;
+  if (!info) return withScheduleNote(DEFAULT_CLASS_TIME);
   var kind = getSessionKind(session);
-  return info.time[kind] || DEFAULT_CLASS_TIME;
+  return withScheduleNote(info.time[kind] || DEFAULT_CLASS_TIME);
 }
 
 async function renderBatches() {
