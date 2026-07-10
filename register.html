@@ -2994,8 +2994,26 @@ function getSessionAddress(session) {
   var info = REGION_INFO[session.region];
   return info ? info.address : '地點由本會另行通知';
 }
+const INSPECTOR_EARLY_TIME_REGIONS = ['台北市', '中壢區', '苗栗縣'];
+const SUPERVISOR_EARLY_TIME_REGIONS = ['台北市', '中壢區', '苗栗縣'];
+
 function getSessionTime(session) {
   if (session.time) return session.time;
+
+  // 保安檢查員初訓為單日課程，時段規則單獨判斷
+  if (session.course && session.course.indexOf('保安檢查員') > -1 && session.course.indexOf('初訓') > -1) {
+    return INSPECTOR_EARLY_TIME_REGIONS.indexOf(session.region) > -1
+      ? '09:00～17:30'
+      : '08:30～17:30';
+  }
+
+  // 保安監督人（初訓三天／初訓二天／複訓）：每天時間一致，不分第一天第二天
+  if (session.course && session.course.indexOf('保安監督人') > -1) {
+    return SUPERVISOR_EARLY_TIME_REGIONS.indexOf(session.region) > -1
+      ? '09:00～17:30'
+      : '08:30～17:00';
+  }
+
   var info = REGION_INFO[session.region];
   if (!info) return DEFAULT_CLASS_TIME;
   var kind = getSessionKind(session);
