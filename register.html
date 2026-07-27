@@ -1559,7 +1559,7 @@ const COURSE_DATA = [
         "label": "115年9月16日（三）～9月17日（四）",
         "dates": "115年9月16日（三）～9月17日（四）",
         "location": "桃園區",
-        "quota": "50人",
+        "quota": "30人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E5%88%9D%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%8816%E6%97%A5%EF%BC%88%E4%B8%89%EF%BC%89%EF%BD%9E9%E6%9C%8817%E6%97%A5%EF%BC%88%E5%9B%9B%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       },
@@ -1629,7 +1629,7 @@ const COURSE_DATA = [
         "label": "115年8月15日（六）",
         "dates": "115年8月15日（六）",
         "location": "桃園區",
-        "quota": "50人",
+        "quota": "30人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B48%E6%9C%8815%E6%97%A5%EF%BC%88%E5%85%AD%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B",
         "time": "10:00～17:00"
@@ -1639,7 +1639,7 @@ const COURSE_DATA = [
         "label": "115年9月1日（二）",
         "dates": "115年9月1日（二）",
         "location": "桃園區",
-        "quota": "50人",
+        "quota": "30人",
         "status": "open",
         "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf9p6opVxo5k18uf2g29mp7jpuxrdZ7AIzPCt-I2OZ2gRAM2g/viewform?entry.486152768=%E9%98%B2%E7%81%AB%E7%AE%A1%E7%90%86%E4%BA%BA%EF%BC%88%E8%A4%87%E8%A8%93%EF%BC%89&entry.832269476=%E6%A1%83%E5%9C%92%E5%B8%82&entry.916965652=115%E5%B9%B49%E6%9C%881%E6%97%A5%EF%BC%88%E4%BA%8C%EF%BC%89&entry.64682116=%E5%85%B6%E4%BB%96%E8%AA%B2%E7%A8%8B"
       },
@@ -3053,6 +3053,18 @@ function getSessionTime(session) {
 
 async function renderBatches() {
   const container = document.getElementById('batch-cards');
+
+  // 修正：先前這裡沒有等待即時名額查詢，導致畫面渲染時機是「使用者點擊速度
+  // vs. Google Apps Script 回應速度」的競速結果 —— 查詢還沒回來時顯示手動
+  // status（大多是 open），查詢一回來（約1~2秒）又用真實人數判定為額滿，
+  // 造成同一場次一下開放、一下額滿的閃爍。這裡先顯示讀取中，並等待查詢
+  // 完成（或逾時/失敗自動退回手動 status）後，再用「同一份」資料一次性渲染，
+  // 避免畫面中途改變。
+  container.innerHTML = `<div class="empty-state">
+    <p>正在查詢即時名額，請稍候…</p>
+  </div>`;
+  await ensureCapacityLoaded();
+
   const filtered = COURSE_DATA.filter(d => {
     if (d.type !== selected.courseType) return false;
     if (d.region !== selected.region) return false;
