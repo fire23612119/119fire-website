@@ -3125,15 +3125,8 @@ async function renderBatches() {
     const ongoing = isSessionOngoing(s);
     const isFullNotStarted = !cancelled && isSessionFull(s.course, s.region, s) && !ongoing;
     const locked = cancelled || ongoing; // 已取消或已開課都完全鎖定不可點選
-    const remaining = (!cancelled && !ongoing && !isFullNotStarted) ? getRemainingSeats(s.course, s.region, s) : null;
-    const lowSeats = remaining !== null && remaining > 0 && remaining <= 8;
-
     let statusLabel = cancelled ? '本梯次已取消' : (ongoing ? '已開課' : (isFullNotStarted ? '額滿．可候補' : '報名中'));
     let statusCls = cancelled ? 'status-cancelled' : (ongoing ? 'status-full' : (isFullNotStarted ? 'status-waitlist' : 'status-open'));
-    if (lowSeats) {
-      statusLabel = `🔥 剩餘 ${remaining} 位`;
-      statusCls = 'status-few';
-    }
     return `
     <div class="card batch-card${locked ? ' disabled' : ''}${isFullNotStarted ? ' waitlist' : ''}" data-id="${s.id}"
       onclick="${locked ? '' : `selectBatch('${s.id}', '${s.course.replace(/'/g,"\\'")}', '${s.label}', '${s.dates.replace(/'/g,"\\'")}', '${s.location.replace(/'/g,"\\'")}', '${s.quota}', \`${s.formUrl}\`, ${isFullNotStarted})`}"
