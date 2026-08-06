@@ -464,6 +464,9 @@
         </svg>
         送出報名資料
       </button>
+      <p id="processing-hint" style="display:none;font-size:.85rem;color:var(--cyan-500);text-align:center;margin-top:10px;font-weight:600;">
+        資料處理中，可能需要 30 秒以上，請勿重複點擊或關閉頁面…
+      </p>
       <p style="font-size:.75rem;color:var(--text-600);text-align:center;margin-top:12px;">
         本網站已受 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--cyan-500);">Google 隱私權政策</a>
         與 <a href="https://policies.google.com/terms" target="_blank" rel="noopener" style="color:var(--cyan-500);">服務條款</a> 所規範之 reCAPTCHA 保護。
@@ -602,6 +605,7 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
   const btn = document.getElementById('btn-submit');
   btn.disabled = true;
   btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 送出中…';
+  document.getElementById('processing-hint').style.display = 'block';
 
   let recaptchaToken = '';
   try {
@@ -650,29 +654,59 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
     timestamp:     new Date().toLocaleString('zh-TW'),
   };
 
+  let res, rawText;
   try {
-    const res = await fetch(WEB_APP_URL, {
+    res = await fetch(WEB_APP_URL, {
       method: 'POST',
       body: JSON.stringify(payload),
     });
-    const result = await res.json();
+    rawText = await res.text();
+  } catch (networkErr) {
+    // 真正的網路層級錯誤（斷線、DNS失敗等），這種情況資料極可能沒送出
+    document.getElementById('processing-hint').style.display = 'none';
+    alert('網路連線異常，資料可能未送出，請確認網路後再試一次。\n若重複嘗試仍失敗，請直接來電 (02)2361-2119 / (05)283-8119 洽詢。');
+    btn.disabled = false;
+    btn.innerHTML = isWaitlist
+      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> 送出候補登記'
+      : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> 送出報名資料';
+    return;
+  }
 
-    if (result.status === 'ok') {
-      document.getElementById('reg-form').style.display = 'none';
-      if (isWaitlist) {
-        document.getElementById('success-title').textContent = '候補登記已送出！';
-        document.getElementById('success-message').innerHTML =
-          '感謝您的登記，我們已收到您的候補資料。<br>' +
-          '若有名額釋出，本會將依候補順序主動以電話或 Email 聯繫您。<br>' +
-          '如有疑問請聯絡本會。';
-      }
-      document.getElementById('success-screen').classList.add('show');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      throw new Error(result.message || '送出失敗');
+  document.getElementById('processing-hint').style.display = 'none';
+
+  let result = null;
+  try {
+    result = JSON.parse(rawText);
+  } catch (parseErr) {
+    // 拿到回應了，但內容不是JSON（例如伺服器端執行太久回傳異常頁面）。
+    // 過去的實際案例顯示：這種情況資料通常已經寫入資料庫，所以不能直接說「送出失敗」，
+    // 避免使用者誤以為完全沒送出而重複填寫，改成提示請先確認、勿重複送出。
+    alert(
+      '系統回應時間較長、畫面顯示異常，但您的資料很可能已經送出成功。\n\n' +
+      '請勿重複填寫本表單，若2個工作天內未收到確認信或本會來電，' +
+      '請直接來電 (02)2361-2119 / (05)283-8119 確認報名狀態。'
+    );
+    btn.disabled = false;
+    btn.innerHTML = isWaitlist
+      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> 送出候補登記'
+      : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> 送出報名資料';
+    return;
+  }
+
+  if (result.status === 'ok') {
+    document.getElementById('reg-form').style.display = 'none';
+    if (isWaitlist) {
+      document.getElementById('success-title').textContent = '候補登記已送出！';
+      document.getElementById('success-message').innerHTML =
+        '感謝您的登記，我們已收到您的候補資料。<br>' +
+        '若有名額釋出，本會將依候補順序主動以電話或 Email 聯繫您。<br>' +
+        '如有疑問請聯絡本會。';
     }
-  } catch(err) {
-    alert('送出失敗，請稍後再試或聯絡本會。\n錯誤：' + err.message);
+    document.getElementById('success-screen').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    // 這種情況是後端明確判斷失敗（例如缺欄位、被reCAPTCHA攔截），資料確定沒寫入，可以放心說「送出失敗」
+    alert('送出失敗，請稍後再試或聯絡本會。\n錯誤：' + (result.message || '未知錯誤'));
     btn.disabled = false;
     btn.innerHTML = isWaitlist
       ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> 送出候補登記'
