@@ -533,7 +533,9 @@ async function queryRecord() {
     tbody.innerHTML = '';
     data.records.forEach(function(r) {
       var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + r.course + '</td><td>' + r.region + '</td><td>' + (r.batch || '—') + '</td><td>已報名</td>';
+      var statusText = (r.status === '候補') ? '已報名(候補中)' : '已報名(正取)';
+      var batchDisplay = (r.batch || '—') + (r.classCancelled ? '（取消開班）' : '');
+      tr.innerHTML = '<td>' + r.course + '</td><td>' + r.region + '</td><td>' + batchDisplay + '</td><td>' + statusText + '</td>';
       tbody.appendChild(tr);
     });
     document.getElementById('table-record').style.display = 'block';
