@@ -2889,12 +2889,15 @@ function ensureCapacityLoaded() {
 
 async function loadLiveCapacity() {
   try {
-    const data = await jsonpCapacity(CAPACITY_API + '?action=capacity', 6000);
+    const data = await jsonpCapacity(CAPACITY_API + '?action=capacity', 15000);
     if (data && data.status === 'ok' && data.counts) {
       liveCapacity = data.counts;
+    } else {
+      capacityPromise = null; // 回傳異常，下次再試
     }
   } catch (e) {
     liveCapacity = null; // 查詢失敗，維持 null，後續會自動退回手動 status
+    capacityPromise = null; // 允許下次進入梯次頁時重新查詢
   }
   capacityReady = true;
 }
@@ -3149,6 +3152,7 @@ function getSessionTime(session) {
 }
 
 async function renderBatches() {
+  await ensureCapacityLoaded(); // 先等即時人數查詢完成再畫卡片，避免查詢未回來就顯示「報名中」
   const container = document.getElementById('batch-cards');
   const filtered = COURSE_DATA.filter(d => {
     if (d.type !== selected.courseType) return false;
