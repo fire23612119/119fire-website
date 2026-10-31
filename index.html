@@ -145,6 +145,10 @@
     margin-bottom: 36px;
   }
   .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  @media (max-width: 520px) {
+    .hero-actions { gap: 10px; flex-wrap: nowrap; }
+    .hero-actions .btn { flex: 1; justify-content: center; padding: 13px 12px; }
+  }
   .btn {
     display: inline-flex;
     align-items: center;
@@ -558,6 +562,10 @@
     <h1>守護每一道防線<br>從<em>專業訓練</em>開始</h1>
     <p>財團法人消防教育學術研究基金會長期辦理防火管理人、保安監督人及保安檢查員教育訓練課程，提升從業人員消防安全管理知能，落實防災於日常。</p>
     <div class="hero-actions">
+      <a href="#courses" class="btn btn-primary">
+        課程報名
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
       <a href="about.html" class="btn btn-ghost">了解基金會</a>
     </div>
   </div>
