@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>報名連線診斷｜財團法人消防教育學術研究基金會</title>
+<style>
+  :root { --teal-900:#0D373D; --teal-700:#1C575F; --cyan-500:#2FB3C4; --cyan-100:#E3F5F7; --bg:#F6FAFA; --border:#DEE7E8; --text-600:#5C7174; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', -apple-system, 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); color: #14272A; line-height: 1.6; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 20px 16px 48px; }
+  h1 { font-size: 1.3rem; color: var(--teal-900); }
+  .sub { font-size: .88rem; color: var(--text-600); margin: 4px 0 16px; }
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+  .row { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px dashed var(--border); font-size: .9rem; }
+  .row:last-child { border-bottom: none; }
+  .row b { color: var(--teal-900); flex: 0 0 auto; }
+  .row span { text-align: right; word-break: break-all; }
+  .ok { color: #1A7A3C; font-weight: 700; }
+  .bad { color: #B32020; font-weight: 700; }
+  .wait { color: #9A5500; font-weight: 700; }
+  .verdict { font-size: 1rem; font-weight: 700; padding: 14px 16px; border-radius: 12px; margin-bottom: 12px; line-height: 1.6; }
+  .v-ok { background: #E6F9EE; color: #155E2F; }
+  .v-bad { background: #FFF0F0; color: #7A1010; }
+  .v-wait { background: var(--cyan-100); color: var(--teal-900); }
+  button { font-family: inherit; border: none; border-radius: 999px; padding: 12px 20px; font-weight: 700; font-size: .95rem; width: 100%; margin-top: 8px; }
+  .b1 { background: var(--cyan-500); color: var(--teal-900); }
+  .b2 { background: #fff; color: var(--teal-700); border: 1.5px solid var(--border); }
+  textarea { width: 100%; height: 160px; font-size: .75rem; margin-top: 10px; border: 1px solid var(--border); border-radius: 8px; padding: 8px; font-family: monospace; display: none; }
+  .note { font-size: .8rem; color: var(--text-600); margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>報名連線診斷</h1>
+  <p class="sub">請在無法報名的手機上打開本頁，測試約需 10～60 秒，完成後按「複製診斷結果」傳給本會。</p>
+
+  <div class="verdict v-wait" id="verdict">測試進行中，請稍候…</div>
+
+  <div class="card">
+    <div class="row"><b>測試 1：原本的查詢方式</b><span id="t1" class="wait">測試中…</span></div>
+    <div class="row"><b>測試 2：備用查詢方式</b><span id="t2" class="wait">等待中…</span></div>
+    <div class="row"><b>收到資料大小</b><span id="size">—</span></div>
+    <div class="row"><b>梯次筆數</b><span id="cnt">—</span></div>
+  </div>
+
+  <div class="card" id="env"></div>
+
+  <button class="b1" id="copy">複製診斷結果</button>
+  <button class="b2" id="again">重新測試</button>
+  <textarea id="out" readonly></textarea>
+  <p class="note">本頁只測試名額查詢連線，不會傳送或保存任何個人資料。</p>
+</div>
+
+<script>
+const API = 'https://script.google.com/macros/s/AKfycbzkIaz1EegxlRQ9NjeygvC3iah7nuT7clXfMXc3NKLar94bpMBfJ9Lnb-FFC0sBi734/exec?action=capacity';
+const LIMIT = 60000;
+const R = { 時間: new Date().toLocaleString('zh-TW') };
+const $ = id => document.getElementById(id);
+function set(id, text, cls) { const el = $(id); el.textContent = text; el.className = cls || ''; }
+
+function browserName(ua) {
+  if (/Line\//i.test(ua)) return 'LINE 內建瀏覽器';
+  if (/FBAN|FBAV|FB_IAB/i.test(ua)) return 'Facebook 內建瀏覽器';
+  if (/Instagram/i.test(ua)) return 'Instagram 內建瀏覽器';
+  if (/MicroMessenger/i.test(ua)) return '微信內建瀏覽器';
+  if (/SamsungBrowser/i.test(ua)) return 'Samsung 網際網路';
+  if (/EdgA|EdgiOS|Edg\//i.test(ua)) return 'Edge';
+  if (/OPR|Opera/i.test(ua)) return 'Opera';
+  if (/Firefox|FxiOS/i.test(ua)) return 'Firefox';
+  if (/CriOS/i.test(ua)) return 'Chrome（iPhone）';
+  if (/Chrome/i.test(ua)) return 'Chrome';
+  if (/Safari/i.test(ua)) return 'Safari';
+  return '其他';
+}
+function envInfo() {
+  const ua = navigator.userAgent;
+  let ls = '可用'; try { localStorage.setItem('_t', '1'); localStorage.removeItem('_t'); } catch (e) { ls = '無法使用'; }
+  const conn = navigator.connection ? (navigator.connection.effectiveType || '') + (navigator.connection.saveData ? '（已開啟省流量模式）' : '') : '無法得知';
+  Object.assign(R, {
+    瀏覽器: browserName(ua), 系統: /iPhone|iPad/.test(ua) ? 'iOS' : (/Android/.test(ua) ? 'Android' : '其他'),
+    網路類型: conn, 本機儲存: ls, 網路狀態: navigator.onLine ? '已連線' : '離線', UA: ua,
+  });
+  $('env').innerHTML = ['瀏覽器', '系統', '網路類型', '本機儲存', '網路狀態']
+    .map(k => `<div class="row"><b>${k}</b><span>${R[k]}</span></div>`).join('');
+}
+
+function testJsonp() {
+  return new Promise(resolve => {
+    const t0 = Date.now(), cb = 'diag_' + t0, s = document.createElement('script');
+    let called = false, done = false;
+    const end = (ok, msg) => { if (done) return; done = true; s.remove(); resolve({ ok, msg, ms: Date.now() - t0 }); };
+    window[cb] = d => { called = true; const n = d && d.counts ? Object.keys(d.counts).length : 0; end(n > 0, n > 0 ? '成功' : '資料為空'); };
+    s.onerror = () => end(false, '被阻擋或無法連線');
+    s.onload = () => setTimeout(() => { if (!called) end(false, '回應不完整或被改寫'); }, 500);
+    s.src = API + '&callback=' + cb + '&_t=' + t0;
+    document.body.appendChild(s);
+    setTimeout(() => end(false, '超過 60 秒沒有回應'), LIMIT);
+  });
+}
+async function testFetch() {
+  const t0 = Date.now();
+  try {
+    const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), LIMIT);
+    const r = await fetch(API + '&_t=' + t0, { cache: 'no-store', signal: ctrl.signal });
+    const txt = await r.text(); clearTimeout(timer);
+    let n = 0, complete = true;
+    try { const d = JSON.parse(txt); n = d && d.counts ? Object.keys(d.counts).length : 0; } catch (e) { complete = false; }
+    return { ok: complete && n > 0, msg: complete ? (n > 0 ? '成功' : '資料為空') : '回應不完整（資料被截斷）', ms: Date.now() - t0, bytes: txt.length, n, complete, http: r.status };
+  } catch (e) {
+    return { ok: false, msg: e.name === 'AbortError' ? '超過 60 秒沒有回應' : '被阻擋或無法連線', ms: Date.now() - t0 };
+  }
+}
+const sec = ms => (ms / 1000).toFixed(1) + ' 秒';
+
+async function run() {
+  $('verdict').className = 'verdict v-wait'; $('verdict').textContent = '測試進行中，請稍候（網路慢時可能需要 1 分鐘）…';
+  set('t1', '測試中…', 'wait'); set('t2', '等待中…', 'wait'); set('size', '—'); set('cnt', '—');
+  envInfo();
+  const j = await testJsonp();
+  R.測試1 = j.msg + '（' + sec(j.ms) + '）';
+  set('t1', R.測試1, j.ok ? 'ok' : 'bad');
+  set('t2', '測試中…', 'wait');
+  const f = await testFetch();
+  R.測試2 = f.msg + '（' + sec(f.ms) + (f.http ? '，HTTP ' + f.http : '') + '）';
+  R.資料大小 = f.bytes != null ? f.bytes + ' 字' + (f.complete ? '（完整）' : '（不完整）') : '—';
+  R.梯次筆數 = f.n || '—';
+  set('t2', R.測試2, f.ok ? 'ok' : 'bad'); set('size', R.資料大小, f.complete === false ? 'bad' : ''); set('cnt', String(R.梯次筆數));
+
+  let v, cls;
+  if (j.ok && j.ms <= 8000) { v = '✅ 這台手機連線正常。若仍無法報名，請重新整理報名頁（可能載入了舊版頁面）。'; cls = 'v-ok'; }
+  else if (j.ok) { v = `⚠️ 連線正常但很慢（${sec(j.ms)}）。舊版報名頁等 8 秒就放棄，這就是無法報名的原因；新版已修正。`; cls = 'v-bad'; }
+  else if (f.complete === false) { v = '❌ 這台手機收到的名額資料被截斷了。通常是瀏覽器的「省流量／精簡模式」、廣告阻擋或防毒 App 造成。請關閉這類功能，或改用其他瀏覽器（例如 Chrome）再試。'; cls = 'v-bad'; }
+  else if (f.ok) { v = '⚠️ 原本的查詢方式被這台手機擋下，但備用方式可以。新版報名頁會自動改用備用方式。'; cls = 'v-bad'; }
+  else { v = '❌ 兩種查詢方式都失敗。可能是瀏覽器阻擋了 Google 的連線（例如 LINE 內建瀏覽器、廣告阻擋）。請改用 Chrome 或 Safari 打開報名頁。'; cls = 'v-bad'; }
+  R.判斷 = v.replace(/^[^\s]+\s/, '');
+  $('verdict').className = 'verdict ' + cls; $('verdict').textContent = v;
+}
+
+$('copy').addEventListener('click', async () => {
+  const text = Object.entries(R).map(([k, v]) => k + '：' + v).join('\n');
+  const out = $('out'); out.value = text; out.style.display = 'block';
+  try { await navigator.clipboard.writeText(text); $('copy').textContent = '已複製，請貼到 LINE 或 Email 傳給本會'; }
+  catch (e) { out.select(); $('copy').textContent = '請長按下方文字全選並複製'; }
+});
+$('again').addEventListener('click', run);
+run();
+</script>
+</body>
+</html>

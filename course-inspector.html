@@ -841,5 +841,25 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+<script>
+/* 預先查詢報名名額（2026-10-31 新增）
+   學員瀏覽首頁或課程介紹時，背景先把名額查好存在這台裝置，
+   進入報名頁就能立即顯示，不必在網路慢的手機上等候。10 分鐘內查過就不重查。 */
+(function () {
+  var KEY = 'feaf_capacity_v2';
+  var API = 'https://script.google.com/macros/s/AKfycbzkIaz1EegxlRQ9NjeygvC3iah7nuT7clXfMXc3NKLar94bpMBfJ9Lnb-FFC0sBi734/exec';
+  try { var c = JSON.parse(localStorage.getItem(KEY) || 'null'); if (c && Date.now() - c.t < 10 * 60 * 1000) return; } catch (e) { return; }
+  setTimeout(function () {
+    var cb = 'capPre_' + Date.now(), s = document.createElement('script');
+    window[cb] = function (d) {
+      try { if (d && d.status === 'ok' && d.counts && Object.keys(d.counts).length) localStorage.setItem(KEY, JSON.stringify({ t: Date.now(), counts: d.counts })); } catch (e) {}
+      setTimeout(function () { try { delete window[cb]; } catch (e) {} }, 0); s.remove();
+    };
+    s.onerror = function () { s.remove(); };
+    s.src = API + '?action=capacity&callback=' + cb + '&_t=' + Date.now();
+    document.body.appendChild(s);
+  }, 1200);
+})();
+</script>
 </body>
 </html>

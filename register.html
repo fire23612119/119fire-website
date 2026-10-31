@@ -3166,7 +3166,7 @@ function showStep(n) {
    ── 按「前往填寫報名資料」前會再查一次最新名額，若剛好額滿會自動改為候補登記。
 ===================================================================== */
 const CAPACITY_API = 'https://script.google.com/macros/s/AKfycbzkIaz1EegxlRQ9NjeygvC3iah7nuT7clXfMXc3NKLar94bpMBfJ9Lnb-FFC0sBi734/exec';
-const CAPACITY_FAILSAFE = 'block';              // 'block' | 'allow'，說明見上方
+const CAPACITY_FAILSAFE = 'mark';               // 'mark'（2026-10-31 起）：查不到名額時照常報名並加註，由本會人工確認
 const CAPACITY_CACHE_KEY = 'feaf_capacity_v2';
 const CAPACITY_CACHE_MAX_AGE = 24 * 60 * 60 * 1000;
 let liveCapacity = null;       // 正規化後的 { "課程|地區|梯次": 人數 }
@@ -3176,26 +3176,76 @@ let capacityPromise = null;
 
 function sleep(ms) { return new Promise(function(r) { setTimeout(r, ms); }); }
 
-function jsonpCapacity(url, timeoutMs) {
-  return new Promise(function(resolve, reject) {
+/* ---- v3（2026-10-31）：手機網路慢時不再誤判失敗 ----
+   1. 逾時不丟棄：同一個查詢持續等候，晚到的結果照樣採用
+      （舊版 8 秒一到就丟掉回應再從頭重查，網路慢的手機可能永遠等不到）
+   2. 10 分鐘內查過（含首頁、課程介紹頁的預先查詢）→ 直接使用，背景再更新
+   3. 真的查不到名額時不擋報名：照常報名，報名資料加註「未能即時確認名額」，由本會人工確認正取／候補
+*/
+const CAP_PATIENCE = 25000;               // 一次最多等 25 秒（期間畫面會顯示等候秒數）
+const CAP_HARD_LIMIT = 60000;             // 背景最多等 60 秒，晚到的結果仍會自動更新畫面
+const CAPACITY_FRESH_MS = 10 * 60 * 1000; // 10 分鐘內的查詢結果直接使用
+let capInflight = null;
+let capWaitStart = 0;
+let capChecked = false;                   // 這次進頁面的查詢流程是否已跑完（不論成功與否）
+
+function capRequest() {
+  if (capInflight) return capInflight;    // 已有查詢在進行中 → 一起等，不重複發送
+  capWaitStart = Date.now();
+  capInflight = new Promise(function(resolve, reject) {
+    /* 兩條路線查名額（2026-11-01）：
+       路線 1：JSONP（原本的方式）
+       路線 2：fetch 直接讀 JSON —— 路線 1 失敗、回應不完整、或 6 秒沒回應時自動啟動
+       任一條成功就採用；兩條都失敗才算查詢失敗 */
     const cbName = 'capCb_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
     const script = document.createElement('script');
-    let done = false;
-    window[cbName] = function(data) {
-      done = true;
-      resolve(data);
-      delete window[cbName];
-      script.remove();
-    };
-    script.onerror = function() {
-      if (!done) { reject(new Error('網路錯誤')); delete window[cbName]; script.remove(); }
-    };
-    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName + '&_t=' + Date.now();
+    let settled = false, jsonpDone = false, fetchStarted = false, failures = 0, lastErr = null;
+    const fbTimer = setTimeout(startFetch, 6000);
+    const hardTimer = setTimeout(function() { if (!settled) { settled = true; cleanup(); reject(new Error('逾時')); } }, CAP_HARD_LIMIT);
+    function cleanup() {
+      capInflight = null; clearTimeout(fbTimer); clearTimeout(hardTimer); script.remove();
+      setTimeout(function() { try { delete window[cbName]; } catch (e) {} }, 0);
+    }
+    function ok(d) {
+      if (settled) return;
+      if (d && d.status === 'ok' && d.counts && Object.keys(d.counts).length) { settled = true; cleanup(); resolve(d); }
+      else fail(new Error('資料格式異常'));
+    }
+    function fail(e) {
+      if (settled) return;
+      failures++; lastErr = e;
+      if (!fetchStarted) { startFetch(); return; }
+      if (failures >= 2) { settled = true; cleanup(); reject(lastErr); }
+    }
+    function startFetch() {
+      if (fetchStarted || settled) return;
+      fetchStarted = true;
+      fetch(CAPACITY_API + '?action=capacity&_t=' + Date.now(), { cache: 'no-store' })
+        .then(function(r) { return r.text(); })
+        .then(function(txt) {
+          let d; try { d = JSON.parse(txt); } catch (e) { throw new Error('回應不完整（收到 ' + txt.length + ' 字）'); }
+          ok(d);
+        })
+        .catch(fail);
+    }
+    window[cbName] = function(data) { jsonpDone = true; ok(data); };
+    script.onerror = function() { fail(new Error('網路錯誤')); };
+    // 腳本載入完成卻沒有呼叫 callback → 回應被截斷或被改寫，立即改走路線 2
+    script.onload = function() { setTimeout(function() { if (!jsonpDone) fail(new Error('回應不完整')); }, 300); };
+    script.src = CAPACITY_API + '?action=capacity&callback=' + cbName + '&_t=' + Date.now();
     document.body.appendChild(script);
-    setTimeout(function() {
-      if (!done) { reject(new Error('逾時')); delete window[cbName]; script.remove(); }
-    }, timeoutMs || 8000);
   });
+  // 結果一回來就更新名額與畫面（就算原本等候的人已經放棄等待）
+  capInflight.then(function(data) {
+    applyCounts(data.counts, 'live');
+    saveCapacityCache(data.counts);
+    window.dispatchEvent(new Event('capacity-updated'));
+  }, function() {});
+  return capInflight;
+}
+
+function withPatience(p, ms) {
+  return Promise.race([p, new Promise(function(_, rej) { setTimeout(function() { rej(new Error('等候逾時')); }, Math.max(ms, 0)); })]);
 }
 
 // 比對用：全形/半形、空白差異一律視為相同
@@ -3222,51 +3272,97 @@ function loadCapacityCache() {
   } catch (e) {}
   return null;
 }
+function isCacheFresh() { return capacitySource === 'cache' && capacityCachedAt && Date.now() - capacityCachedAt <= CAPACITY_FRESH_MS; }
 
 async function fetchCapacityCounts(timeoutMs) {
-  const data = await jsonpCapacity(CAPACITY_API + '?action=capacity', timeoutMs);
-  if (!(data && data.status === 'ok' && data.counts)) throw new Error('資料格式異常');
-  // 回傳「成功」但內容是空的（例如後端讀取試算表失敗）→ 視為失敗，避免全部場次被當成 0 人而誤顯示報名中
-  if (Object.keys(data.counts).length === 0) throw new Error('名額資料為空');
-  return data.counts;
+  const deadline = Date.now() + timeoutMs;
+  let lastErr = null;
+  for (let i = 0; i < 3 && Date.now() < deadline; i++) {
+    try {
+      const data = await withPatience(capRequest(), deadline - Date.now());
+      if (!(data && data.status === 'ok' && data.counts)) throw new Error('資料格式異常');
+      // 回傳「成功」但內容是空的（例如後端讀取試算表失敗）→ 視為失敗，避免全部場次被當成 0 人
+      if (Object.keys(data.counts).length === 0) throw new Error('名額資料為空');
+      return data.counts;
+    } catch (e) {
+      lastErr = e;
+      if (e.message === '等候逾時') break;   // 查詢仍在背景進行，不再重發
+      await sleep(700);
+    }
+  }
+  throw lastErr || new Error('查詢失敗');
 }
 
 async function loadLiveCapacity() {
-  const timeouts = [8000, 10000, 12000];
-  for (let i = 0; i < timeouts.length; i++) {
-    try {
-      const counts = await fetchCapacityCounts(timeouts[i]);
-      applyCounts(counts, 'live');
-      saveCapacityCache(counts);
-      return;
-    } catch (e) {
-      if (i < timeouts.length - 1) await sleep(800 * (i + 1));
-    }
-  }
   const c = loadCapacityCache();
+  if (c && Date.now() - c.t <= CAPACITY_FRESH_MS) {   // 剛查過（例如在課程介紹頁預先查好）→ 立即可用
+    applyCounts(c.counts, 'cache', c.t);
+    fetchCapacityCounts(CAP_PATIENCE).catch(function() {});   // 背景更新，回來後自動套用
+    return;
+  }
+  try {
+    const counts = await fetchCapacityCounts(CAP_PATIENCE);
+    applyCounts(counts, 'live');
+    saveCapacityCache(counts);
+    return;
+  } catch (e) {}
   if (c) { applyCounts(c.counts, 'cache', c.t); return; }
   liveCapacity = null;
-  capacitySource = 'none';
-  capacityPromise = null; // 下次進入梯次頁時重新查詢
+  capacitySource = 'none';   // 背景查詢仍在進行，若稍後查到會自動更新畫面
 }
 
 function ensureCapacityLoaded() {
-  if (!capacityPromise) capacityPromise = loadLiveCapacity();
+  if (!capacityPromise) {
+    capChecked = false;
+    capacityPromise = loadLiveCapacity().finally(function() { capChecked = true; });
+  }
   return capacityPromise;
 }
+function capacityRetry() { capacityPromise = null; return ensureCapacityLoaded(); }
 
-// 送出前的最後確認：重新查詢一次（失敗時保留原有資料，不會變成「開放」）
+// 送出前的最後確認：再查一次（最多等 12 秒；失敗時保留原有資料）
 async function refreshCapacity() {
-  for (let i = 0; i < 2; i++) {
-    try {
-      const counts = await fetchCapacityCounts(8000);
-      applyCounts(counts, 'live');
-      saveCapacityCache(counts);
-      return true;
-    } catch (e) { await sleep(500); }
-  }
-  return false;
+  try {
+    const counts = await fetchCapacityCounts(12000);
+    applyCounts(counts, 'live');
+    saveCapacityCache(counts);
+    return true;
+  } catch (e) { return false; }
 }
+
+/* ---- 等候提示：網路慢時顯示已等候秒數，避免學員以為當機 ---- */
+let capWaitTimer = null;
+function capWaitShow(on) {
+  let el = document.getElementById('cap-wait');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'cap-wait';
+    el.style.cssText = 'position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:998;background:#0D373D;color:#fff;font-size:.86rem;padding:10px 18px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.2);display:none;max-width:calc(100% - 110px);text-align:center;line-height:1.5;';
+    document.body.appendChild(el);
+  }
+  clearInterval(capWaitTimer);
+  if (!on) { el.style.display = 'none'; return; }
+  const start = capWaitStart || Date.now();
+  const tick = function() {
+    const s = Math.round((Date.now() - start) / 1000);
+    el.textContent = s < 4 ? '正在確認名額…' : '網路較慢，正在確認名額…已等候 ' + s + ' 秒';
+  };
+  tick(); el.style.display = 'block';
+  capWaitTimer = setInterval(tick, 1000);
+}
+
+function capUnverifiedNotice() {
+  return '<div class="qd-alert">網路較慢，暫時無法確認即時名額。<strong>您仍可照常報名</strong>，送出後本會將確認名額，若該梯次已額滿將改列候補並主動通知您。'
+    + ' <a href="#" class="cap-retry" style="font-weight:700;text-decoration:underline">重新查詢名額</a></div>';
+}
+document.addEventListener('click', function(e) {
+  const a = e.target.closest && e.target.closest('.cap-retry');
+  if (!a) return;
+  e.preventDefault();
+  a.textContent = '查詢中…';
+  capWaitShow(true);
+  capacityRetry().then(function() { capWaitShow(false); window.dispatchEvent(new Event('capacity-updated')); });
+});
 
 function getQuotaNumber(quotaStr) {
   const m = String(quotaStr || '').match(/\d+/);
@@ -3523,19 +3619,15 @@ function getSessionTime(session) {
 async function renderBatches() {
   const container = document.getElementById('batch-cards');
   if (!capacityPromise || capacitySource === 'none') {
-    container.innerHTML = '<div class="empty-state"><p>名額確認中，請稍候…</p></div>';
+    container.innerHTML = '<div class="empty-state"><p>名額確認中，請稍候…<br><small>網路較慢時可能需要 10～20 秒</small></p></div>';
   }
+  const waiting = !capChecked && capacitySource === 'none';
+  if (waiting) capWaitShow(true);
   await ensureCapacityLoaded(); // 先等即時人數查詢完成再畫卡片，避免查詢未回來就顯示「報名中」
-  if (capacitySource === 'none' && CAPACITY_FAILSAFE === 'block') {
-    container.innerHTML = `<div class="empty-state">
-      <p><strong>目前無法連線確認各梯次名額。</strong><br>為避免誤報名，請稍後再試；如持續發生，請來電洽詢 (02)2361-2119。</p>
-      <button type="button" class="btn btn-primary" id="btn-retry-capacity" style="margin-top:14px">重新查詢名額</button>
-    </div>`;
-    document.getElementById('btn-retry-capacity')?.addEventListener('click', () => { capacityPromise = null; renderBatches(); });
-    return;
-  }
+  if (waiting) capWaitShow(false);
   let capacityNotice = '';
-  if (capacitySource === 'cache') {
+  if (capacitySource === 'none') capacityNotice = capUnverifiedNotice();   // 查不到名額：照常顯示梯次並提示
+  if (capacitySource === 'cache' && !isCacheFresh()) {
     const t = new Date(capacityCachedAt);
     const hh = String(t.getHours()).padStart(2, '0') + ':' + String(t.getMinutes()).padStart(2, '0');
     capacityNotice = `<div style="background:#FFF7E0;border:1px solid #F0D58A;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:.85rem;color:#7A5C00;line-height:1.6;">
@@ -3698,13 +3790,13 @@ document.getElementById('btn-go-form')?.addEventListener('click', async () => {
   const oldHtml = goBtn.innerHTML;
   goBtn.disabled = true;
   goBtn.textContent = '確認名額中…';
+  const waitT = setTimeout(() => capWaitShow(true), 3000);
   const refreshed = await refreshCapacity();
+  clearTimeout(waitT); capWaitShow(false);
   goBtn.disabled = false;
   goBtn.innerHTML = oldHtml;
-  if (!refreshed && capacitySource !== 'live' && CAPACITY_FAILSAFE === 'block') {
-    alert('目前無法確認名額，請稍後再試；如持續發生，請來電洽詢 (02)2361-2119。');
-    return;
-  }
+  // 查不到最新名額時不擋報名：這次頁面曾即時查到 → 沿用；否則加註「未能即時確認名額」，由本會人工確認
+  const unverified = !refreshed && capacitySource !== 'live';
   let sess = null;
   COURSE_DATA.forEach(d => d.sessions.forEach(x => { if (x.id === selected.batch.id) sess = { course: d.course, region: d.region, ...x }; }));
   if (sess) {
@@ -3730,6 +3822,7 @@ document.getElementById('btn-go-form')?.addEventListener('click', async () => {
     batchLabel: selected.batch.label || '',
     waitlist:   selected.batch.isWaitlist ? '1' : '0',
   });
+  if (unverified) params.set('unverified', '1');
   window.location.href = 'form.html?' + params.toString();
 });
 
@@ -3777,9 +3870,10 @@ function qdInRange(s, key) {
 
 function qdStatus(s) {
   if (s.status === 'paused') return { cls: 'qd-off', label: s.statusText || '暫停報名', off: true };
-  if (!capacityPromise || capacitySource === 'none') {
-    if (capacitySource === 'none' && capacityPromise === null && qdCapTried) return { cls: 'qd-off', label: '無法確認名額', off: true };
-    return { cls: 'qd-chk', label: '名額確認中' };
+  if (capacitySource === 'none') {
+    if (s.status === 'full') return { cls: 'qd-wait', label: '額滿．可候補', wait: true };
+    if (!capChecked) return { cls: 'qd-chk', label: '名額確認中' };   // 可以先點，點了會等查詢結果
+    return { cls: 'qd-open', label: '可報名' };                      // 查不到名額：照常報名，由本會確認
   }
   if (isSessionFull(s.course, s.region, s)) return { cls: 'qd-wait', label: '額滿．可候補', wait: true };
   return { cls: 'qd-open', label: '報名中' };
@@ -3806,11 +3900,11 @@ function renderDateMode() {
 
   const list = all.filter(s => qdInRange(s, qdRange));
   let notice = '';
-  if (capacitySource === 'cache') {
+  if (capacitySource === 'cache' && !isCacheFresh()) {
     const t = new Date(capacityCachedAt);
     notice = `<div class="qd-alert">目前無法即時查詢，名額狀態為本裝置 ${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')} 的查詢結果，實際名額以報名時確認為準。</div>`;
-  } else if (capacitySource === 'none' && qdCapTried && CAPACITY_FAILSAFE === 'block') {
-    notice = `<div class="qd-alert">目前無法連線確認名額，為避免誤報名暫停選擇。請稍後 <a href="#" id="qd-retry" style="font-weight:700;text-decoration:underline">重新查詢</a>，或來電 (02)2361-2119。</div>`;
+  } else if (capacitySource === 'none' && capChecked) {
+    notice = capUnverifiedNotice();
   }
   const showKind = !selected.courseKind && new Set(all.map(s => s.course)).size > 1;
   const md = d => (d.getMonth() + 1) + '/' + d.getDate();
@@ -3844,12 +3938,12 @@ function renderDateMode() {
 
 async function qdPick(btn, s) {
   if (!s) return;
-  if (!capacityPromise || capacitySource === 'none') {   // 名額還沒回來：等一下再進
+  if (capacitySource === 'none' && !capChecked) {   // 名額還沒回來：等查詢結果（顯示等候秒數），查不到也照常進入
     btn.classList.add('busy');
+    capWaitShow(true);
     await ensureCapacityLoaded();
+    capWaitShow(false);
     btn.classList.remove('busy');
-    qdCapTried = true;
-    if (capacitySource === 'none' && CAPACITY_FAILSAFE === 'block') { renderDateMode(); return; }
   }
   const full = isSessionFull(s.course, s.region, s);
   selected.region = s.region;
@@ -3888,6 +3982,10 @@ function qdLoadCapacity() {
 }
 
 document.querySelectorAll('#mode-switch button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+window.addEventListener('capacity-updated', () => {
+  if (currentStep === 1 && selected.mode === 'date') renderDateMode();
+  else if (currentStep === 2 && selected.mode === 'region') renderBatches();
+});
 
 
 /* =====================================================================
