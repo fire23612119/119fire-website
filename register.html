@@ -522,6 +522,113 @@
     .cards.cols-3 { grid-template-columns: 1fr; }
     .confirm-card { padding: 20px; }
   }
+  /* ===== 快速報名：依日期 / 依地區（2026-10 新增） ===== */
+  .mode-switch { display: flex; background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 4px; gap: 4px; margin-bottom: 18px; }
+  .mode-switch button { flex: 1; border: none; background: none; border-radius: 10px; padding: 11px 8px; font-size: .95rem; font-weight: 700; color: var(--text-600);
+    display: flex; align-items: center; justify-content: center; gap: 6px; transition: background .15s, color .15s; }
+  .mode-switch button svg { stroke: currentColor; flex-shrink: 0; }
+  .mode-switch button.on { background: var(--teal-900); color: #fff; }
+  .mode-switch small { font-weight: 500; font-size: .75rem; opacity: .8; }
+  .date-chips { display: flex; gap: 8px; overflow-x: auto; padding: 2px 0 12px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .date-chips::-webkit-scrollbar { display: none; }
+  .date-chips button { flex: 0 0 auto; border: 1.5px solid var(--border); background: var(--surface); color: var(--teal-700); border-radius: 999px; padding: 6px 14px; font-size: .86rem; font-weight: 600; }
+  .date-chips button.on { background: var(--cyan-500); border-color: var(--cyan-500); color: var(--teal-900); }
+  .date-chips button:disabled { opacity: .4; cursor: default; }
+  .qd-month { font-size: .82rem; font-weight: 700; color: var(--text-600); margin: 14px 2px 8px; letter-spacing: .05em; }
+  .qd-card { display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: var(--surface); border: 2px solid var(--border);
+    border-radius: 14px; padding: 14px 14px 14px 12px; margin-bottom: 10px; font-family: inherit; color: inherit; position: relative;
+    transition: border-color .15s, background .15s; -webkit-tap-highlight-color: transparent; }
+  .qd-card:not(:disabled):hover, .qd-card:not(:disabled):active { border-color: var(--cyan-500); background: var(--card-hover); }
+  .qd-card.first { border-color: var(--cyan-500); box-shadow: 0 0 0 3px rgba(47,179,196,.14); }
+  .qd-card.wait { border-color: #F0B26B; }
+  .qd-card:disabled { cursor: not-allowed; background: #FAFBFB; }
+  .qd-card:disabled .qd-date, .qd-card:disabled .qd-body { opacity: .55; }
+  .qd-date { flex: 0 0 70px; text-align: center; border-right: 1px solid var(--border); padding-right: 12px; }
+  .qd-date b { display: block; font-family: 'Noto Serif TC', serif; font-size: 1.4rem; font-weight: 900; color: var(--teal-900); line-height: 1.15; }
+  .qd-date span { font-size: .75rem; color: var(--text-600); }
+  .qd-body { flex: 1; min-width: 0; }
+  .qd-region { font-size: 1.08rem; font-weight: 800; color: var(--teal-900); display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .qd-flag { font-size: .7rem; font-weight: 700; background: var(--teal-900); color: #fff; padding: 1px 8px; border-radius: 999px; }
+  .qd-kind { font-size: .72rem; font-weight: 700; background: var(--cyan-100); color: var(--teal-700); padding: 1px 8px; border-radius: 6px; }
+  .qd-sub { font-size: .8rem; color: var(--text-600); line-height: 1.5; margin-top: 2px; }
+  .qd-note { font-size: .76rem; color: #7A5C00; background: #FFF7E0; border-radius: 6px; padding: 2px 8px; margin-top: 5px; display: inline-block; }
+  .qd-side { flex: 0 0 auto; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .qd-pill { font-size: .72rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .qd-open { background: #E6F9EE; color: #1A7A3C; }
+  .qd-wait { background: #FFF0DC; color: #B35A00; }
+  .qd-off { background: #EDEDED; color: #666; }
+  .qd-chk { background: var(--cyan-100); color: var(--teal-700); }
+  .qd-arrow { width: 30px; height: 30px; border-radius: 50%; background: var(--cyan-500); display: flex; align-items: center; justify-content: center; }
+  .qd-card.wait .qd-arrow { background: #F7C27D; }
+  .qd-card:disabled .qd-arrow { background: #E3E8E9; }
+  .qd-arrow svg { stroke: var(--teal-900); }
+  .qd-card.busy .qd-arrow { animation: qdspin .8s linear infinite; }
+  @keyframes qdspin { to { transform: rotate(360deg); } }
+  .qd-hint { font-size: .82rem; color: var(--text-600); margin: -4px 2px 12px; }
+  .qd-alert { background: #FFF7E0; border: 1px solid #F0D58A; border-radius: 10px; padding: 10px 14px; margin-bottom: 12px; font-size: .84rem; color: #7A5C00; line-height: 1.6; }
+  /* 電腦版：標題區縮小，打開就看到梯次 */
+  .page-hero-inner { padding: 26px 24px 28px; }
+  .page-hero .eyebrow { margin-bottom: 4px; }
+  .page-hero h1 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
+  .page-hero p { margin-top: 4px; font-size: .92rem; }
+  .step-item { padding: 12px 0; }
+  .main-wrap { padding-top: 26px; }
+  .section-label { margin-bottom: 2px; }
+  .section-title { margin-bottom: 16px; }
+  #course-banner { margin-bottom: 16px !important; }
+
+  /* 每個梯次卡片右下角的「選擇此梯次」按鈕（整張卡片也可點） */
+  .batch-card:not(.disabled) { padding-right: 170px; }
+  .batch-card.selected .batch-go { visibility: hidden; }
+  .batch-go { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 4px;
+    background: var(--cyan-500); color: var(--teal-900); font-weight: 700; font-size: .86rem; padding: 7px 14px; border-radius: 999px; }
+  .batch-go svg { stroke: currentColor; }
+  .batch-card.waitlist .batch-go { background: #F7C27D; color: #5A2E00; }
+  .batch-card:not(.disabled):hover .batch-go { background: var(--cyan-400); }
+  .batch-card.waitlist:hover .batch-go { background: #F3B262; }
+  @media (max-width: 640px) {
+    .batch-card:not(.disabled) { padding-right: 16px; }
+    .batch-go { position: static; transform: none; display: flex; justify-content: center; margin-top: 10px; padding: 9px 14px; }
+  }
+  .region-hint { font-size: .82rem; color: var(--text-600); margin: -4px 2px 12px; }
+
+  /* 頂部「改選」列：誤觸時一眼看到選了什麼、一鍵改回 */
+  .qnav { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px;
+    padding: 8px 10px 8px 8px; margin-bottom: 16px; }
+  .qnav-back { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 4px; border: none; background: var(--cyan-100); color: var(--teal-900);
+    font-weight: 700; font-size: .88rem; border-radius: 8px; padding: 8px 12px; }
+  .qnav-back svg { stroke: currentColor; }
+  .qnav-sel { flex: 1; min-width: 0; font-size: .9rem; font-weight: 700; color: var(--teal-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
+  .qnav-sel span { color: var(--text-600); font-weight: 500; }
+  #btn-1-next, #btn-2-next { display: none !important; }   /* 已改為點選即進下一步 */
+  .card.tapped, .qd-card.tapped { border-color: var(--cyan-500) !important; background: var(--cyan-100) !important; transform: scale(.98); }
+  .stepper.mode-date #step-ind-2, .stepper.mode-date #step-ind-2 + .step-connector { display: none; }
+
+  /* ----- 手機版：讓學員一進來就看到梯次 ----- */
+  @media (max-width: 640px) {
+    .page-hero-inner { padding: 18px 16px 20px; }
+    .page-hero .eyebrow, .page-hero p { display: none; }
+    .page-hero h1 { font-size: 1.35rem; }
+    .stepper-wrap { position: static; }
+    .step-item { padding: 10px 0; }
+    .main-wrap { padding: 14px 14px 48px; }
+    #course-banner { padding: 10px 14px !important; margin-bottom: 12px !important; }
+    .section-label { display: none; }
+    .section-title { font-size: 1.15rem; margin-bottom: 12px; }
+    .mode-switch button { padding: 10px 4px; font-size: .9rem; }
+    .mode-switch small { display: none; }
+    #region-cards.cols-auto { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .region-card { padding: 14px 10px; }
+    .region-card > svg { display: none; }
+    .region-card h3 { font-size: 1.05rem; }
+    .region-card .region-count { font-size: .78rem; }
+    .batch-card { padding: 14px 16px; }
+    .confirm-card { padding: 16px; }
+    #panel-3 .actions { position: sticky; bottom: 0; z-index: 20; background: var(--bg); margin: 16px -14px 0; padding: 10px 84px 12px 14px;
+      box-shadow: 0 -4px 12px rgba(13,55,61,.08); flex-wrap: nowrap; }
+    #panel-3 .actions .btn-go { flex: 1; justify-content: center; }
+    #panel-3 .actions .btn-ghost { padding-left: 12px; padding-right: 12px; }
+  }
 </style>
 <script>
 // 若無課程參數，立即跳回首頁課程區塊，避免頁面閃爍
@@ -606,11 +713,34 @@
   <!-- Step 1：選地區 -->
   <div class="step-panel visible" id="panel-1">
     <div class="section-label">Step 1</div>
-    <h2 class="section-title">請選擇開課地區</h2>
+    <h2 class="section-title" id="p1-title">請選擇上課日期</h2>
+
+    <!-- 選擇方式：依日期（預設）/ 依地區 -->
+    <div class="mode-switch" id="mode-switch">
+      <button type="button" data-mode="date" class="on">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        依日期 <small>最快開課</small>
+      </button>
+      <button type="button" data-mode="region">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        依地區 <small>離我最近</small>
+      </button>
+    </div>
+
+    <!-- 依日期：所有地區梯次依日期排列，點一下直接進確認頁 -->
+    <div id="date-mode">
+      <div class="date-chips" id="date-chips"></div>
+      <div id="date-cards"><div class="empty-state"><p>梯次載入中…</p></div></div>
+    </div>
+
+    <!-- 依地區：原本的流程 -->
+    <div id="region-mode" style="display:none">
+    <div class="region-hint">點選地區即可查看梯次</div>
     <div class="cards cols-auto" id="region-cards">
       <!-- 由 JS 動態產生 -->
     </div>
-    <div class="actions">
+    </div>
+    <div class="actions" id="p1-actions">
       <a href="index.html#courses" class="btn btn-ghost">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         返回課程選擇
@@ -624,6 +754,7 @@
 
   <!-- Step 2：選梯次 -->
   <div class="step-panel" id="panel-2">
+    <div class="qnav" id="qnav-2"></div>
     <div class="section-label">Step 2</div>
     <h2 class="section-title">請選擇梯次</h2>
     <div class="cards" id="batch-cards" style="grid-template-columns:1fr;">
@@ -643,6 +774,7 @@
 
   <!-- Step 3：確認 -->
   <div class="step-panel" id="panel-3">
+    <div class="qnav" id="qnav-3"></div>
     <div class="section-label">Step 3</div>
     <h2 class="section-title">確認報名資訊</h2>
     <div class="confirm-card" id="confirm-detail">
@@ -3281,6 +3413,7 @@ function renderRegions() {
     if (!regionMap[d.region]) regionMap[d.region] = 0;
     regionMap[d.region] += openSessions.length;
   });
+  Object.keys(regionMap).forEach(r => { if (!regionMap[r]) delete regionMap[r]; }); // 沒有可報名梯次的地區不顯示
   if (Object.keys(regionMap).length === 0) {
     container.innerHTML = `<div class="empty-state">
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
@@ -3303,6 +3436,7 @@ function selectRegion(region) {
     c.classList.toggle('selected', c.dataset.region === region);
   });
   document.getElementById('btn-1-next').disabled = false;
+  setTimeout(() => document.getElementById('btn-1-next').click(), 160); // 點地區後直接進入選梯次（短暫停留讓學員看到選了哪個）
 }
 
 /* ===== Step 3：梯次卡片 ===== */
@@ -3469,6 +3603,7 @@ async function renderBatches() {
         </span>
       </div>
       <div class="batch-status ${statusCls}">${statusLabel}</div>
+      ${locked ? '' : `<span class="batch-go">${isFullNotStarted ? '候補登記' : '選擇此梯次'}<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>`}
       ${s.note ? `<div class="batch-note">${s.note}</div>` : ''}
     </div>`;
   }).join('');
@@ -3480,6 +3615,7 @@ function selectBatch(id, course, label, dates, location, quota, formUrl, isWaitl
     c.classList.toggle('selected', c.dataset.id === id);
   });
   document.getElementById('btn-2-next').disabled = false;
+  setTimeout(() => document.getElementById('btn-2-next').click(), 160); // 點梯次後直接進入確認頁
 }
 
 /* ===== Step 4：確認 ===== */
@@ -3543,7 +3679,7 @@ document.getElementById('btn-1-next')?.addEventListener('click', async () => {
 });
 
 // Step 2 back → Step 1
-document.getElementById('btn-2-back')?.addEventListener('click', () => showStep(1));
+document.getElementById('btn-2-back')?.addEventListener('click', () => history.back());
 
 // Step 2 → Step 3（確認）
 document.getElementById('btn-2-next')?.addEventListener('click', () => {
@@ -3552,7 +3688,7 @@ document.getElementById('btn-2-next')?.addEventListener('click', () => {
 });
 
 // Step 3 back → Step 2
-document.getElementById('btn-3-back')?.addEventListener('click', () => showStep(2));
+document.getElementById('btn-3-back')?.addEventListener('click', () => history.back());
 
 // 前往 HTML 報名表單
 document.getElementById('btn-go-form')?.addEventListener('click', async () => {
@@ -3597,6 +3733,205 @@ document.getElementById('btn-go-form')?.addEventListener('click', async () => {
   window.location.href = 'form.html?' + params.toString();
 });
 
+
+/* =====================================================================
+   快速報名：依日期選（2026-10 新增）
+   ── 已選好課程後，預設列出「所有地區」的梯次，依開課日期由近到遠排列
+   ── 點梯次卡片 → 直接進入確認頁（不用先選地區、不用按下一步）
+   ── 名額判斷、候補、送出前再確認名額，全部沿用原本的函式
+   ── 網址加 &mode=region 可預設為「依地區」
+===================================================================== */
+selected.mode = 'date';
+let qdRange = 'all';
+const QD_WEEK = ['日', '一', '二', '三', '四', '五', '六'];
+
+function qdSessions() {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const list = [];
+  COURSE_DATA.forEach(d => {
+    if (d.type !== selected.courseType) return;
+    if (selected.courseKind) {
+      const m = d.course.match(/（([^）]+)）/);
+      if ((m ? m[1] : '') !== selected.courseKind) return;
+    }
+    d.sessions.forEach(x => {
+      if (x.status === 'ended' || x.status === 'cancelled' || isSessionExpired(x)) return;
+      const s = { course: d.course, region: d.region, ...x };
+      const r = getSessionDateRange(s);
+      if (!r || r.startDate <= today) return;  // 已開課不列出（無法報名）
+      s._start = r.startDate; s._end = r.endDate;
+      list.push(s);
+    });
+  });
+  list.sort((a, b) => a._start - b._start || a.region.localeCompare(b.region, 'zh-Hant'));
+  return list;
+}
+
+function qdInRange(s, key) {
+  const t = new Date(); t.setHours(0, 0, 0, 0);
+  if (key === '14') { const e = new Date(t); e.setDate(e.getDate() + 14); return s._start <= e; }
+  if (key === 'this') return s._start.getFullYear() === t.getFullYear() && s._start.getMonth() === t.getMonth();
+  if (key === 'next') { const n = new Date(t.getFullYear(), t.getMonth() + 1, 1); return s._start.getFullYear() === n.getFullYear() && s._start.getMonth() === n.getMonth(); }
+  return true;
+}
+
+function qdStatus(s) {
+  if (s.status === 'paused') return { cls: 'qd-off', label: s.statusText || '暫停報名', off: true };
+  if (!capacityPromise || capacitySource === 'none') {
+    if (capacitySource === 'none' && capacityPromise === null && qdCapTried) return { cls: 'qd-off', label: '無法確認名額', off: true };
+    return { cls: 'qd-chk', label: '名額確認中' };
+  }
+  if (isSessionFull(s.course, s.region, s)) return { cls: 'qd-wait', label: '額滿．可候補', wait: true };
+  return { cls: 'qd-open', label: '報名中' };
+}
+let qdCapTried = false;
+
+function renderDateMode() {
+  const all = qdSessions();
+  const chipsEl = document.getElementById('date-chips');
+  const box = document.getElementById('date-cards');
+  if (!all.length) {
+    chipsEl.innerHTML = '';
+    box.innerHTML = '<div class="empty-state"><p>此課程目前暫無可報名梯次，請稍後再查詢或來電 (02)2361-2119。</p></div>';
+    return;
+  }
+  const chips = [['all', '全部'], ['14', '2 週內'], ['this', '本月'], ['next', '下個月']];
+  if (all.length > 4) {
+    chipsEl.innerHTML = chips.map(([k, l]) => {
+      const n = all.filter(s => qdInRange(s, k)).length;
+      return `<button type="button" data-r="${k}" class="${qdRange === k ? 'on' : ''}" ${n ? '' : 'disabled'}>${l} ${n}</button>`;
+    }).join('');
+    chipsEl.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { qdRange = b.dataset.r; renderDateMode(); }));
+  } else chipsEl.innerHTML = '';
+
+  const list = all.filter(s => qdInRange(s, qdRange));
+  let notice = '';
+  if (capacitySource === 'cache') {
+    const t = new Date(capacityCachedAt);
+    notice = `<div class="qd-alert">目前無法即時查詢，名額狀態為本裝置 ${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')} 的查詢結果，實際名額以報名時確認為準。</div>`;
+  } else if (capacitySource === 'none' && qdCapTried && CAPACITY_FAILSAFE === 'block') {
+    notice = `<div class="qd-alert">目前無法連線確認名額，為避免誤報名暫停選擇。請稍後 <a href="#" id="qd-retry" style="font-weight:700;text-decoration:underline">重新查詢</a>，或來電 (02)2361-2119。</div>`;
+  }
+  const showKind = !selected.courseKind && new Set(all.map(s => s.course)).size > 1;
+  const md = d => (d.getMonth() + 1) + '/' + d.getDate();
+  let firstMarked = false, cur = '', html = notice + '<div class="qd-hint">點選梯次即可前往報名</div>';
+  list.forEach(s => {
+    const mk = (s._start.getFullYear() - 1911) + '年' + (s._start.getMonth() + 1) + '月';
+    if (mk !== cur) { html += `<div class="qd-month">${mk}</div>`; cur = mk; }
+    const st = qdStatus(s);
+    const days = Math.round((s._end - s._start) / 864e5); // _end 為當天 23:59:59，四捨五入即為天數
+    const isFirst = !firstMarked && !st.off && !st.wait && qdRange === 'all';
+    if (isFirst) firstMarked = true;
+    const kind = showKind ? `<span class="qd-kind">${(s.course.match(/（([^）]+)）/) || [, ''])[1]}</span>` : '';
+    html += `
+    <button type="button" class="qd-card${isFirst ? ' first' : ''}${st.wait ? ' wait' : ''}" data-id="${s.id}" ${st.off ? 'disabled' : ''}>
+      <div class="qd-date"><b>${md(s._start)}</b><span>週${QD_WEEK[s._start.getDay()]}${days > 1 ? '・' + days + '天' : ''}</span></div>
+      <div class="qd-body">
+        <div class="qd-region">${s.region}${isFirst ? '<span class="qd-flag">最快開課</span>' : ''}${kind}</div>
+        <div class="qd-sub">${days > 1 ? md(s._start) + '～' + md(s._end) + '　' : ''}${getSessionTime(s)}</div>
+        ${s.note ? `<div class="qd-note">${s.note}</div>` : ''}
+      </div>
+      <div class="qd-side">
+        <span class="qd-pill ${st.cls}">${st.label}</span>
+        <span class="qd-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </div>
+    </button>`;
+  });
+  box.innerHTML = list.length ? html : '<div class="empty-state"><p>這段期間沒有梯次，請改選「全部」。</p></div>';
+  document.getElementById('qd-retry')?.addEventListener('click', e => { e.preventDefault(); qdCapTried = false; capacityPromise = null; qdLoadCapacity(); });
+  box.querySelectorAll('.qd-card:not(:disabled)').forEach(b => b.addEventListener('click', () => qdPick(b, list.find(s => s.id === b.dataset.id))));
+}
+
+async function qdPick(btn, s) {
+  if (!s) return;
+  if (!capacityPromise || capacitySource === 'none') {   // 名額還沒回來：等一下再進
+    btn.classList.add('busy');
+    await ensureCapacityLoaded();
+    btn.classList.remove('busy');
+    qdCapTried = true;
+    if (capacitySource === 'none' && CAPACITY_FAILSAFE === 'block') { renderDateMode(); return; }
+  }
+  const full = isSessionFull(s.course, s.region, s);
+  selected.region = s.region;
+  selected.batch = { id: s.id, course: s.course, label: s.label, dates: s.dates, location: s.location, quota: s.quota, formUrl: s.formUrl, isWaitlist: full };
+  btn.classList.add('tapped');
+  await sleep(160);
+  btn.classList.remove('tapped');
+  renderConfirm();
+  showStep(3);
+  fixStepper();
+}
+
+function fixStepper() {
+  const st = document.querySelector('.stepper');
+  st.classList.toggle('mode-date', selected.mode === 'date');
+  const l1 = document.querySelector('#step-ind-1 .step-label');
+  if (l1) l1.textContent = selected.mode === 'date' ? '選擇日期' : '選擇地區';
+  const n3 = document.querySelector('#step-ind-3 .step-num');
+  if (n3 && !document.getElementById('step-ind-3').classList.contains('done')) n3.textContent = selected.mode === 'date' ? '2' : '3';
+}
+
+function setMode(mode) {
+  selected.mode = mode;
+  document.querySelectorAll('#mode-switch button').forEach(b => b.classList.toggle('on', b.dataset.mode === mode));
+  document.getElementById('date-mode').style.display = mode === 'date' ? '' : 'none';
+  document.getElementById('region-mode').style.display = mode === 'region' ? '' : 'none';
+  document.getElementById('btn-1-next').style.display = mode === 'region' ? '' : 'none';
+  document.getElementById('p1-title').textContent = mode === 'date' ? '請選擇上課日期' : '請選擇開課地區';
+  if (mode === 'date') renderDateMode();
+  fixStepper();
+}
+
+function qdLoadCapacity() {
+  renderDateMode();
+  ensureCapacityLoaded().then(() => { qdCapTried = true; if (selected.mode === 'date' && currentStep === 1) renderDateMode(); });
+}
+
+document.querySelectorAll('#mode-switch button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+
+
+/* =====================================================================
+   防誤觸：每一步都記在瀏覽器歷史紀錄
+   ── 手機按「返回鍵」或往右滑 → 回到上一步（不會直接離開報名頁）
+   ── 步驟 2、3 頂部顯示目前選擇與「改選」按鈕，誤觸時一鍵改回
+===================================================================== */
+const _origShowStep = showStep;
+let qdFromPop = false;
+showStep = function (n) {
+  _origShowStep(n);
+  fixStepper();
+  renderQnav(n);
+  if (qdFromPop) return;
+  const cur = history.state && history.state.regStep;
+  if (!cur) history.replaceState({ regStep: n }, '', location.href);
+  else if (cur !== n) history.pushState({ regStep: n }, '', location.href);
+};
+window.addEventListener('popstate', e => {
+  const n = e.state && e.state.regStep;
+  if (!n) return;
+  qdFromPop = true;
+  showStep(n);
+  qdFromPop = false;
+  if (n === 1 && selected.mode === 'date') renderDateMode();
+});
+
+function shortDates(label) {
+  return String(label || '').replace(/^\d+年/, '').replace(/（[一二三四五六日]）/g, '');
+}
+function renderQnav(n) {
+  const back = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.6"><path d="M15 18l-6-6 6-6"/></svg>';
+  const q2 = document.getElementById('qnav-2'), q3 = document.getElementById('qnav-3');
+  if (n === 2 && q2) {
+    q2.innerHTML = `<button type="button" class="qnav-back">${back}改選地區</button>
+      <div class="qnav-sel"><span>地區：</span>${selected.region || ''}</div>`;
+  }
+  if (n === 3 && q3 && selected.batch) {
+    q3.innerHTML = `<button type="button" class="qnav-back">${back}${selected.mode === 'date' ? '改選日期' : '改選梯次'}</button>
+      <div class="qnav-sel">${selected.region || ''}<span>｜</span>${shortDates(selected.batch.label)}</div>`;
+  }
+  document.querySelectorAll('.qnav-back').forEach(b => { b.onclick = () => history.back(); });
+}
+
 /* ===== 漢堡選單 ===== */
 document.getElementById('nav-hamburger')?.addEventListener('click', () => {
   document.getElementById('nav-drawer').classList.toggle('open');
@@ -3605,6 +3940,10 @@ document.getElementById('nav-hamburger')?.addEventListener('click', () => {
 /* ===== 初始化 ===== */
 ensureCapacityLoaded(); // 頁面載入時就先發出查詢，不等使用者走到第三步
 checkUrl();
+if (selected.courseType) {
+  setMode(new URLSearchParams(location.search).get('mode') === 'region' ? 'region' : 'date');
+  qdLoadCapacity();
+}
 </script>
 <script src="shared.js"></script>
 </body>
