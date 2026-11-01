@@ -8,7 +8,9 @@
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="favicon_180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Google 字型改為不擋畫面載入（2026-11-01）：手機連 Google 很慢時，頁面先用系統字型顯示，字型載入後自動套用 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"></noscript>
   <style>
     :root {
       --teal: #00B1C8;
@@ -232,7 +234,8 @@
       .form-card { padding: 20px 16px; }
     }
   </style>
-  <script src="https://www.google.com/recaptcha/api.js?render=6LfimkwtAAAAALAROwLS7mWhq6CwFMLPz4uRhkfB"></script>
+  <!-- reCAPTCHA 改為背景載入（2026-11-01）：手機連 Google 很慢時，報名表不會整頁空白 -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6LfimkwtAAAAALAROwLS7mWhq6CwFMLPz4uRhkfB" async defer></script>
 </head>
 <body>
 
@@ -620,7 +623,10 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
 
   let recaptchaToken = '';
   try {
+    // 驗證服務未載入或 8 秒內沒有回應 → 不等了，直接送出（後端在沒有 token 時會放行並記錄）
     recaptchaToken = await new Promise((resolve, reject) => {
+      if (typeof grecaptcha === 'undefined' || !grecaptcha.ready) { reject(new Error('reCAPTCHA 未載入')); return; }
+      setTimeout(() => reject(new Error('reCAPTCHA 逾時')), 8000);
       grecaptcha.ready(async () => {
         try {
           const token = await grecaptcha.execute('6LfimkwtAAAAALAROwLS7mWhq6CwFMLPz4uRhkfB', { action: 'submit_registration' });
