@@ -3927,14 +3927,14 @@ function capWaitShow(on) {
   const start = capWaitStart || Date.now();
   const tick = function() {
     const s = Math.round((Date.now() - start) / 1000);
-    el.textContent = s < 4 ? '正在確認名額…' : '網路較慢，正在確認名額…已等候 ' + s + ' 秒';
+    el.textContent = s < 2 ? '正在確認名額…' : '正在確認名額…已等候 ' + s + ' 秒';
   };
   tick(); el.style.display = 'block';
   capWaitTimer = setInterval(tick, 1000);
 }
 
 function capUnverifiedNotice() {
-  return '<div class="qd-alert">網路較慢，暫時無法確認即時名額。<strong>您仍可照常報名</strong>，送出後本會將確認名額，若該梯次已額滿將改列候補並主動通知您。'
+  return '<div class="qd-alert">暫時無法確認即時名額。<strong>您仍可照常報名</strong>，送出後本會將確認名額，若該梯次已額滿將改列候補並主動通知您。'
     + ' <a href="#" class="cap-retry" style="font-weight:700;text-decoration:underline">重新查詢名額</a></div>';
 }
 document.addEventListener('click', function(e) {
@@ -4201,7 +4201,7 @@ function getSessionTime(session) {
 async function renderBatches() {
   const container = document.getElementById('batch-cards');
   if (!capacityPromise || capacitySource === 'none') {
-    container.innerHTML = '<div class="empty-state"><p>名額確認中，請稍候…<br><small>網路較慢時可能需要 10～20 秒</small></p></div>';
+    container.innerHTML = '<div class="empty-state"><p>名額確認中，請稍候…</p></div>';
   }
   const waiting = !capChecked && capacitySource === 'none';
   if (waiting) capWaitShow(true);
