@@ -3771,21 +3771,22 @@ let capInflight = null;
 let capWaitStart = 0;
 let capChecked = false;                   // 這次進頁面的查詢流程是否已跑完（不論成功與否）
 
-function capRequest() {
-  if (capInflight) return capInflight;    // 已有查詢在進行中 → 一起等，不重複發送
-  capWaitStart = Date.now();
-  capInflight = new Promise(function(resolve, reject) {
-    /* 兩條路線查名額（2026-11-01）：
+let capLiveAt = 0;   // 最近一次即時查到名額的時間
+function capRequest(fresh) {
+  // fresh：要求伺服器重新計算（不使用伺服器端 60 秒共用結果），只在「快額滿」的最後確認時使用
+  if (!fresh && capInflight) return capInflight;    // 已有查詢在進行中 → 一起等，不重複發送
+  if (!fresh) capWaitStart = Date.now();
+  const p = new Promise(function(resolve, reject) {
+    /* 兩條路線查名額（2026-11-02 修正）：
        路線 1：JSONP（原本的方式）
-       路線 2：fetch 直接讀 JSON —— 路線 1 失敗、回應不完整、或 6 秒沒回應時自動啟動
-       任一條成功就採用；兩條都失敗才算查詢失敗 */
+       路線 2：fetch 直接讀 JSON —— 只有路線 1「確定失敗」（被擋、回應不完整）時才啟動
+       ※ 不再因為「6 秒沒回應」就再發一次：伺服器本來就慢時，重複發送只會讓它更慢 */
     const cbName = 'capCb_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
     const script = document.createElement('script');
     let settled = false, jsonpDone = false, fetchStarted = false, failures = 0, lastErr = null;
-    const fbTimer = setTimeout(startFetch, 6000);
     const hardTimer = setTimeout(function() { if (!settled) { settled = true; cleanup(); reject(new Error('逾時')); } }, CAP_HARD_LIMIT);
     function cleanup() {
-      capInflight = null; clearTimeout(fbTimer); clearTimeout(hardTimer); script.remove();
+      if (!fresh) capInflight = null; clearTimeout(hardTimer); script.remove();
       setTimeout(function() { try { delete window[cbName]; } catch (e) {} }, 0);
     }
     function ok(d) {
@@ -3802,7 +3803,7 @@ function capRequest() {
     function startFetch() {
       if (fetchStarted || settled) return;
       fetchStarted = true;
-      fetch(CAPACITY_API + '?action=capacity&_t=' + Date.now(), { cache: 'no-store' })
+      fetch(CAPACITY_API + '?action=capacity' + (fresh ? '&fresh=1' : '') + '&_t=' + Date.now(), { cache: 'no-store' })
         .then(function(r) { return r.text(); })
         .then(function(txt) {
           let d; try { d = JSON.parse(txt); } catch (e) { throw new Error('回應不完整（收到 ' + txt.length + ' 字）'); }
@@ -3814,16 +3815,17 @@ function capRequest() {
     script.onerror = function() { fail(new Error('網路錯誤')); };
     // 腳本載入完成卻沒有呼叫 callback → 回應被截斷或被改寫，立即改走路線 2
     script.onload = function() { setTimeout(function() { if (!jsonpDone) fail(new Error('回應不完整')); }, 300); };
-    script.src = CAPACITY_API + '?action=capacity&callback=' + cbName + '&_t=' + Date.now();
+    script.src = CAPACITY_API + '?action=capacity' + (fresh ? '&fresh=1' : '') + '&callback=' + cbName + '&_t=' + Date.now();
     document.body.appendChild(script);
   });
+  if (!fresh) capInflight = p;
   // 結果一回來就更新名額與畫面（就算原本等候的人已經放棄等待）
-  capInflight.then(function(data) {
+  p.then(function(data) {
     applyCounts(data.counts, 'live');
     saveCapacityCache(data.counts);
     window.dispatchEvent(new Event('capacity-updated'));
   }, function() {});
-  return capInflight;
+  return p;
 }
 
 function withPatience(p, ms) {
@@ -3840,6 +3842,7 @@ function applyCounts(counts, source, cachedAt) {
     norm[nk] = (norm[nk] || 0) + (Number(counts[k]) || 0);
   });
   liveCapacity = norm;
+  if (source === 'live') capLiveAt = Date.now();
   capacitySource = source;
   capacityCachedAt = cachedAt || null;
 }
@@ -3856,12 +3859,12 @@ function loadCapacityCache() {
 }
 function isCacheFresh() { return capacitySource === 'cache' && capacityCachedAt && Date.now() - capacityCachedAt <= CAPACITY_FRESH_MS; }
 
-async function fetchCapacityCounts(timeoutMs) {
+async function fetchCapacityCounts(timeoutMs, fresh) {
   const deadline = Date.now() + timeoutMs;
   let lastErr = null;
   for (let i = 0; i < 3 && Date.now() < deadline; i++) {
     try {
-      const data = await withPatience(capRequest(), deadline - Date.now());
+      const data = await withPatience(capRequest(fresh), deadline - Date.now());
       if (!(data && data.status === 'ok' && data.counts)) throw new Error('資料格式異常');
       // 回傳「成功」但內容是空的（例如後端讀取試算表失敗）→ 視為失敗，避免全部場次被當成 0 人
       if (Object.keys(data.counts).length === 0) throw new Error('名額資料為空');
@@ -3905,7 +3908,7 @@ function capacityRetry() { capacityPromise = null; return ensureCapacityLoaded()
 // 送出前的最後確認：再查一次（最多等 12 秒；失敗時保留原有資料）
 async function refreshCapacity() {
   try {
-    const counts = await fetchCapacityCounts(12000);
+    const counts = await fetchCapacityCounts(12000, true);   // 最後確認：要求伺服器即時重新計算
     applyCounts(counts, 'live');
     saveCapacityCache(counts);
     return true;
@@ -4370,13 +4373,24 @@ document.getElementById('btn-go-form')?.addEventListener('click', async () => {
   // 最後確認：前往表單前再查一次最新名額，避免「選擇梯次後才剛好額滿」
   const goBtn = document.getElementById('btn-go-form');
   const oldHtml = goBtn.innerHTML;
-  goBtn.disabled = true;
-  goBtn.textContent = '確認名額中…';
-  const waitT = setTimeout(() => capWaitShow(true), 3000);
-  const refreshed = await refreshCapacity();
-  clearTimeout(waitT); capWaitShow(false);
-  goBtn.disabled = false;
-  goBtn.innerHTML = oldHtml;
+  // 【2026-11-02】名額充足就直接前往，不再讓學員等待確認：
+  //   2 分鐘內查過名額、這班還剩 5 個以上 → 直接進入報名表；快額滿或候補才即時確認
+  let chk = null;
+  COURSE_DATA.forEach(d => d.sessions.forEach(x => { if (x.id === selected.batch.id) chk = { course: d.course, region: d.region, ...x }; }));
+  const remain = chk ? getRemainingSeats(chk.course, chk.region, chk) : null;
+  const plenty = !!chk && chk.status !== 'full' && !selected.batch.isWaitlist &&
+                 capacitySource === 'live' && Date.now() - capLiveAt < 2 * 60 * 1000 &&
+                 remain !== null && remain >= 5;
+  let refreshed = true;
+  if (!plenty) {
+    goBtn.disabled = true;
+    goBtn.textContent = '確認名額中…';
+    const waitT = setTimeout(() => capWaitShow(true), 3000);
+    refreshed = await refreshCapacity();
+    clearTimeout(waitT); capWaitShow(false);
+    goBtn.disabled = false;
+    goBtn.innerHTML = oldHtml;
+  }
   // 查不到最新名額時不擋報名：這次頁面曾即時查到 → 沿用；否則加註「未能即時確認名額」，由本會人工確認
   const unverified = !refreshed && capacitySource !== 'live';
   let sess = null;
