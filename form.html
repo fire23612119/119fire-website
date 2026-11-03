@@ -299,6 +299,9 @@
         確認信將寄送至您填寫的 Email，請注意查收。<br>
         如有疑問請聯絡本會。
       </p>
+      <p id="brochure-link-wrap" style="display:none;margin:14px 0 4px;">
+        <a id="brochure-link" href="#" target="_blank" rel="noopener" style="color:#1C575F;font-weight:700;text-decoration:underline;">查看／下載本班招生簡章（PDF）</a>
+      </p>
       <a href="index.html" class="btn-back">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
@@ -719,6 +722,10 @@ document.getElementById('reg-form').addEventListener('submit', async function(e)
         '感謝您的登記，我們已收到您的候補資料。<br>' +
         '若有名額釋出，本會將依候補順序主動以電話或 Email 聯繫您。<br>' +
         '如有疑問請聯絡本會。';
+    }
+    if (batch) {   // 報名成功後提供本班招生簡章
+      document.getElementById('brochure-link').href = 'brochure.html?batch=' + encodeURIComponent(batch);
+      document.getElementById('brochure-link-wrap').style.display = 'block';
     }
     document.getElementById('success-screen').classList.add('show');
     window.scrollTo({ top: 0, behavior: 'smooth' });

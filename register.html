@@ -4335,6 +4335,10 @@ function renderConfirm() {
       <div class="confirm-label">上課地點</div>
       <div class="confirm-value">${getSessionAddress(pseudoSession)}</div>
     </div>
+    <div class="confirm-row">
+      <div class="confirm-label">招生簡章</div>
+      <div class="confirm-value"><a href="brochure.html?batch=${encodeURIComponent(b.id)}" target="_blank" rel="noopener" style="color:var(--teal-700);text-decoration:underline;font-weight:700;">查看／下載本班招生簡章（PDF）</a></div>
+    </div>
   `;
   const goBtn = document.getElementById('btn-go-form');
   if (goBtn) {

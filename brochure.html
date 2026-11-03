@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>招生簡章｜財團法人消防教育學術研究基金會</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon_32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+<style>
+  :root { --teal-900:#0D373D; --teal-700:#1C575F; --cyan-500:#2FB3C4; --cyan-400:#4FC8D8; --cyan-100:#E3F5F7; --bg:#EEF3F4; --text:#14272A; --sub:#5C7174; --line:#C9D6D8; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+  .bar { position:sticky; top:0; z-index:10; background:#D6ECEF; border-bottom:1px solid rgba(13,55,61,.1); }
+  .bar-inner { max-width:860px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .bar img { height:34px; }
+  .bar .sp { flex:1; }
+  .btn { border:none; border-radius:999px; padding:9px 16px; font-weight:700; font-size:.88rem; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:6px; font-family:inherit; }
+  .btn-dl { background:var(--teal-900); color:#fff; }
+  .btn-reg { background:var(--cyan-500); color:var(--teal-900); }
+  .btn-print { background:#fff; color:var(--teal-700); border:1.5px solid var(--line); }
+  .btn:disabled { opacity:.5; cursor:wait; }
+  .wrap { max-width:860px; margin:0 auto; padding:18px 12px 60px; }
+  .alert { background:#FFF0F0; border:1.5px solid #E8A0A0; color:#7A1010; border-radius:10px; padding:12px 16px; margin-bottom:14px; font-weight:700; }
+  .msg { text-align:center; color:var(--sub); padding:60px 10px; }
+  /* 簡章本體（A4 樣式，緊湊版：每種課程 1～2 頁） */
+  #doc { background:#fff; width:100%; max-width:794px; margin:0 auto; padding:26px 34px; box-shadow:0 6px 24px rgba(13,55,61,.10); font-size:12px; line-height:1.55; }
+  .doc-org { text-align:center; font-size:13px; font-weight:700; color:var(--teal-700); letter-spacing:.05em; }
+  .doc-title { text-align:center; font-size:19px; font-weight:700; color:var(--teal-900); margin:0 0 2px; }
+  .doc-sub { text-align:center; color:var(--sub); font-size:12px; margin-bottom:8px; }
+  .sec { margin-top:8px; }
+  .sec h3 { font-size:13px; color:var(--teal-900); border-left:4px solid var(--cyan-500); padding-left:7px; margin-bottom:3px; line-height:1.4; }
+  .sec p, .sec li { margin-left:11px; }
+  .sec ul { list-style:none; }
+  .hl { background:var(--cyan-100); border-radius:6px; padding:5px 10px; margin-left:11px; font-weight:700; color:var(--teal-900); font-size:12.5px; }
+  .hl small { display:block; font-weight:500; color:var(--sub); font-size:11.5px; }
+  table { width:calc(100% - 11px); margin-left:11px; border-collapse:collapse; font-size:11px; line-height:1.45; }
+  th, td { border:1px solid var(--line); padding:3px 6px; vertical-align:top; }
+  th { background:var(--teal-900); color:#fff; font-weight:700; }
+  td.h { text-align:center; white-space:nowrap; }
+  td.n { font-weight:700; width:27%; }
+  tr.exempt td { color:#9AA8AA; background:#F7F9F9; }
+  tr.exempt td.n::after { content:'（二天班免上）'; font-weight:500; font-size:10px; color:#B35A00; }
+  tr.total td { font-weight:700; background:var(--cyan-100); }
+  .notes { margin:4px 0 0 11px; font-size:11px; color:var(--sub); }
+  .note-warn { margin:4px 0 0 11px; background:#FFF7E0; border:1px solid #F0D58A; color:#7A5C00; border-radius:6px; padding:4px 9px; font-weight:700; font-size:11.5px; }
+  .small li, .small p { font-size:11px; }
+  .places { columns:2; column-gap:18px; margin-left:11px; }
+  .places li { margin-left:0; display:flex; gap:4px; font-size:10.5px; line-height:1.45; break-inside:avoid; page-break-inside:avoid; margin-bottom:1px; }
+  .places li b { flex:0 0 20px; text-align:right; font-weight:500; color:var(--sub); }
+  .reg { display:flex; gap:14px; align-items:center; margin-left:11px; border:1.5px dashed var(--cyan-500); border-radius:10px; padding:8px 12px; }
+  .reg .qr { flex:0 0 auto; width:86px; height:86px; }
+  .reg .qr img, .reg .qr canvas { width:86px !important; height:86px !important; }
+  .reg-text b { font-size:13px; color:var(--teal-900); }
+  .reg-text .url { font-size:11px; color:var(--teal-700); word-break:break-all; }
+  .doc-foot { margin-top:10px; padding-top:6px; border-top:1px solid var(--line); text-align:center; font-size:10.5px; color:var(--sub); }
+  .avoid-break { break-inside:avoid; page-break-inside:avoid; }
+  /* 產生 PDF 時：固定 A4 寬度、靠左，避免寬螢幕置中造成內容被切掉 */
+  body.pdf-mode .bar, body.pdf-mode #alert { display:none; }
+  body.pdf-mode .wrap { max-width:none; margin:0; padding:0; }
+  body.pdf-mode #doc { width:auto; max-width:none; margin:0; box-shadow:none; padding:14px 18px; font-size:12px; }
+  body.pdf-mode .doc-title { font-size:19px; }
+  body.pdf-mode .reg { flex-direction:row; align-items:center; }
+  @media (max-width:640px) {
+    #doc { padding:22px 16px; font-size:13px; }
+    .doc-title { font-size:18px; }
+    .reg { flex-direction:column; align-items:flex-start; }
+    .bar .btn { padding:8px 12px; font-size:.82rem; }
+  }
+  @media print {
+    @page { size:A4; margin:12mm 10mm; }
+    body { background:#fff; }
+    .bar, .no-print { display:none !important; }
+    .wrap { padding:0; max-width:none; }
+    #doc { box-shadow:none; max-width:none; padding:0; margin:0; }
+    th { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .hl, tr.total td, tr.exempt td, .note-warn { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<div class="bar"><div class="bar-inner">
+  <a href="index.html"><img src="logo_nav.png" alt="財團法人消防教育學術研究基金會"></a>
+  <span class="sp"></span>
+  <button class="btn btn-dl" id="btn-dl" disabled>下載 PDF</button>
+  <button class="btn btn-print" id="btn-print" disabled>列印</button>
+  <a class="btn btn-reg" id="btn-reg" href="index.html#courses">線上報名</a>
+</div></div>
+<div class="wrap">
+  <div id="alert"></div>
+  <div id="doc"><div class="msg">簡章產生中，請稍候…</div></div>
+</div>
+
+<script>
+/* =====================================================================
+   網路版招生簡章（2026-11-03）
+   ── 用法：brochure.html?batch=梯次編號（例：fire-台北-初訓-3806）→ 產生該梯次的簡章
+            brochure.html?type=fire&kind=初訓 → 不指定梯次的通用版（不含日期地點）
+   ── 梯次日期、上課時間、地點、費用備註：自動讀取 register.html 的 COURSE_DATA 與各地區設定
+   ── 固定內容（課程內容及時數、規定等）：擷取自本會五種課程的 Excel 招生簡章
+   ── 依決定：網路版不顯示期別、講師姓名、專責人員名冊、招收名額；紙本報名表改為線上報名 QR code
+===================================================================== */
+const TPL = {"purpose": "配合政府消防法令規定，透過教育訓練，提升消防安全。", "facility": ["(一)講義講授配合投影機、錄影帶、幻燈片教學。", "(二)配合本教學大樓消防系統實施教學、觀摩。"], "refund": ["依據職業訓練機構設立及管理辦法【第16條】職業訓練機構辦理訓練，除法令另有規定外，得向學員收取必要費用，並應掣給正式收據。", "1.繳納訓練費用之學員於開訓前退訓者，職業訓練機構應依其申請退還所繳訓練費用之七成。(扣除必要手續費)", "2.開課當日提出退費申請者，不予退費。", "3.課前需開立報名證明者，開立後恕不退款。", "4.此退費標準自111年8月1日起生效。"], "placesIntro": "依消防法施行細則第13條第1項規定，指下列「一定規模以上供公眾使用建築物」", "places": ["電影片映演場所（戲院、電影院）、歌廳、舞廳、夜總會、俱樂部、理容院（觀光理髮、視聽理容等）、指壓按摩場所、錄影節目帶播映場所（MTV 等）、視聽歌唱場所（KTV 等）、酒家、酒吧、PUB及酒店（廊）。", "保齡球館、集會堂及三溫暖。", "觀光旅館及旅館。", "醫院、療養院、榮譽國民之家、長期照顧服務機構（限機構住宿式、社區式之建築物使用類組非屬H-2之日間照顧、團體家屋及小規模多機能）、老人福利機構（限長期照護型、養護型、失智照顧型之長期照顧機構、安養機構）、護理機構（限一般護理之家、精神護理之家、產後護理機構）、身心障礙福利機構（限住宿式服務機構、日間式服務機構）、身心障礙者職業訓練機構及精神復健機構。", "捷運車站、鐵路地下化車站、鐵路高架車站（招呼站除外） 及高速鐵路車站。", "觀光工廠。", "總樓地板面積在五百平方公尺以上之撞球場、健身休閒中心、運動訓練班及遊藝場所。", "總樓地板面積在五百平方公尺以上之百貨商場及超級市場。", "總樓地板面積在五百平方公尺以上之圖書館及博物館。", "總樓地板面積在五百平方公尺以上，其收容人數（含員工）在一百人以上之供香客住宿等類似場所。", "總樓地板面積在五百平方公尺以上，其員工在三十人以上之高度、中度、低度危險工作場所或機關（構）。", "總樓地板面積在三百平方公尺以上之餐廳及咖啡廳。", "學校、總樓地板面積在二百平方公尺以上之補習班或訓練班（運動訓練班除外）。", "收容人數在一百人以上（含員工）之寄宿舍及招待所（限有寢室客房者）。", "收容人數在三十人以上（含員工）之幼兒園（含改制前之幼稚園、托兒所）、兒童及少年福利機構（限托嬰中心、早期療育機構、有收容未滿二歲兒童之安置及教養機構）。", "收容人數在三十人（含員工）以上之視障按摩場所。"], "courses": {"防火管理人（初訓）": {"title": "防火管理人初訓訓練班", "legalTitle": "主管機關認可文號", "legal": ["(一)民國112年6月21日修正公布之「消防法」第13條第7、8、9項。", "(二)民國113年2月2日台內消字第11316004431號「防火管理人訓練與專業機構登錄及管理辦法」。", "(三)民國113年5月23日內授消字第1131602201號「防火管理人訓練與專業機構登錄及管理辦法」書表格式。", "(四)民國113年8月5日內授消字第1131603589號核准登錄字號「113消管訓證字第0028號」。"], "courses": [{"name": "消防知識及火災預防消防防護計畫", "content": "火災概念及緊急應變常識   \n火災原因與消防安全\n防火管理相關法規(含建築防火相關法規等)\n從火災案例分析防火理對策\n消防安全設備檢修申報辦法\n消防防設計畫、共同消防防護計畫及施工中消防防護計畫之內容\n各種消防防護計畫之區別、提報方式、製作要領與注意事項\n(工廠減災應變措施)依據火災風險評估後，場所分為嚴重、一般及輕微風險。針對場所潛在風險，硬體面及軟體面之因應強化改善措施。", "hours": "4小時"}, {"name": "消防安全設備與防火避難設施", "content": "消防安全設備與防火避難設施之種類及性能\n消防安全設備與防火避難設施日常檢查重點\n消防安全設備之操作要領暨實際操作", "hours": "4小時"}, {"name": "員工教育與自衛消防編組訓練", "content": "員工教育訓練方式\n自衛消防編組要領\n自衛消防編組應變能力驗證要點\n(工廠火災風險自主辨識)火災風險評估項目及風險等級、評估方法及瞭解評估結果所代表意義", "hours": "3小時"}, {"name": "測驗", "content": "消防局派員督導", "hours": "1小時"}], "total": "12小時", "notes": [], "qual": "擔任「防火管理人」者，需為管理或監督層次之人員。", "manage": ["(一)上課前請於櫃台簽到（每日各簽二次，嚴禁代簽），防火管理人 需經省(市)、縣(市)消防機構或中央消防機構認可之專業機構講習訓練防火管理人每三年至少應接受複訓一次，本會隨時派員抽查，學員須依編排座次入座，不得任意更換位置，違規者一律以曠課論，故請學員切勿隨意翹課、曠課；冒名頂替上課或考試者，撤銷結業資格。", "(二)缺課時數初訓達二小時、複訓達一小時或測驗成績未達標準等，應予退訓。", "(三)上課守則：", "1.開課後請配合完成下列事項:請繳交一吋照片一張(背面用油性筆寫上姓名)。", "2.配合專責人員完成報名表之填寫作業，若有住址及其它資料有誤或變更時請與本會聯絡修改之。", "3.相關資料請於開課後儘速繳齊。"], "assess": ["(一)課後完成問卷調查，以利辦訓品質提升。", "(二)學員考核方式", "1、由中央消防主管機關提供之題庫，圈選出題測驗，成績達60分為及格。", "2、測驗以筆試方式進行，分為選擇20題，是非20題，問答2題。（選擇、是非每題2分，問答每題10分）。", "3、測驗達60分為及格，發給證書，不及格者需重新受訓。"], "cert": "學員經測驗合格，於結訓後四周內，由本會向訓練場所所在地直轄市、縣(市)主管機關申請合格證書字號，經審查符合規定後，製作合格證書以掛號寄送或至本會領取。", "fee": "講習訓練費：3,200元整（含教材、證書）", "places": true}, "防火管理人（複訓）": {"title": "防火管理人複訓訓練班", "legalTitle": "主管機關認可文號", "legal": ["(一)民國112年6月21日修正公布之「消防法」第13條第7、8、9項。", "(二)民國113年2月2日台內消字第11316004431號「防火管理人訓練與專業機構登錄及管理辦法」。", "(三)民國113年5月23日內授消字第1131602201號「防火管理人訓練與專業機構登錄及管理辦法」書表格式。", "(四)民國113年8月5日內授消字第1131603589號核准登錄字號「113消管訓證字第0028號」。"], "courses": [{"name": "自衛消防編組實施要領", "content": "員工之教育訓練方式\n減火通報及避難訓練之實施方式\n自衛消防編組訓練常見錯誤樣態及缺失研討\n自衛消防編組訓練應變能力驗證要點\n(工廠火災風險自主辨識)火災風險評估項目及風險等級、評估方法及瞭解評估結果所代表意義", "hours": "3小時"}, {"name": "防火管理對策", "content": "從災例分析防火管理(軟體及硬體)對策\n現行防火管理相關法規重點與回顧\n消防安全設備檢修申報辦法\n(工廠減災應變措施)依火災風險評估後，場所分為嚴重、一般及輕微風險。針對場所潛在風險，硬體面及軟體面之因應強化改善措施", "hours": "2小時"}, {"name": "測驗", "content": "消防局派員督導", "hours": "1小時"}], "total": "6小時", "notes": [], "qual": "擔任「防火管理人」者，需為管理或監督層次之人員，參加複訓者須曾有取得防火管理人證照者。", "manage": ["(一)上課前請於櫃台簽到（每日各簽二次，嚴禁代簽），防火管理人 需經省(市)、縣(市)消防機構或中央消防機構認可之專業機構講習訓練防火管理人每三年至少應接受複訓一次，本會隨時派員抽查，學員須依編排座次入座，不得任意更換位置，違規者一律以曠課論，故請學員切勿隨意翹課、曠課；冒名頂替上課或考試者，撤銷結業資格。", "(二)缺課時數初訓達二小時、複訓達一小時或測驗成績未達標準等，應予退訓。", "(三)上課守則：", "1.開課後請配合完成下列事項:請繳交一吋照片一張(背面用油性筆寫上姓名)。", "2.配合專責人員完成報名表之填寫作業，若有住址及其它資料有誤或變更時請與本會聯絡修改之。", "3.相關資料請於開課後儘速繳齊。"], "assess": ["(一)課後完成問卷調查，以利辦訓品質提升。", "(二)學員考核方式", "1、由中央消防主管機關提供之題庫，圈選出題測驗，成績達60分為及格。", "2、測驗以筆試方式進行，分為選擇20題，是非20題，問答2題。（選擇、是非每題2分，問答每題10分）。", "3、測驗達60分為及格，發給證書，不及格者需重新受訓。"], "cert": "學員經測驗合格，於結訓後四周內，由本會向訓練場所所在地直轄市、縣(市)主管機關申請合格證書字號，經審查符合規定後，製作合格證書以掛號寄送或至本會領取。", "fee": "講習費用：新台幣1,600元整（含教材、證書）", "places": true}, "保安監督人（初訓(三天)）": {"title": "保安監督人初訓訓練班", "legalTitle": "登錄字號", "legal": ["(一)核准文號：內政部113年9月13日內授消字第1131604428號。", "(二)登錄證書字號：內政部(113)消保督訓證字第007號。"], "courses": [{"name": "消防知識", "content": "1.火災概念。2.火災特性及原因分析。\n3.火災應變及避難常識。", "hours": "1小時"}, {"name": "火災預防", "content": "1.火災預防目的及規定。2.用火及用電安全。\n3.從災例分析防火管理對策。4.防止縱火措施。", "hours": "2小時"}, {"name": "消防安全設備之維護管理及操作要領", "content": "1.消防安全設備種類及功能。2.消防安全設備日常檢查重點。3.消防安全設備實際操作要領。", "hours": "3小時"}, {"name": "自衛消防編組", "content": "1.自衛消防編組目的。2.自衛消防編組原則及任務。3.自衛消防編組訓練及應變要領。", "hours": "2小時"}, {"name": "公共危險物品安全管理法規介紹", "content": "1.公共危險物品製造、儲存及處理場所設置規定。\n2.保安監督制度。", "hours": "3小時"}, {"name": "公共危險物品理化特性及標示", "content": "1.公共危險物品分類及理化特性。\n2.公共危險物品標示及安全資料表。", "hours": "2小時"}, {"name": "公共危險物品儲運安全基準", "content": "1.公共危險物品處理、儲存及搬運安全。\n2.公共危險物品車輛裝載及駕駛注意事項。", "hours": "2小時"}, {"name": "危險設施檢查及操作要領", "content": "1.危險設施種類及日常檢查重點。\n2.危險設施操作要領及注意事項。", "hours": "2小時"}, {"name": "場所施工安全基準", "content": "1.事業單位及施工單位施工管理權責。\n2.場所施工火災風險及對策。", "hours": "1小時"}, {"name": "危險性工廠之安全管理及災害應變", "content": "1.工廠災害特性及原因分析。2.工廠災害預防對策。\n3.災害應變程序及要領。", "hours": "1小時"}, {"name": "消防防災計畫範例說明及實作撰寫", "content": "1.消防防災計畫內容。2.消防防災計畫製作要領及注意事項。3.消防防災計畫實作撰寫。", "hours": "4小時"}, {"name": "測        驗", "content": "由中央主管機關製作題庫，提供施予訓練之機關（構）圈選出題測驗，測驗成績達七十分為合格，並由直轄市、縣（市）主管機關人員擔任監考教官。", "hours": "1小時"}], "total": "24小時", "notes": ["(一)曾參加防火管理人訓練取得合格證書者，得免除前四項課程。", "(二)未參與測驗或缺課時數達二小時以上，應予退訓。", "(三)訓練機構編排課程，應依保安監督人講師資格及訓練項目對照表，按講師所具資格安排課程，且每位講師於每期訓練之總授課時數以四小時為限。"], "qual": "參加初訓者，無資格限制，有意學習者皆得參訓。", "manage": ["(一)上課前請於櫃台簽到（每日各簽二次，嚴禁代簽），本會隨時派員抽查、點名，學員須依編排座次入座，不得任意更換位置，違規者一律以曠課論，故請學員切勿隨意翹課、曠課；冒名頂替上課或考試者，撤銷結業資格。", "(二)未參與測驗或缺課時數初訓達二小時、複訓達一小時，應予退訓。", "(三)上課守則：", "1.開課後請配合完成下列事項:請繳交一吋照片一張(背面用油性筆寫上姓名)。", "2.配合專責人員完成報名表之填寫作業，若有住址及其它資料有誤或變更時請與本會聯絡修改之。", "3.相關資料請於開課前儘速繳齊，屆時如未繳者，將無法參加課程。"], "assess": ["(一)課後完成問卷調查，以利辦訓品質提升。", "(二)學員考核方式", "1、測驗以筆試方式進行，分為選擇20題(每題2分)，是非20題(每題2分)，問答2題(每題10分)，成績達七十分為合格。", "2、筆試之題目，由中央主管機關統一製作題庫於網頁公告，並不定期更新。"], "cert": "學員經測驗合格，由本會向主管機關申請合格證書字號，經審查符合規定後，於結訓後四周內，製作合格證書以掛號寄送或至本會領取。", "places": false, "fee": "訓練費：6,500元整（含教材、證照費）"}, "保安監督人（初訓(二天)）": {"title": "保安監督人初訓訓練班", "legalTitle": "登錄字號", "legal": ["(一)核准文號：內政部113年9月13日內授消字第1131604428號。", "(二)登錄證書字號：內政部(113)消保督訓證字第007號。"], "courses": [{"name": "消防知識", "content": "1.火災概念。2.火災特性及原因分析。\n3.火災應變及避難常識。", "hours": "1小時"}, {"name": "火災預防", "content": "1.火災預防目的及規定。2.用火及用電安全。\n3.從災例分析防火管理對策。4.防止縱火措施。", "hours": "2小時"}, {"name": "消防安全設備之維護管理及操作要領", "content": "1.消防安全設備種類及功能。2.消防安全設備日常檢查重點。3.消防安全設備實際操作要領。", "hours": "3小時"}, {"name": "自衛消防編組", "content": "1.自衛消防編組目的。2.自衛消防編組原則及任務。3.自衛消防編組訓練及應變要領。", "hours": "2小時"}, {"name": "公共危險物品安全管理法規介紹", "content": "1.公共危險物品製造、儲存及處理場所設置規定。\n2.保安監督制度。", "hours": "3小時"}, {"name": "公共危險物品理化特性及標示", "content": "1.公共危險物品分類及理化特性。\n2.公共危險物品標示及安全資料表。", "hours": "2小時"}, {"name": "公共危險物品儲運安全基準", "content": "1.公共危險物品處理、儲存及搬運安全。\n2.公共危險物品車輛裝載及駕駛注意事項。", "hours": "2小時"}, {"name": "危險設施檢查及操作要領", "content": "1.危險設施種類及日常檢查重點。\n2.危險設施操作要領及注意事項。", "hours": "2小時"}, {"name": "場所施工安全基準", "content": "1.事業單位及施工單位施工管理權責。\n2.場所施工火災風險及對策。", "hours": "1小時"}, {"name": "危險性工廠之安全管理及災害應變", "content": "1.工廠災害特性及原因分析。2.工廠災害預防對策。\n3.災害應變程序及要領。", "hours": "1小時"}, {"name": "消防防災計畫範例說明及實作撰寫", "content": "1.消防防災計畫內容。2.消防防災計畫製作要領及注意事項。3.消防防災計畫實作撰寫。", "hours": "4小時"}, {"name": "測        驗", "content": "由中央主管機關製作題庫，提供施予訓練之機關（構）圈選出題測驗，測驗成績達七十分為合格，並由直轄市、縣（市）主管機關人員擔任監考教官。", "hours": "1小時"}], "total": "24小時", "notes": ["(一)曾參加防火管理人訓練取得合格證書者，得免除前四項課程。", "(二)未參與測驗或缺課時數達二小時以上，應予退訓。", "(三)訓練機構編排課程，應依保安監督人講師資格及訓練項目對照表，按講師所具資格安排課程，且每位講師於每期訓練之總授課時數以四小時為限。"], "qual": "參加初訓者，無資格限制，有意學習者皆得參訓。", "manage": ["(一)上課前請於櫃台簽到（每日各簽二次，嚴禁代簽），本會隨時派員抽查、點名，學員須依編排座次入座，不得任意更換位置，違規者一律以曠課論，故請學員切勿隨意翹課、曠課；冒名頂替上課或考試者，撤銷結業資格。", "(二)未參與測驗或缺課時數初訓達二小時、複訓達一小時，應予退訓。", "(三)上課守則：", "1.開課後請配合完成下列事項:請繳交一吋照片一張(背面用油性筆寫上姓名)。", "2.配合專責人員完成報名表之填寫作業，若有住址及其它資料有誤或變更時請與本會聯絡修改之。", "3.相關資料請於開課前儘速繳齊，屆時如未繳者，將無法參加課程。"], "assess": ["(一)課後完成問卷調查，以利辦訓品質提升。", "(二)學員考核方式", "1、測驗以筆試方式進行，分為選擇20題(每題2分)，是非20題(每題2分)，問答2題(每題10分)，成績達七十分為合格。", "2、筆試之題目，由中央主管機關統一製作題庫於網頁公告，並不定期更新。"], "cert": "學員經測驗合格，由本會向主管機關申請合格證書字號，經審查符合規定後，於結訓後四周內，製作合格證書以掛號寄送或至本會領取。", "places": false, "fee": "訓練費：5,000元整（含教材、證照費）", "twoDay": true}, "保安監督人（複訓）": {"title": "保安監督人複訓訓練班", "legalTitle": "登錄字號", "legal": ["(一)核准文號：內政部113年9月13日內授消字第1131604428號", "(二)登錄證書字號：內政部(113)消保督訓證字第007號"], "courses": [{"name": "公共危險物品管理實務探討", "content": "1.公共危險物品場所自主檢查及維護管理。\n2.公共危險物品場所消防管理缺失態樣及風險。", "hours": "2小時"}, {"name": "公共危險物品安全管理對策", "content": "1.公共危險物品危害特性分析及注意事項。\n2.公共危險物品製造、儲存及處理作業規範。", "hours": "2小時"}, {"name": "公共危險物品處理作業基準", "content": "1.公共危險物品場所風險評估及災因分析。\n2.從災例檢討安全管理對策及應變作為。", "hours": "2小時"}, {"name": "消防防災計畫之說明與檢討", "content": "1.消防防災計畫應用。\n2.消防防災計畫常見錯誤態樣檢討。", "hours": "1小時"}, {"name": "測        驗", "content": "1.由中央主管機關製作題庫，提供施予訓練之機關（構）圈選出題測驗，測驗成績達七十分為合格，並由直轄市、縣（市）主管機關人員擔任監考教官。\n2.測驗題目：選擇二十題，是非二十題，問答二題（選擇、是非每題二分，問答每題十分）。", "hours": "1小時"}], "total": "8小時", "notes": ["備註:訓練機構編排課程，應依保安監督人講師資格及訓練項目對照表，按講師所具資格安排課程，且每位講師於每期訓練之總授課時數以四小時為限。"], "qual": "參加複訓者，限經初訓合格並領有合格證書，使得參訓。", "manage": ["(一)上課前請於櫃台簽到（每日各簽二次，嚴禁代簽），本會隨時派員抽查、點名，學員須依編排座次入座，不得任意更換位置，違規者一律以曠課論；冒名頂替上課或考試者，撤銷結業資格。", "(二)未參與測驗或缺課時數初訓達二小時、複訓達一小時或測驗成績未達標準等，應予退訓。", "(三)上課守則：", "1.開課後請配合完成下列事項:請繳交一吋照片一張(背面用油性筆寫上姓名)。", "2.配合專責人員完成報名表之填寫作業，若有住址及其它資料有誤或變更時請與本會聯絡修改之。", "3.相關資料請於開課後儘速繳齊。"], "assess": ["(一)課後完成問卷調查，以利辦訓品質提升。", "(二)學員考核方式", "1、由中央消防主管機關提供之題庫，圈選出題測驗，成績達70分為合格。", "2、測驗以筆試方式進行，分為選擇20題，是非20題，問答2題。(選擇、是非每題2分，問答每題10分)。", "3、筆試之題目，由中央主管機關統一製作題庫於網頁公告，並不定期更新。"], "cert": "由本會向中央主管機關申請合格證書字號，經審查符合規定後，於結訓後四周內，製作證書以掛號寄送。", "fee": "複訓訓練費：2,700元整(含教材、證照費）", "places": false}, "保安檢查員（初訓）": {"title": "保安檢查員初訓訓練班", "legalTitle": "登錄字號", "legal": ["(一)核准文號：內政部113年9月13日內授消字第1131604428號", "(二)登錄證書字號：內政部(113)消保檢訓證字第006號"], "courses": [{"name": "公共危險物品製造、儲存或處理場所構造與設備之維護及檢查", "content": "1.保安檢查員之業務及職責。\n2.公共危險物品場所構造及設備規定。\n3.公共危險物品場所構造與設備之維護及檢查要領。", "hours": "4小時"}, {"name": "公共危險物品理化特性及標示", "content": "1.公共危險物品分類及理化特性。\n2.公共危險物品標示及安全資料表。", "hours": "2小時"}, {"name": "危險性工廠之安全管理及災害應變", "content": "1.工廠災害特性及原因分析。\n2.工廠災害預防對策。\n3.災害應變程序及要領。", "hours": "1小時"}, {"name": "測        驗", "content": "1.由中央主管機關製作題庫，提供施予訓練之機關（構）圈選出題測驗，測驗成績達七十分為合格，並由直轄市、縣（市）主管機關人員擔任監考教官。\n2.測驗題目：選擇二十題，是非二十題，問答二題（選擇、是非每題二分，問答每題十分）。", "hours": "1小時"}], "total": "8小時", "notes": ["備註:訓練機構編排課程，應依保安檢查員講師資格及訓練項目對照表，按講師所具資格安排課程，且每位講師於每期訓練之總授課時數以四小時為限。"], "qual": "參加初訓者，無資格限制，有意學習者皆得參訓。", "manage": ["(一)上課前請於櫃台簽到（每日各簽二次，嚴禁代簽），本會隨時派員抽查、點名，學員須依編排座次入座，不得任意更換位置，違規者一律以曠課論；冒名頂替上課或考試者，撤銷結業資格。", "(二)未參與測驗或缺課時數達一小時或測驗成績未達標準等，應予退訓。", "(三)上課守則：", "1.開課後請配合完成下列事項:請繳交一吋照片一張(背面用油性筆寫上姓名)。", "2.配合專責人員完成報名表之填寫作業，若有住址及其它資料有誤或變更時請與本會聯絡修改之。", "3.相關資料請於開課後儘速繳齊。"], "assess": ["(一)課後完成問卷調查，以利辦訓品質提升。", "(二)學員考核方式", "1、由中央消防主管機關提供之題庫，圈選出題測驗，成績達70分為合格。", "2、測驗以筆試方式進行，分為選擇20題，是非20題，問答2題。(選擇、是非每題2分，問答每題10分)", "3、筆試之題目，由中央主管機關統一製作題庫於網頁公告，並不定期更新。"], "cert": "由本會向中央主管機關申請合格證書字號，經審查符合規定後，於結訓後四周內，製作合格證書以掛號寄送。", "fee": "訓練費：2,700元整(含教材、證照費）", "places": false}}};
+const TYPE_BY_COURSE = { '防火管理人': 'fire', '保安監督人': 'security', '保安檢查員': 'inspector' };
+const NUM = ['一','二','三','四','五','六','七','八','九','十','十一','十二','十三','十四','十五'];
+const SITE = 'https://www.119fire.org.tw/';
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+const br = s => esc(s).replace(/\n/g, '<br>');
+
+async function loadSiteData() {
+  const res = await fetch('register.html?_t=' + Date.now(), { cache: 'no-store' });
+  const html = await res.text();
+  const k = 'const COURSE_DATA = ', s = html.indexOf(k);
+  const data = JSON.parse(html.slice(s + k.length, html.indexOf('\n];', s) + 2));
+  let helpers = null;
+  try {
+    const a = html.indexOf('const DEFAULT_CLASS_TIME'), b = html.indexOf('async function renderBatches', a);
+    helpers = new Function(html.slice(a, b) + '\nreturn { getSessionTime: getSessionTime, getSessionAddress: getSessionAddress };')();
+  } catch (e) { helpers = null; }
+  return { data, helpers };
+}
+
+function findSession(data, id) {
+  for (const g of data) for (const x of g.sessions) if (x.id === id) return Object.assign({ course: g.course, region: g.region, type: g.type }, x);
+  return null;
+}
+
+function render(course, sess, helpers) {
+  const t = TPL.courses[course];
+  if (!t) throw new Error('找不到「' + course + '」的簡章範本');
+  const kind = (course.match(/（(.+)）$/) || [, ''])[1];
+  const type = TYPE_BY_COURSE[course.replace(/（.*$/, '')] || '';
+  const regUrl = SITE + 'register.html?type=' + encodeURIComponent(type) + '&kind=' + encodeURIComponent(kind);
+  document.getElementById('btn-reg').href = regUrl;
+  const sections = [];
+  const add = (title, body) => sections.push({ title, body });
+
+  add('訓練目的', '<p>' + br(TPL.purpose) + '</p>');
+  add(t.legalTitle, '<ul>' + t.legal.map(x => '<li>' + br(x) + '</li>').join('') + '</ul>');
+  if (sess) {
+    const time = helpers ? helpers.getSessionTime(sess) : (sess.time || '');
+    add('訓練日期及上課時間', '<div class="hl">' + esc(sess.dates || sess.label) + '<small>上課時間：' + esc(String(time).replace(/（依講師[^）]*）/g, '')) + '（依講師時間做調整）</small></div>');
+  } else {
+    add('訓練日期及上課時間', '<p>依各梯次公告，請至本會網站「線上報名」查詢各地區開課日期。</p>');
+  }
+  let rows = t.courses.map((c, i) => '<tr class="' + (t.twoDay && i < 4 ? 'exempt' : '') + '"><td class="n">' + esc(c.name) + '</td><td>' + br(c.content) + '</td><td class="h">' + esc(c.hours) + '</td></tr>').join('');
+  rows += '<tr class="total"><td class="n">合計</td><td></td><td class="h">' + (t.twoDay ? '16小時' : esc(t.total)) + '</td></tr>';
+  let courseBody = '<table><thead><tr><th>訓練項目</th><th>內容</th><th>時數</th></tr></thead><tbody>' + rows + '</tbody></table>';
+  if (t.twoDay) courseBody += '<div class="note-warn">本梯次為二天班：適用曾參加防火管理人訓練取得合格證書者，免除前四項課程，共16小時（三天班為24小時）。</div>';
+  if (t.notes && t.notes.length) courseBody += '<div class="notes">' + t.notes.map(br).join('<br>') + '</div>';
+  add('課程內容及時數', courseBody);
+  add('參訓資格', '<p>' + br(t.qual) + '</p>');
+  if (sess) {
+    const addr = helpers ? helpers.getSessionAddress(sess) : (sess.address || sess.location || '');
+    add('訓練場地', '<div class="hl">' + esc(sess.region) + '｜' + esc(addr) + '</div>');
+  } else {
+    add('訓練場地', '<p>依各梯次公告，請至本會網站「線上報名」查詢。</p>');
+  }
+  // 依決定：網路版不放「教學設施」（2026-11-03）
+  add('訓練期間之學員管理', '<ul class="small">' + t.manage.map(x => '<li>' + br(x) + '</li>').join('') + '</ul>');
+  add('教學考核及學員考核', '<ul class="small">' + t.assess.map(x => '<li>' + br(x) + '</li>').join('') + '</ul>');
+  add('合格證書發放方式、期程', '<p>' + br(t.cert) + '</p>');
+  // 梯次備註有特別費用（例：金門）→ 直接以該梯次費用為準，不再列出一般費用，避免兩個金額混淆
+  const specialFee = sess && sess.note && /費/.test(sess.note);
+  let fee = '<div class="hl">' + esc(specialFee ? sess.note : t.fee) + '</div>';
+  fee += '<p style="margin-top:4px"><b>收費方式（請於課前完成繳納）</b></p>' +
+    '<p><b>學員專屬匯款帳號（請勿扣除匯費）</b></p><ul class="small">' +
+    '<li>銀行：第一銀行（代號 007）</li><li>分行：營業部</li>' +
+    '<li>帳號：41704 + 身分證字號後9碼數字（不含英文字母）</li>' +
+    '<li>戶名：財團法人消防教育學術研究基金會</li></ul>';
+  fee += '<p style="margin-top:4px"><b>退費規定</b></p><ul class="small">' + TPL.refund.map(x => '<li>' + br(x) + '</li>').join('') + '</ul>';
+  add('收費及退費規定', fee);
+  // 依決定：網路版不放「應實施防火管理之場所」（2026-11-03）
+  if (false && t.places) add('應實施防火管理之場所', '<p>' + br(TPL.placesIntro) + '</p><ul class="places">' + TPL.places.map((x, i) => '<li><b>' + (i + 1) + '.</b><span>' + br(x) + '</span></li>').join('') + '</ul>');
+  add('線上報名', '<div class="reg avoid-break"><div class="qr" id="qr"></div><div class="reg-text"><b>請掃描 QR code 或至本會網站線上報名</b><br>' +
+      '<span class="url">' + esc(decodeURI(regUrl)) + '</span><br><span style="font-size:12px;color:#5C7174">電話洽詢：台北 (02)2361-2119／中南區 (05)283-8119</span></div></div>');
+
+  const head = '<div class="doc-org">財團法人消防教育學術研究基金會</div>' +
+    '<div class="doc-title">' + esc(t.title) + (t.twoDay ? '（二天班）' : (course.indexOf('三天') > -1 ? '（三天班）' : '')) + '　招生簡章</div>' +
+    (sess ? '' : '<div class="doc-sub">通用版（各梯次日期地點請見線上報名）</div>');
+  document.getElementById('doc').innerHTML = head + sections.map((s, i) =>
+    '<div class="sec"><h3>' + NUM[i] + '、' + esc(s.title) + '</h3>' + s.body + '</div>').join('') +
+    '<div class="doc-foot">財團法人消防教育學術研究基金會｜台北市中正區延平南路65號2樓｜(02)2361-2119｜feaf@119fire.org.tw</div>';
+  try { new QRCode(document.getElementById('qr'), { text: regUrl, width: 232, height: 232, correctLevel: QRCode.CorrectLevel.M }); }
+  catch (e) { document.getElementById('qr').style.display = 'none'; }
+  document.title = t.title + '招生簡章' + (sess ? '｜' + sess.region + ' ' + (sess.dates || sess.label) : '');
+  return 'PDF檔名';
+}
+
+function pdfName(course, sess) {
+  const c = course.replace(/[（）()]/g, '');
+  return '招生簡章_' + c + (sess ? '_' + sess.region + '_' + (sess.dates || sess.label).replace(/（.）/g, '').replace(/～/g, '-') : '') + '.pdf';
+}
+
+(async function init() {
+  const p = new URLSearchParams(location.search);
+  const doc = document.getElementById('doc');
+  let course = '', sess = null, helpers = null;
+  try {
+    const site = await loadSiteData(); helpers = site.helpers;
+    if (p.get('batch')) {
+      sess = findSession(site.data, p.get('batch'));
+      if (!sess) throw new Error('找不到這個梯次，可能已結束或已下架。');
+      course = sess.course;
+      if (sess.status === 'cancelled' || sess.status === 'paused') {
+        document.getElementById('alert').innerHTML = '<div class="alert">' + esc(sess.statusText || (sess.status === 'cancelled' ? '本梯次已取消' : '本梯次暫停報名')) +
+          (sess.note ? '：' + esc(sess.note) : '') + '</div>';
+      }
+    } else {
+      const map = { fire: '防火管理人', security: '保安監督人', inspector: '保安檢查員' };
+      course = (map[p.get('type')] || '') + '（' + (p.get('kind') || '') + '）';
+    }
+    render(course, sess, helpers);
+  } catch (e) {
+    doc.innerHTML = '<div class="msg">' + esc(e.message || '簡章載入失敗') + '<br><br><a class="btn btn-reg" href="index.html#courses">前往課程報名</a></div>';
+    return;
+  }
+  const dl = document.getElementById('btn-dl'), pr = document.getElementById('btn-print');
+  dl.disabled = false; pr.disabled = false;
+  pr.addEventListener('click', () => window.print());
+  dl.addEventListener('click', async () => {
+    if (typeof html2pdf === 'undefined') { window.print(); return; }   // PDF 工具沒載入 → 改用列印（可另存 PDF）
+    dl.disabled = true; const old = dl.textContent; dl.textContent = 'PDF 產生中…';
+    const y = window.scrollY;
+    document.body.classList.add('pdf-mode'); window.scrollTo(0, 0);
+    try {
+      await html2pdf().set({
+        margin: [8, 6, 9, 6], filename: pdfName(course, sess),
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollX: 0, scrollY: 0 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', '.avoid-break', '.hl', 'h3'] }
+      }).from(doc).save();
+    } catch (e) {
+      alert('PDF 產生失敗，將改用列印功能，您可以在列印畫面選擇「另存為 PDF」。'); window.print();
+    } finally { document.body.classList.remove('pdf-mode'); window.scrollTo(0, y); dl.disabled = false; dl.textContent = old; }
+  });
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+</body>
+</html>
