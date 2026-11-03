@@ -4495,7 +4495,7 @@ function renderDateMode() {
   if (all.length > 4) {
     chipsEl.innerHTML = chips.map(([k, l]) => {
       const n = all.filter(s => qdInRange(s, k)).length;
-      return `<button type="button" data-r="${k}" class="${qdRange === k ? 'on' : ''}" ${n ? '' : 'disabled'}>${l} ${n}</button>`;
+      return `<button type="button" data-r="${k}" class="${qdRange === k ? 'on' : ''}" ${n ? '' : 'disabled'}>${l}${(k === '14' || k === 'this') ? ' ' + n + ' 梯次' : ''}</button>`;
     }).join('');
     chipsEl.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { qdRange = b.dataset.r; renderDateMode(); }));
   } else chipsEl.innerHTML = '';
