@@ -511,7 +511,7 @@
 <!-- 補件上傳視窗 -->
 <div class="sm-mask" id="sm-mask">
   <div class="sm-dialog">
-    <h3 id="sm-title">上傳補件</h3>
+    <h3 id="sm-title">上傳資料</h3>
     <p class="sm-desc" id="sm-desc"></p>
     <div id="sm-crop" style="display:none">
       <div class="crop-wrap" id="crop-wrap"><canvas id="crop-canvas" width="240" height="300"></canvas><div class="crop-guide"></div></div>
@@ -702,12 +702,16 @@ function suppRender(tab) {
   var items = (SUPP[tab] && SUPP[tab].items) || [];
   if (!items.length) { box.style.display = 'none'; box.innerHTML = ''; return; }
   var needCount = items.filter(function(x){ return x.status === '待補'; }).length;
+  var photoNeed = items.some(function(x){ return x.kind === '照片' && x.status === '待補'; });
+  var prevNeed = items.some(function(x){ return x.kind === '前證書' && x.status === '待補'; });
   // 待補 → 可主動上傳 → 已收到
   var order = { '待補': 0, '可上傳': 1, '已上傳': 2, '已收': 2 };
   items = items.slice().sort(function(a,b){ return order[a.status] - order[b.status]; });
-  var html = needCount
-    ? '<h4>📎 待補件資料（' + needCount + ' 項）</h4><p class="supp-sub">請上傳下列資料，以免影響證書製作與寄送。</p>'
-    : '<h4>📎 補件資料</h4><p class="supp-sub">複訓學員可以先上傳前次證書影本，上課時就不必另外繳交。</p>';
+  // 用語：照片才叫「補件」；前證書是複訓的應繳資料，一律稱「上傳前次證書影本」
+  var sub = photoNeed ? '尚缺照片，請儘快上傳，以免影響證書製作與寄送。'
+          : prevNeed ? '請上傳前次證書影本。'
+          : '複訓學員可以先上傳前次證書影本，上課時就不必另外繳交。';
+  var html = '<h4>📎 ' + (photoNeed ? '照片補件與資料上傳' : '資料上傳') + '</h4><p class="supp-sub">' + sub + '</p>';
   items.forEach(function(it, i) {
     var tag, action;
     if (it.status === '待補') {
