@@ -517,7 +517,7 @@
       <div class="crop-wrap" id="crop-wrap"><canvas id="crop-canvas" width="240" height="300"></canvas><div class="crop-guide"></div></div>
       <div class="crop-zoom"><span>縮小</span><input type="range" id="crop-zoom" min="100" max="400" value="100"><span>放大</span></div>
       <p style="text-align:center;font-size:.78rem;color:var(--text-600)">拖曳照片調整位置，讓臉部落在虛線框內</p>
-      <div class="sm-rules">📌 照片規格：近 6 個月內、白色背景、正面脫帽，<br>　　完成後為 1 吋（2.8 × 3.5 公分）大小</div>
+      <div class="sm-rules">📌 請使用正面照，<br>　　裁切完成後為 1 吋大小</div>
     </div>
     <div id="sm-preview" class="sm-preview" style="display:none"></div>
     <div class="sm-actions">
@@ -582,6 +582,7 @@ async function queryRecord() {
   hideAll('record');
   suppHide('record');
   document.getElementById('loading-record').style.display = 'block';
+  suppLoad('record', name, id); // 上傳資料跟報名紀錄同時查，不用等前一個查完
 
   try {
     const url  = LOOKUP_API + '?name=' + encodeURIComponent(name) + '&id=' + encodeURIComponent(id);
@@ -589,7 +590,6 @@ async function queryRecord() {
 
     document.getElementById('loading-record').style.display = 'none';
 
-    suppLoad('record', name, id); // 補件：不論有沒有查到報名紀錄都查一次
     if (data.status === 'not_found') {
       document.getElementById('empty-record').style.display = 'block';
       return;
@@ -635,6 +635,7 @@ async function queryCert() {
   hideAll('cert');
   suppHide('cert');
   document.getElementById('loading-cert').style.display = 'block';
+  suppLoad('cert', name, id); // 上傳資料跟證書查詢同時查
 
   try {
     const url  = CERT_API + '?name=' + encodeURIComponent(name) + '&id=' + encodeURIComponent(id) + '&birth=' + encodeURIComponent(birth);
@@ -642,7 +643,6 @@ async function queryCert() {
 
     document.getElementById('loading-cert').style.display = 'none';
 
-    suppLoad('cert', name, id); // 補件：證書還沒製作也可能有待補項目
     if (data.status === 'not_found') {
       document.getElementById('empty-cert').style.display = 'block';
       return;
@@ -688,13 +688,19 @@ function suppEsc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, funct
 function suppHide(tab) { var b = document.getElementById('supp-' + tab); if (b) { b.style.display = 'none'; b.innerHTML = ''; } }
 
 async function suppLoad(tab, name, id) {
-  SUPP[tab] = { name: name, id: id, items: [] };
+  var me = { name: name, id: id, items: [] };
+  SUPP[tab] = me;
+  var box = document.getElementById('supp-' + tab);
+  box.className = 'supp-box ok';
+  box.innerHTML = '<p class="supp-sub" style="margin:0">⏳ 正在查詢需上傳的資料…</p>';
+  box.style.display = 'block';
   try {
     var data = await jsonp(LOOKUP_API + '?action=supplement&name=' + encodeURIComponent(name) + '&id=' + encodeURIComponent(id));
-    if (!data || data.status !== 'ok') return;
-    SUPP[tab].items = data.items || [];
+    if (SUPP[tab] !== me) return; // 已經重新查詢了，舊的結果不要蓋上去
+    if (!data || data.status !== 'ok') { suppHide(tab); return; }
+    me.items = data.items || [];
     suppRender(tab);
-  } catch (e) { /* 補件查詢失敗不影響原本的查詢結果 */ }
+  } catch (e) { if (SUPP[tab] === me) suppHide(tab); /* 查詢失敗不影響原本的查詢結果 */ }
 }
 
 function suppRender(tab) {
