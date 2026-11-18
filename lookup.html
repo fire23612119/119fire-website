@@ -732,8 +732,12 @@ function suppRender(tab) {
       tag = '<span class="supp-tag done">已收到</span>';
       action = '<span class="supp-done-text">✓ ' + (it.uploadedAt ? '已於 ' + suppEsc(it.uploadedAt.split(' ')[0]) + ' 上傳' : '已收到') + '</span>';
     }
+    var extra = '';
+    if (it.kind === '前證書' && it.status !== '已上傳' && it.status !== '已收' && suppNeedIdCopy(it)) {
+      extra = '<div class="si-course" style="color:#A53A1E;font-weight:600">※ 新竹班請一併附上身分證正反面（可一次選多張照片）</div>';
+    }
     html += '<div class="supp-item"><div class="si-main"><span class="si-kind">' + (it.kind === '照片' ? '1 吋照片' : '前次證書影本') + '</span>' + tag +
-            '<div class="si-course">' + suppEsc(it.course) + '｜' + suppEsc(it.region) + '｜' + suppEsc(it.batch) + '</div></div>' + action + '</div>';
+            '<div class="si-course">' + suppEsc(it.course) + '｜' + suppEsc(it.region) + '｜' + suppEsc(it.batch) + '</div>' + extra + '</div>' + action + '</div>';
   });
   SUPP[tab].sorted = items;
   box.className = 'supp-box' + (needCount ? '' : ' ok');
@@ -741,32 +745,43 @@ function suppRender(tab) {
   box.style.display = 'block';
 }
 
+// 新竹的防火管理人複訓：上期證書要一併附身分證正反面（極少數情況，只顯示提示）
+function suppNeedIdCopy(it) {
+  var c = String(it.course || ''), r = String(it.region || '');
+  return r.indexOf('新竹') > -1 && c.indexOf('防火管理人') > -1 && c.indexOf('複訓') > -1;
+}
+
 function suppPick(tab, i) {
   SM.tab = tab; SM.item = SUPP[tab].sorted[i];
   var inp = document.getElementById('supp-file');
   inp.value = '';
   inp.accept = SM.item.kind === '照片' ? 'image/*' : 'image/*,application/pdf';
+  inp.multiple = SM.item.kind !== '照片'; // 上期證書可一次選多張（例如證書＋身分證正反面），會自動合併成一個檔案
   inp.click();
 }
 
 document.getElementById('supp-file').addEventListener('change', function(e) {
-  var f = e.target.files && e.target.files[0];
-  if (!f) return;
-  suppOpenModal(f);
+  var fs = e.target.files ? Array.prototype.slice.call(e.target.files) : [];
+  if (!fs.length) return;
+  suppOpenModal(fs);
 });
 
 function suppSetMsg(t, color) { var m = document.getElementById('sm-msg'); m.textContent = t || ''; m.style.color = color || 'var(--text-600)'; }
 
-function suppOpenModal(file) {
+function suppOpenModal(files) {
   var it = SM.item;
+  var file = files[0];
   SM.blob = null; SM.mime = ''; SM.img = null;
   document.getElementById('sm-title').textContent = it.kind === '照片' ? '上傳 1 吋照片' : '上傳前次證書影本';
-  document.getElementById('sm-desc').textContent = it.course + '｜' + it.region + '｜' + it.batch;
+  document.getElementById('sm-desc').textContent = it.course + '｜' + it.region + '｜' + it.batch +
+    (it.kind !== '照片' && files.length === 1 && suppNeedIdCopy(it) ? '　※ 請一併附身分證正反面：可重新選擇，一次選多張照片' : '');
   document.getElementById('sm-crop').style.display = 'none';
   var pv = document.getElementById('sm-preview'); pv.style.display = 'none'; pv.innerHTML = '';
   document.getElementById('sm-ok').disabled = true;
   suppSetMsg('');
   document.getElementById('sm-mask').classList.add('open');
+
+  if (it.kind !== '照片' && files.length > 1) { suppMergeImages(files); return; }
 
   if (file.type === 'application/pdf') {
     if (it.kind === '照片') { suppSetMsg('照片請選擇圖片檔', '#C2462A'); return; }
@@ -848,6 +863,53 @@ function cropOutput() {
     cx.drawImage(SM.img, SM.ox * r, SM.oy * r, SM.img.width * s, SM.img.height * s);
     cv.toBlob(resolve, 'image/jpeg', 0.92);
   });
+}
+
+// 上期證書一次選多張照片：由上到下合併成一張 JPG（例如證書＋身分證正面＋反面）
+var SUPP_MAX_PAGES = 6;
+function suppMergeImages(files) {
+  var pv = document.getElementById('sm-preview');
+  if (files.some(function(f){ return f.type === 'application/pdf'; })) {
+    suppSetMsg('一次選多個檔案時請都選照片；PDF 請單獨上傳（多頁可放在同一個 PDF）', '#C2462A'); return;
+  }
+  if (files.some(function(f){ return !/^image\//.test(f.type); })) { suppSetMsg('只接受圖片或 PDF 檔案', '#C2462A'); return; }
+  if (files.length > SUPP_MAX_PAGES) { suppSetMsg('一次最多選 ' + SUPP_MAX_PAGES + ' 張照片', '#C2462A'); return; }
+  suppSetMsg('正在合併 ' + files.length + ' 張照片…');
+  Promise.all(files.map(function(f) {
+    return new Promise(function(res, rej) {
+      var im = new Image();
+      im.onload = function() { res(im); };
+      im.onerror = function() { rej(new Error(f.name)); };
+      im.src = URL.createObjectURL(f);
+    });
+  })).then(function(imgs) {
+    var W = Math.min(1600, Math.max.apply(null, imgs.map(function(im){ return im.width; })));
+    var GAP = 24;
+    var hs = imgs.map(function(im){ return Math.round(im.height * W / im.width); });
+    var H = hs.reduce(function(a,b){ return a + b; }, 0) + GAP * (imgs.length - 1);
+    var k = Math.min(1, 7000 / H); // 總高度太高就整體縮小，避免檔案太大
+    var cv = document.createElement('canvas');
+    cv.width = Math.round(W * k); cv.height = Math.round(H * k);
+    var cx = cv.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, cv.width, cv.height);
+    var y = 0;
+    imgs.forEach(function(im, i) {
+      cx.drawImage(im, 0, Math.round(y * k), cv.width, Math.round(hs[i] * k));
+      y += hs[i] + GAP;
+      if (i < imgs.length - 1) { cx.fillStyle = '#ccc'; cx.fillRect(0, Math.round((y - GAP / 2) * k), cv.width, Math.max(1, Math.round(2 * k))); cx.fillStyle = '#fff'; }
+    });
+    var tryQ = function(q) {
+      cv.toBlob(function(b) {
+        if (b.size > 4.5 * 1024 * 1024 && q > 0.5) { tryQ(q - 0.15); return; }
+        SM.blob = b; SM.mime = 'image/jpeg';
+        pv.innerHTML = '<img src="' + cv.toDataURL('image/jpeg', 0.6) + '" alt="預覽" style="max-height:340px">' +
+          '<div style="font-size:.78rem;color:var(--text-600);margin-top:6px">已將 ' + imgs.length + ' 張照片由上到下合併成一個檔案</div>';
+        pv.style.display = 'block';
+        suppSetMsg('');
+        document.getElementById('sm-ok').disabled = false;
+      }, 'image/jpeg', q);
+    };
+    tryQ(0.85);
+  }).catch(function(e) { suppSetMsg('無法讀取照片：' + e.message + '，請換一張或改用 JPG 格式', '#C2462A'); });
 }
 
 function suppCloseModal() { document.getElementById('sm-mask').classList.remove('open'); SM.img = null; SM.blob = null; }
