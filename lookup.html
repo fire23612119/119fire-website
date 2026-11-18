@@ -733,8 +733,8 @@ function suppRender(tab) {
       action = '<span class="supp-done-text">✓ ' + (it.uploadedAt ? '已於 ' + suppEsc(it.uploadedAt.split(' ')[0]) + ' 上傳' : '已收到') + '</span>';
     }
     var extra = '';
-    if (it.kind === '前證書' && it.status !== '已上傳' && it.status !== '已收' && suppNeedIdCopy(it)) {
-      extra = '<div class="si-course" style="color:#A53A1E;font-weight:600">※ 新竹班請一併附上身分證正反面（可一次選多張照片）</div>';
+    if (it.kind === '前證書' && it.status !== '已上傳' && it.status !== '已收') {
+      extra = '<div class="si-course">※ 可以一次上傳多張照片</div>';
     }
     html += '<div class="supp-item"><div class="si-main"><span class="si-kind">' + (it.kind === '照片' ? '1 吋照片' : '前次證書影本') + '</span>' + tag +
             '<div class="si-course">' + suppEsc(it.course) + '｜' + suppEsc(it.region) + '｜' + suppEsc(it.batch) + '</div>' + extra + '</div>' + action + '</div>';
@@ -743,12 +743,6 @@ function suppRender(tab) {
   box.className = 'supp-box' + (needCount ? '' : ' ok');
   box.innerHTML = html;
   box.style.display = 'block';
-}
-
-// 新竹的防火管理人複訓：上期證書要一併附身分證正反面（極少數情況，只顯示提示）
-function suppNeedIdCopy(it) {
-  var c = String(it.course || ''), r = String(it.region || '');
-  return r.indexOf('新竹') > -1 && c.indexOf('防火管理人') > -1 && c.indexOf('複訓') > -1;
 }
 
 function suppPick(tab, i) {
@@ -773,8 +767,7 @@ function suppOpenModal(files) {
   var file = files[0];
   SM.blob = null; SM.mime = ''; SM.img = null;
   document.getElementById('sm-title').textContent = it.kind === '照片' ? '上傳 1 吋照片' : '上傳前次證書影本';
-  document.getElementById('sm-desc').textContent = it.course + '｜' + it.region + '｜' + it.batch +
-    (it.kind !== '照片' && files.length === 1 && suppNeedIdCopy(it) ? '　※ 請一併附身分證正反面：可重新選擇，一次選多張照片' : '');
+  document.getElementById('sm-desc').textContent = it.course + '｜' + it.region + '｜' + it.batch;
   document.getElementById('sm-crop').style.display = 'none';
   var pv = document.getElementById('sm-preview'); pv.style.display = 'none'; pv.innerHTML = '';
   document.getElementById('sm-ok').disabled = true;
