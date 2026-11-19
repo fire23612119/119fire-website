@@ -302,7 +302,7 @@
   .cf-msg .cf-link { padding:0 2px; font-size:inherit; color:inherit; font-weight:700; }
   .cf-who { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:.86rem; color:var(--text-600); }
   .cf-class { font-weight:700; color:var(--teal-900); font-size:1rem; margin:2px 0 16px; }
-  .cf-steps { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+  .cf-steps { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:20px; }
   .cf-step { border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.84rem; background:var(--bg); color:var(--text-600); }
   .cf-step b { display:block; color:var(--teal-900); font-size:.92rem; margin-bottom:4px; }
   .cf-step.done { border-color:rgba(30,122,67,.35); background:#F1FAF4; color:#1E7A43; }
@@ -442,7 +442,6 @@
           查詢報名紀錄
         </button>
         <div class="result-area">
-          <div class="supp-box" id="supp-record"></div>
           <div class="result-loading" id="loading-record"><div class="spinner"></div>查詢中，請稍候…</div>
           <div class="result-empty" id="empty-record">
             <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -457,6 +456,7 @@
           <div class="result-notice" id="notice-record"></div>
           <div id="cf-fix" style="display:none"></div>
           <div id="cf-main" style="display:none"></div>
+          <div class="supp-box" id="supp-record" style="margin-top:20px"></div>
         </div>
       </div>
 
@@ -622,7 +622,7 @@ function showNotice(prefix, html) {
 
 const LOOKUP_API = 'https://script.google.com/macros/s/AKfycbzkIaz1EegxlRQ9NjeygvC3iah7nuT7clXfMXc3NKLar94bpMBfJ9Lnb-FFC0sBi734/exec';
 
-function jsonp(url) {
+function jsonp(url, timeoutMs) {
   return new Promise(function(resolve, reject) {
     var cbName = 'jsonpCb_' + Date.now() + '_' + Math.floor(Math.random()*1e6);
     var script = document.createElement('script');
@@ -634,7 +634,7 @@ function jsonp(url) {
     script.onerror = function() { reject(new Error('網路錯誤')); };
     script.src = url + '&callback=' + cbName;
     document.head.appendChild(script);
-    setTimeout(function() { reject(new Error('逾時')); }, 10000);
+    setTimeout(function() { reject(new Error('逾時')); }, timeoutMs || 10000);
   });
 }
 
@@ -782,7 +782,7 @@ async function suppLoad(tab, name, id) {
 function suppRender(tab) {
   var box = document.getElementById('supp-' + tab);
   var items = (SUPP[tab] && SUPP[tab].items) || [];
-  if (!items.length) { box.style.display = 'none'; box.innerHTML = ''; return; }
+  if (!items.length) { box.style.display = 'none'; box.innerHTML = ''; if (tab === 'record' && typeof cfUpdateUploadStep === 'function') cfUpdateUploadStep(); return; }
   var needCount = items.filter(function(x){ return x.status === '待補'; }).length;
   var photoNeed = items.some(function(x){ return x.kind === '照片' && x.status === '待補'; });
   var photoOpt = items.some(function(x){ return x.kind === '照片' && x.status === '可上傳'; });
@@ -812,6 +812,7 @@ function suppRender(tab) {
             '<div class="si-course">' + suppEsc(it.course) + '｜' + suppEsc(it.region) + '｜' + suppEsc(it.batch) + '</div></div>' + action + '</div>';
   });
   SUPP[tab].sorted = items;
+  if (tab === 'record' && typeof cfUpdateUploadStep === 'function') setTimeout(cfUpdateUploadStep, 0);
   box.className = 'supp-box' + (needCount ? '' : ' ok');
   box.innerHTML = html;
   box.style.display = 'block';
@@ -964,7 +965,7 @@ async function suppDoUpload() {
 
 // ============================================================
 // 資料確認（併在「報名紀錄查詢」裡）＋查不到時「填寫資料」 —— 2026-11
-// 查詢後，可確認的班會出現【確認資料】按鈕 → ① 資料確認 → ② 課後問卷（上課當天開放）
+// 查詢後，可確認的班會出現【確認資料】按鈕 → ① 資料確認 → ② 資料上傳（照片／前次證書）→ ③ 課後問卷（上課當天開放）
 // 查不到 → 【填寫資料】：接回原本的報名／上課當天現場報名／其餘請來電
 // 完整身分證只存在記憶體，畫面一律遮罩
 // ============================================================
@@ -995,7 +996,7 @@ function cfKey(c, r, b) { return [c, r, b].map(function(x){ return String(x == n
 
 function cfApi(params) {
   var q = Object.keys(params).map(function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); }).join('&');
-  return jsonp(LOOKUP_API + '?' + q);
+  return jsonp(LOOKUP_API + '?' + q, 30000);   // Apps Script 剛啟動時可能超過 10 秒
 }
 
 function cfReset() {
@@ -1048,6 +1049,20 @@ function cfClose() {
   cfEl('table-record').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// ② 資料上傳：依查詢專區補件項目（照片／前次證書）顯示狀態，上傳區在確認區下方
+function cfUploadStepText(done) {
+  var items = (SUPP.record && SUPP.record.items) || [];
+  if (!done) return '完成資料確認後，於下方上傳';
+  if (!items.length) return '不需上傳';
+  if (items.some(function(x){ return x.status === '待補'; })) return '<b style="color:#A53A1E">請於下方上傳</b>';
+  if (items.some(function(x){ return x.status === '可上傳'; })) return '如需上傳，請見下方';
+  return '✅ 已收到';
+}
+function cfUpdateUploadStep() {
+  var el = cfEl('cf-step-up');
+  if (el && CFS.cur) el.innerHTML = '<b>② 資料上傳</b>' + cfUploadStepText(!!CFS.cur.confirmed);
+}
+
 // ---- 確認畫面：待辦＋表單 ----
 function cfRender() {
   var s = CFS.cur, done = !!s.confirmed;
@@ -1057,7 +1072,8 @@ function cfRender() {
           '<div class="cf-class">' + suppEsc(s.course) + '｜' + suppEsc(s.region) + '｜' + suppEsc(s.batch) + '</div>';
   h += '<div class="cf-steps">' +
        '<div class="cf-step' + (done ? ' done' : '') + '"><b>① 資料確認</b>' + (done ? '✅ 已完成' : '請確認下方資料') + '</div>' +
-       '<div class="cf-step' + (done && s.surveyUrl ? '' : ' lock') + '"><b>② 課後問卷</b>' +
+       '<div class="cf-step' + (done ? '' : ' lock') + '" id="cf-step-up"><b>② 資料上傳</b>' + cfUploadStepText(done) + '</div>' +
+       '<div class="cf-step' + (done && s.surveyUrl ? '' : ' lock') + '"><b>③ 課後問卷</b>' +
          (!done ? '完成資料確認後開放'
            : s.surveyUrl ? '<a class="cf-survey-btn" href="' + suppEsc(s.surveyUrl) + '" target="_blank" rel="noopener">填寫課後問卷</a>'
            : '上課當天開放') +
@@ -1118,19 +1134,18 @@ function cfFormHtml(s) {
          '<input class="cf-in" id="cf-v-addr" value="' + suppEsc(addr.rest) + '" placeholder="縣市＋路名＋門牌">' +
        '</div></div></div>';
 
-  h += '<div class="cf-field"><div class="cf-label">發票統一編號</div>' +
-       (s.taxId ? '<div class="cf-value">' + suppEsc(s.company) + '　' + suppEsc(s.taxId) + '</div>'
-                : '<div class="cf-value cf-empty">' + (s.noTaxId ? '不需統編' : '（報名時未填寫）') + '</div>') +
-       cfRadioHtml('cf-r-inv', [['none', '不需統編'], ['yes', s.taxId ? '需要（確認或修改下方資料）' : '需要開立統編']]) +
+  var invNow = s.taxId ? suppEsc(s.company) + '　' + suppEsc(s.taxId)
+             : s.company ? suppEsc(s.company) + '（不需統編）'
+             : s.noTaxId ? '不需統編' : '';
+  h += '<div class="cf-field"><div class="cf-label">發票</div>' +
+       '<div class="cf-value' + (invNow ? '' : ' cf-empty') + '">' + (invNow || '（報名時未填寫）') + '</div>' +
+       cfRadioHtml('cf-r-inv', [['none', '不需統編'], ['yes', s.taxId ? '需要統編（確認或修改下方資料）' : '需要開立統編']]) +
+       '<div class="cf-fix" id="cf-fix-inv-none">' +
+         '<input class="cf-in" id="cf-v-title" value="' + suppEsc(s.taxId ? '' : s.company) + '" placeholder="發票抬頭（不填則開立給本人）">' +
+       '</div>' +
        '<div class="cf-fix" id="cf-fix-inv">' +
          '<input class="cf-in" id="cf-v-company" value="' + suppEsc(s.company) + '" placeholder="發票抬頭（公司名稱）">' +
          '<input class="cf-in" id="cf-v-taxid" value="' + suppEsc(s.taxId) + '" placeholder="統一編號 8 碼" inputmode="numeric" maxlength="8">' +
-       '</div></div>';
-
-  h += '<div class="cf-field"><label class="cf-check"><input type="checkbox" id="cf-miss">現場人員告知我有缺件</label>' +
-       '<div class="cf-fix" id="cf-fix-miss">' +
-         '<label class="cf-check" style="margin-bottom:8px"><input type="checkbox" id="cf-miss-photo">照片（可在上方「資料上傳」直接拍照上傳）</label>' +
-         '<input class="cf-in" id="cf-miss-other" placeholder="其他缺少的文件（沒有可不填）">' +
        '</div></div>';
 
   h += '<div class="cf-msg" id="cf-form-msg"></div>' +
@@ -1150,7 +1165,7 @@ function cfBindForm() {
   toggle('cf-r-email', 'cf-fix-email', '0');
   toggle('cf-r-addr', 'cf-fix-addr', '0');
   toggle('cf-r-inv', 'cf-fix-inv', 'yes');
-  cfEl('cf-miss').addEventListener('change', function() { cfEl('cf-fix-miss').classList.toggle('open', this.checked); });
+  toggle('cf-r-inv', 'cf-fix-inv-none', 'none');
 }
 
 // 有原值才有「正確／需更正」選項；原本空白的直接視為需更正
@@ -1189,16 +1204,12 @@ async function cfSubmit() {
   }
 
   var ri = cfRv('cf-r-inv');
-  a.invoice = { need: ri, company: cfEl('cf-v-company').value.trim(), taxId: cfDigits(cfEl('cf-v-taxid').value) };
+  a.invoice = { need: ri, company: (ri === 'yes' ? cfEl('cf-v-company') : cfEl('cf-v-title')).value.trim(),
+                taxId: ri === 'yes' ? cfDigits(cfEl('cf-v-taxid').value) : '' };
   if (ri === null) errs.push('請選擇是否需要開立統編');
   else if (ri === 'yes') {
     if (a.invoice.company.length < 2) errs.push('請填寫發票抬頭（公司名稱）');
     if (!/^\d{8}$/.test(a.invoice.taxId)) errs.push('統一編號請填 8 碼數字');
-  }
-
-  if (cfEl('cf-miss').checked) {
-    a.missing = { photo: cfEl('cf-miss-photo').checked, other: cfEl('cf-miss-other').value.trim() };
-    if (!a.missing.photo && !a.missing.other) errs.push('請勾選或填寫缺少的文件');
   }
 
   if (errs.length) { cfMsg('cf-form-msg', errs.map(suppEsc).join('<br>'), true); return; }
@@ -1220,7 +1231,8 @@ async function cfSubmit() {
     cfRender();
     cfRefreshCells();
     var tip = '資料確認完成，謝謝您！';
-    if (a.missing && a.missing.photo) tip += '<br>缺照片的學員，可以在上方「資料上傳」直接拍照上傳。';
+    var needUp = ((SUPP.record && SUPP.record.items) || []).some(function(x){ return x.status === '待補'; });
+    if (needUp) tip += '<br>您還有資料需要上傳，請見下方「資料上傳」。';
     cfMsg('cf-top-msg', tip);
     cfEl('cf-main').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (e) {
@@ -1236,7 +1248,10 @@ async function cfStartFix() {
   box.style.display = 'block';
   try {
     var res = await cfApi({ action: 'cfFixSessions' });
-    if (res.status !== 'ok') throw new Error(res.message || '');
+    if (res.status !== 'ok') {
+      box.innerHTML = '<div class="cf-msg err" style="display:block">' + cfNl(res.message || '系統錯誤，請再試一次') + '</div>';
+      return;
+    }
     if (!res.sessions.length) {
       box.innerHTML = '<div class="cf-msg err" style="display:block">目前沒有開放確認的班級。<br>' +
                       '如有疑問請來電：台北 (02)2361-2119、中南區 (05)283-8119</div>';
@@ -1246,16 +1261,17 @@ async function cfStartFix() {
     cfRenderFix();
     box.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (e) {
-    box.innerHTML = '<div class="cf-msg err" style="display:block">連線逾時，請再試一次。</div>';
+    box.innerHTML = '<div class="cf-msg err" style="display:block">連線逾時，請再試一次。' +
+                    '<button class="cf-link" onclick="cfStartFix()">重試</button></div>';
   }
 }
 
 function cfRenderFix() {
   var opts = CFX.sessions.map(function(s, i) {
-    return '<option value="' + i + '">' + suppEsc(s.course) + '｜' + suppEsc(s.region) + '｜' + suppEsc(s.batch) + (s.today ? '（今天上課）' : '') + '</option>';
+    return '<option value="' + i + '">' + suppEsc(s.course) + '｜' + suppEsc(s.region) + '｜' + suppEsc(s.batch) + (s.tag ? '（' + suppEsc(s.tag) + '）' : '') + '</option>';
   }).join('');
   var h = '<div class="cf-class">填寫資料</div>' +
-          '<p class="cf-tip">請填寫與身分證相同的資料。系統會找出您原本的報名並完成資料確認；今天現場報名的學員，學費請以現金繳交給現場人員。</p>' +
+          '<p class="cf-tip">請填寫與身分證相同的資料，系統會找出您原本的報名並完成資料確認。<br>現場報名僅限昨天、今天、明天有上課的班級，學費請以現金繳交給現場人員。</p>' +
           '<div class="cf-wl">' +
           '<label>上課班級</label><select class="cf-in" id="cf-w-session">' + (CFX.sessions.length > 1 ? '<option value="">請選擇</option>' : '') + opts + '</select>' +
           '<label>姓名</label><input class="cf-in" id="cf-w-name" value="' + suppEsc(CFS.name || cfEl('r-name').value.trim()) + '" placeholder="與身分證相同">' +
@@ -1265,7 +1281,8 @@ function cfRenderFix() {
           '<label>Email（電子發票寄送用，沒有可不填）</label><input class="cf-in" id="cf-w-email" inputmode="email" autocapitalize="off" placeholder="name@example.com">' +
           '<label>證書郵寄地址</label><div class="cf-zip"><input class="cf-in" id="cf-w-zip" inputmode="numeric" maxlength="6" placeholder="郵遞區號">' +
             '<input class="cf-in" id="cf-w-addr" placeholder="縣市＋路名＋門牌"></div>' +
-          '<label>發票統一編號</label>' + cfRadioHtml('cf-w-inv', [['none', '不需統編'], ['yes', '需要開立統編']]) +
+          '<label>發票</label>' + cfRadioHtml('cf-w-inv', [['none', '不需統編'], ['yes', '需要開立統編']]) +
+          '<div class="cf-fix" id="cf-w-fix-inv-none"><input class="cf-in" id="cf-w-title" placeholder="發票抬頭（不填則開立給本人）"></div>' +
           '<div class="cf-fix" id="cf-w-fix-inv">' +
             '<input class="cf-in" id="cf-w-company" placeholder="發票抬頭（公司名稱）">' +
             '<input class="cf-in" id="cf-w-taxid" inputmode="numeric" maxlength="8" placeholder="統一編號 8 碼">' +
@@ -1275,7 +1292,10 @@ function cfRenderFix() {
           '<button class="cf-btn2" onclick="cfCloseFix()">取消</button>';
   var box = cfEl('cf-main'); box.innerHTML = h; box.style.display = 'block';
   document.querySelectorAll('input[name="cf-w-inv"]').forEach(function(r) {
-    r.addEventListener('change', function() { cfEl('cf-w-fix-inv').classList.toggle('open', cfRv('cf-w-inv') === 'yes'); });
+    r.addEventListener('change', function() {
+      cfEl('cf-w-fix-inv').classList.toggle('open', cfRv('cf-w-inv') === 'yes');
+      cfEl('cf-w-fix-inv-none').classList.toggle('open', cfRv('cf-w-inv') === 'none');
+    });
   });
 }
 function cfCloseFix() { var m = cfEl('cf-main'); m.style.display = 'none'; m.innerHTML = ''; }
@@ -1293,7 +1313,9 @@ async function cfSubmitFix() {
     email: cfEl('cf-w-email').value.trim(),
     zip: cfEl('cf-w-zip').value.trim(),
     address: cfEl('cf-w-addr').value.trim(),
-    invoice: { need: cfRv('cf-w-inv'), company: cfEl('cf-w-company').value.trim(), taxId: cfDigits(cfEl('cf-w-taxid').value) }
+    invoice: { need: cfRv('cf-w-inv'),
+               company: (cfRv('cf-w-inv') === 'yes' ? cfEl('cf-w-company') : cfEl('cf-w-title')).value.trim(),
+               taxId: cfRv('cf-w-inv') === 'yes' ? cfDigits(cfEl('cf-w-taxid').value) : '' }
   };
   if (!sess) errs.push('請選擇上課班級');
   if (d.name.length < 2) errs.push('請填寫姓名');
