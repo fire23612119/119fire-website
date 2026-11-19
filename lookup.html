@@ -436,12 +436,12 @@
       <div class="tab-panel active" id="panel-record">
         <div class="panel-title" id="r-title">報名紀錄查詢</div>
         <p class="panel-desc" id="r-desc">查詢本會課程的報名狀態及上課日期。<br>＊收到上課通知後，可在查詢結果中確認基本資料。</p>
-        <div class="cf-guide" id="cf-guide" style="display:none">
-          <b>📋 上課學員請依序完成</b>
+        <div class="cf-guide" id="cf-guide">
+          <b id="g-title">📋 基本資料確認步驟</b>
           <ol>
-            <li>輸入姓名、身分證字號，按【開始】</li>
-            <li>畫面會打開您今天上課的班級（有多個班時，請點【確認資料】）</li>
-            <li>依序完成：① 上傳資料（缺照片的學員）② 資料確認 ③ 滿意度調查</li>
+            <li id="g-1">輸入姓名、身分證字號，按【查詢報名紀錄】</li>
+            <li id="g-2">於查詢結果中，點選開放確認班別的【確認資料】</li>
+            <li>依序完成：① 上傳資料（如有需要）② 資料確認 ③ 滿意度調查</li>
           </ol>
         </div>
         <div class="cf-notice">⚠ 證書依確認後的資料製作，未確認致資料有誤者，更正需酌收手續費 200 元。</div>
@@ -1470,16 +1470,19 @@ document.addEventListener('DOMContentLoaded', function() {
     CF_QR = true;
     // 掃教室 QR code 進來：改成「上課學員專區」的說法
     var setText = function(id, t){ var el = document.getElementById(id); if (el) el.textContent = t; };
-    setText('q-title', '上課學員專區');
-    setText('q-sub', '上課期間的資料確認、照片上傳與滿意度調查，都從這裡開始。');
-    setText('r-title', '上課資料確認');
+    setText('q-title', '受訓學員專區');
+    setText('q-sub', '本專區提供受訓學員辦理基本資料確認、文件上傳（照片、前次證書等）及滿意度調查。');
+    setText('r-title', '基本資料確認');
+    setText('g-title', '📋 受訓學員請依序完成');
+    setText('g-1', '輸入姓名、身分證字號，按【開始】');
+    setText('g-2', '系統將自動開啟本日受訓班別；如有多個班別，請點選【確認資料】');
     var t1 = document.getElementById('tab1-text');   // 手機換行時，「報名查詢／」「資料確認」各自不拆開
     if (t1) t1.innerHTML = '<span style="display:inline-block">報名查詢／</span><span style="display:inline-block">資料確認</span>';
     setText('r-btn-text', '開始');
     var hide = function(id){ var el = document.getElementById(id); if (el) el.style.display = 'none'; };
     hide('r-desc');   // 分頁（報名紀錄查詢／結業證書查詢）照常顯示
     var guide = document.getElementById('cf-guide');
-    if (guide) { guide.style.display = 'block'; guide.style.marginTop = '0'; }
+    if (guide) guide.style.marginTop = '0';
     var card = document.querySelector('.query-card');
     if (card) setTimeout(function(){ card.scrollIntoView({ block: 'start' }); }, 50);
   }
