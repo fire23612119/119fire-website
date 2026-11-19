@@ -681,6 +681,9 @@ async function queryRecord() {
   CFS = { name: name, id: id, sessions: cfOk ? cf.sessions : [], notYet: cfOk ? cf.notYet : [],
           cur: null, editing: false, open: {} };
   var rows = (data && data.records) ? data.records : [];
+  // 姓名有異體字（溫／温）時，補件要用主資料庫裡的姓名查，上傳框才會出現
+  var dbName = CFS.sessions.length ? String(CFS.sessions[0].origName || '').trim() : '';
+  if (dbName && dbName !== name) suppLoad('record', dbName, id);
 
   if (!rows.length && !CFS.sessions.length && !CFS.notYet.length) {
     if (data.status === 'neterr' && cf === null) {
