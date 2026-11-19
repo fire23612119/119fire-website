@@ -302,12 +302,26 @@
   .cf-msg .cf-link { padding:0 2px; font-size:inherit; color:inherit; font-weight:700; }
   .cf-who { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:.86rem; color:var(--text-600); }
   .cf-class { font-weight:700; color:var(--teal-900); font-size:1rem; margin:2px 0 16px; }
-  .cf-steps { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:20px; }
-  .cf-step { border:1px solid var(--border); border-radius:12px; padding:12px 14px; font-size:.84rem; background:var(--bg); color:var(--text-600); }
-  .cf-step b { display:block; color:var(--teal-900); font-size:.92rem; margin-bottom:4px; }
-  .cf-step.done { border-color:rgba(30,122,67,.35); background:#F1FAF4; color:#1E7A43; }
-  .cf-step.lock { opacity:.6; }
-  .cf-survey-btn { display:inline-block; margin-top:4px; padding:8px 16px; border-radius:8px; background:linear-gradient(135deg,var(--cyan-500) 0%,var(--teal-700) 100%); color:#fff; font-weight:700; font-size:.88rem; }
+  /* 三步驟（可收合） */
+  .cf-acc { border:1px solid var(--border); border-radius:12px; margin-bottom:10px; background:#fff; overflow:hidden; }
+  .cf-acc.cur { border-color:var(--cyan-500); box-shadow:0 0 0 3px rgba(47,179,196,.14); }
+  .cf-acc-h { width:100%; display:flex; align-items:center; gap:10px; padding:14px 16px; background:none; border:none; cursor:pointer; font-family:'Noto Sans TC',sans-serif; text-align:left; color:inherit; }
+  .cf-acc-n { width:26px; height:26px; border-radius:50%; background:var(--cyan-100); color:var(--teal-900); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; flex-shrink:0; }
+  .cf-acc.ok .cf-acc-n { background:#E2F5E9; color:#1E7A43; }
+  .cf-acc.lock .cf-acc-n, .cf-acc.lock .cf-acc-t { opacity:.55; }
+  .cf-acc-t { font-weight:700; color:var(--teal-900); font-size:.95rem; white-space:nowrap; }
+  .cf-acc-s { margin-left:auto; font-size:.8rem; color:var(--text-600); text-align:right; line-height:1.4; }
+  .cf-acc-s.warn { color:#A53A1E; font-weight:700; }
+  .cf-acc-s.ok { color:#1E7A43; font-weight:700; }
+  .cf-acc-s.go { color:var(--teal-700); font-weight:700; }
+  .cf-acc-arrow { color:var(--text-600); font-size:.75rem; white-space:nowrap; flex-shrink:0; }
+  .cf-acc-b { display:none; padding:0 16px 16px; }
+  .cf-acc .a-less, .cf-acc.open .a-more { display:none; }
+  .cf-acc.open .a-less { display:inline; }
+  .cf-acc.open .cf-acc-b { display:block; }
+  .cf-acc-b .supp-box { margin:0 !important; }
+  .cf-cta { display:block; width:100%; text-align:center; padding:15px; border-radius:10px; background:linear-gradient(135deg,var(--cyan-500) 0%,var(--teal-700) 100%); color:#fff; font-weight:700; font-size:1.02rem; margin-top:6px; }
+  .cf-next { margin:4px 0 12px; padding:12px 14px; border-radius:10px; background:#F1FAF4; border:1px solid rgba(30,122,67,.3); color:#1E5F38; font-size:.88rem; line-height:1.7; }
   .cf-tip { font-size:.84rem; color:var(--text-600); margin-bottom:14px; line-height:1.65; }
   .cf-field { border:1px solid var(--border); border-radius:12px; padding:14px 16px; margin-bottom:12px; background:#fff; }
   .cf-field.must { border-left:4px solid var(--cyan-500); }
@@ -331,7 +345,6 @@
   .cf-btn2 { width:100%; margin-top:10px; padding:12px; border-radius:10px; border:1.5px solid var(--border); background:#fff; color:var(--text-600); font-weight:700; font-size:.92rem; cursor:pointer; font-family:'Noto Sans TC',sans-serif; }
   .query-btn:disabled { opacity:.5; cursor:default; transform:none; }
   @media (max-width: 600px) {
-    .cf-steps { grid-template-columns:1fr; }
     /* 手機：郵遞區號一行（短）、地址一行（全寬） */
     .cf-zip { grid-template-columns:1fr; gap:0; }
     .cf-zip input:first-child { width:130px; }
@@ -422,12 +435,12 @@
       <!-- Tab 1 : 報名紀錄 -->
       <div class="tab-panel active" id="panel-record">
         <div class="panel-title">報名紀錄查詢</div>
-        <p class="panel-desc">查詢本會課程的報名狀態及上課日期。<br>＊開課前 14 天起，可在查詢結果中確認基本資料。</p>
+        <p class="panel-desc">查詢本會課程的報名狀態及上課日期。<br>＊收到上課通知後，可在查詢結果中確認基本資料。</p>
         <div class="cf-guide" id="cf-guide" style="display:none">
           <b>📋 上課學員請依序完成</b>
           <ol>
             <li>輸入姓名、身分證字號查詢，按【確認資料】</li>
-            <li>確認完成後，點【填寫課後問卷】</li>
+            <li>確認完成後，點【填寫滿意度調查】</li>
           </ol>
         </div>
         <div class="cf-notice">⚠ 證書依確認後的資料製作，未確認致資料有誤者，更正需酌收手續費 200 元。</div>
@@ -461,6 +474,7 @@
           <div class="result-notice" id="notice-record"></div>
           <div id="cf-fix" style="display:none"></div>
           <div id="cf-main" style="display:none"></div>
+          <div id="supp-home"></div>
           <div class="supp-box" id="supp-record" style="margin-top:20px"></div>
         </div>
       </div>
@@ -665,7 +679,7 @@ async function queryRecord() {
 
   var cfOk = !!(cf && cf.status === 'ok');
   CFS = { name: name, id: id, sessions: cfOk ? cf.sessions : [], notYet: cfOk ? cf.notYet : [],
-          daysBefore: cfOk ? cf.daysBefore : 14, cur: null, editing: false };
+          cur: null, editing: false, open: {} };
   var rows = (data && data.records) ? data.records : [];
 
   if (!rows.length && !CFS.sessions.length && !CFS.notYet.length) {
@@ -970,11 +984,11 @@ async function suppDoUpload() {
 
 // ============================================================
 // 資料確認（併在「報名紀錄查詢」裡）＋查不到時「填寫資料」 —— 2026-11
-// 查詢後，可確認的班會出現【確認資料】按鈕 → ① 資料確認 → ② 資料上傳（照片／前次證書）→ ③ 課後問卷（上課當天開放）
+// 查詢後，可確認的班會出現【確認資料】按鈕 → ① 上傳資料（照片／前次證書）② 資料確認（已寄上課通知～結束當天）③ 滿意度調查（上課期間）
 // 查不到 → 【填寫資料】：接回原本的報名／上課當天現場報名／其餘請來電
 // 完整身分證只存在記憶體，畫面一律遮罩
 // ============================================================
-var CFS = { name: '', id: '', sessions: [], notYet: [], daysBefore: 14, cur: null, editing: false };
+var CFS = { name: '', id: '', sessions: [], notYet: [], cur: null, editing: false, open: {} };
 var CFX = { sessions: [] };
 
 function cfEl(id) { return document.getElementById(id); }
@@ -1005,7 +1019,8 @@ function cfApi(params) {
 }
 
 function cfReset() {
-  CFS = { name: '', id: '', sessions: [], notYet: [], daysBefore: 14, cur: null, editing: false };
+  cfSuppHome();
+  CFS = { name: '', id: '', sessions: [], notYet: [], cur: null, editing: false, open: {} };
   var m = cfEl('cf-main'); m.style.display = 'none'; m.innerHTML = '';
   var f = cfEl('cf-fix'); f.style.display = 'none'; f.innerHTML = '';
 }
@@ -1025,7 +1040,7 @@ function cfStatusCell(key) {
     return s.confirmed ? '<button class="cf-mini done" onclick="cfOpen(' + i + ')">✅ 已確認</button>'
                        : '<button class="cf-mini" onclick="cfOpen(' + i + ')">確認資料</button>';
   }
-  if (CFS.notYet.indexOf(key) > -1) return '<span class="cf-sub">開課前 ' + CFS.daysBefore + ' 天<br>開放確認</span>';
+  if (CFS.notYet.indexOf(key) > -1) return '<span class="cf-sub">待開放</span>';
   return '<span class="cf-sub">—</span>';
 }
 function cfRefreshCells() {
@@ -1042,59 +1057,122 @@ function cfShowFixPrompt(notFound) {
   f.style.display = 'block';
 }
 
+// 上傳框（#supp-record）平常放在課程列表下方；打開某一班時，移進「① 上傳資料」裡
+function cfSuppHome() {
+  var b = cfEl('supp-record'), home = cfEl('supp-home');
+  if (b && home && b.previousElementSibling !== home) home.parentNode.insertBefore(b, home.nextSibling);
+}
+function cfSuppIn() {
+  var b = cfEl('supp-record'), slot = cfEl('cf-up-slot');
+  if (b && slot) slot.appendChild(b);
+}
+
 function cfOpen(i) {
   CFS.cur = CFS.sessions[i];
   CFS.editing = !CFS.cur.confirmed;
+  CFS.open = cfDefaultOpen();
   cfRender();
   cfEl('cf-main').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-function cfEdit() { CFS.editing = true; cfRender(); }
+function cfEdit() { CFS.editing = true; CFS.open = { 2: true }; cfRender(); }
+function cfToggle(n) { CFS.open[n] = !CFS.open[n]; var el = cfEl('cf-acc-' + n); if (el) el.classList.toggle('open', !!CFS.open[n]); }
 function cfClose() {
+  cfSuppHome();
   var m = cfEl('cf-main'); m.style.display = 'none'; m.innerHTML = '';
   cfEl('table-record').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ② 資料上傳：依查詢專區補件項目（照片／前次證書）顯示狀態，上傳區在確認區下方
-function cfUploadStepText(done) {
-  var items = (SUPP.record && SUPP.record.items) || [];
-  if (!done) return '完成資料確認後，於下方上傳';
-  if (!items.length) return '不需上傳';
-  if (items.some(function(x){ return x.status === '待補'; })) return '<b style="color:#A53A1E">請於下方上傳</b>';
-  if (items.some(function(x){ return x.status === '可上傳'; })) return '如需上傳，請見下方';
-  return '✅ 已收到';
+// ---- 三個步驟的狀態 ----
+function cfSuppItems() { return (SUPP.record && SUPP.record.items) || []; }
+// ① 上傳資料
+function cfUpStatus() {
+  var items = cfSuppItems();
+  if (items.some(function(x){ return x.status === '待補'; })) return { cls: 'warn', text: '⚠ 尚缺資料，請上傳' };
+  if (items.some(function(x){ return x.status === '可上傳'; })) return { cls: '', text: '可上傳' };
+  if (items.length) return { cls: 'ok', text: '✅ 已收到' };
+  return { cls: '', text: '目前不需上傳' };
 }
+// ② 資料確認
+function cfConfStatus(s) {
+  return s.confirmed && !CFS.editing ? { cls: 'ok', text: '✅ 已確認' } : { cls: 'warn', text: '👉 請確認資料' };
+}
+// ③ 滿意度調查
+function cfSurveyStatus(s) {
+  if (!s.confirmed) return { cls: '', text: '🔒 完成資料確認後開放', lock: true };
+  if (s.surveyUrl) return { cls: 'go', text: '👉 請填寫' };
+  return { cls: '', text: s.started ? '已結束' : '上課當天開放', lock: true };
+}
+// 預設展開「目前該做的那一步」
+function cfDefaultOpen() {
+  var s = CFS.cur;
+  if (cfSuppItems().some(function(x){ return x.status === '待補'; })) return { 1: true, 2: !s.confirmed };
+  if (!s.confirmed || CFS.editing) return { 2: true };
+  if (s.surveyUrl) return { 3: true };
+  return {};
+}
+function cfCurStep() {
+  var s = CFS.cur;
+  if (!s.confirmed || CFS.editing) return 2;
+  if (s.surveyUrl) return 3;
+  return 0;
+}
+// 上傳項目載入完成後，只更新 ① 的狀態文字
 function cfUpdateUploadStep() {
-  var el = cfEl('cf-step-up');
-  if (el && CFS.cur) el.innerHTML = '<b>② 資料上傳</b>' + cfUploadStepText(!!CFS.cur.confirmed);
+  var el = cfEl('cf-acc-1');
+  if (!el || !CFS.cur) return;
+  var st = cfUpStatus();
+  var sEl = el.querySelector('.cf-acc-s'); if (sEl) { sEl.className = 'cf-acc-s ' + st.cls; sEl.textContent = st.text; }
+  var hint = cfEl('cf-up-hint'); if (hint) hint.style.display = cfSuppItems().length ? 'none' : 'block';
+  if (st.cls === 'warn' && !CFS.open[1]) cfToggle(1);
+}
+
+function cfAccHtml(n, title, st, body, extraCls) {
+  var cls = 'cf-acc' + (CFS.open[n] ? ' open' : '') + (st.cls === 'ok' ? ' ok' : '') + (st.lock ? ' lock' : '') + (extraCls || '');
+  return '<div class="' + cls + '" id="cf-acc-' + n + '">' +
+         '<button class="cf-acc-h" onclick="cfToggle(' + n + ')"><span class="cf-acc-n">' + n + '</span>' +
+         '<span class="cf-acc-t">' + title + '</span><span class="cf-acc-s ' + st.cls + '">' + st.text + '</span>' +
+         '<span class="cf-acc-arrow"><span class="a-more">查看 ▾</span><span class="a-less">收合 ▴</span></span></button>' +
+         '<div class="cf-acc-b">' + body + '</div></div>';
 }
 
 // ---- 確認畫面：待辦＋表單 ----
 function cfRender() {
-  var s = CFS.cur, done = !!s.confirmed;
+  cfSuppHome();
+  var s = CFS.cur, cur = cfCurStep();
   var hasTable = cfEl('table-record').style.display === 'block';
   var h = '<div class="cf-who"><span>👤 ' + suppEsc(s.name) + (s.idMasked ? '（' + suppEsc(s.idMasked) + '）' : '') + '</span>' +
           (hasTable ? '<button class="cf-link" onclick="cfClose()">← 回到課程列表</button>' : '') + '</div>' +
-          '<div class="cf-class">' + suppEsc(s.course) + '｜' + suppEsc(s.region) + '｜' + suppEsc(s.batch) + '</div>';
-  h += '<div class="cf-steps">' +
-       '<div class="cf-step' + (done ? ' done' : '') + '"><b>① 資料確認</b>' + (done ? '✅ 已完成' : '請確認下方資料') + '</div>' +
-       '<div class="cf-step' + (done ? '' : ' lock') + '" id="cf-step-up"><b>② 資料上傳</b>' + cfUploadStepText(done) + '</div>' +
-       '<div class="cf-step' + (done && s.surveyUrl ? '' : ' lock') + '"><b>③ 課後問卷</b>' +
-         (!done ? '完成資料確認後開放'
-           : s.surveyUrl ? '<a class="cf-survey-btn" href="' + suppEsc(s.surveyUrl) + '" target="_blank" rel="noopener">填寫課後問卷</a>'
-           : '上課當天開放') +
-       '</div></div>';
-  h += '<div class="cf-msg" id="cf-top-msg"></div>';
+          '<div class="cf-class">' + suppEsc(s.course) + '｜' + suppEsc(s.region) + '｜' + suppEsc(s.batch) + '</div>' +
+          '<div class="cf-msg" id="cf-top-msg"></div>';
+
+  // ① 上傳資料
+  var upBody = '<div id="cf-up-slot"></div>' +
+               '<p class="cf-sub" id="cf-up-hint" style="display:' + (cfSuppItems().length ? 'none' : 'block') + '">目前沒有需要上傳的資料。' +
+               (s.started ? '' : '照片於上課當天起開放上傳。') + '</p>';
+  h += cfAccHtml(1, '上傳資料', cfUpStatus(), upBody);
+
+  // ② 資料確認
+  var confBody;
   if (CFS.editing) {
-    h += cfFormHtml(s);
+    confBody = cfFormHtml(s);
   } else {
     var fixed = /⚠查無補登/.test(s.confirmed);
-    h += '<div class="cf-done">✅ 已於 ' + cfRocDate(s.confirmed) + ' 完成資料確認。<br>' +
-         (s.surveyUrl ? '課後問卷可以現在填寫，也可以在考試前再回到查詢專區查詢後填寫。<br>'
-                      : '上課當天再回到查詢專區查詢，即可填寫課後問卷。<br>') +
-         (fixed ? '您補登的資料將由承辦人員核對。<br>' : '') +
-         '<button class="cf-link" onclick="cfEdit()">資料需要修改？重新確認</button></div>';
+    confBody = '<div class="cf-done">✅ 已於 ' + cfRocDate(s.confirmed) + ' 完成資料確認。' +
+               (fixed ? '<br>您補登的資料將由承辦人員核對。' : '') +
+               '<br><button class="cf-link" onclick="cfEdit()">資料需要修改？重新確認</button></div>';
   }
+  h += cfAccHtml(2, '資料確認', cfConfStatus(s), confBody, cur === 2 ? ' cur' : '');
+
+  // ③ 滿意度調查
+  var sv = cfSurveyStatus(s), svBody;
+  if (s.surveyUrl) svBody = '<a class="cf-cta" href="' + suppEsc(s.surveyUrl) + '" target="_blank" rel="noopener">填寫滿意度調查 →</a>' +
+                            '<p class="cf-sub" style="margin-top:8px">可以現在填寫，也可以在考試前再回到查詢專區查詢後填寫（開放到課程結束當天）。</p>';
+  else if (!s.confirmed) svBody = '<p class="cf-sub">請先完成「② 資料確認」，完成後這裡會出現填寫按鈕。</p>';
+  else svBody = '<p class="cf-sub">滿意度調查於上課第一天至課程結束當天開放，上課當天再回到查詢專區查詢即可填寫。</p>';
+  h += cfAccHtml(3, '滿意度調查', sv, svBody, cur === 3 ? ' cur' : '');
+
   var box = cfEl('cf-main'); box.innerHTML = h; box.style.display = 'block';
+  cfSuppIn();
   if (CFS.editing) cfBindForm();
 }
 
@@ -1233,11 +1311,13 @@ async function cfSubmit() {
     CFS.cur = res.session;
     if (idx > -1) CFS.sessions[idx] = res.session;
     CFS.editing = false;
+    var needUp = cfSuppItems().some(function(x){ return x.status === '待補'; });
+    CFS.open = { 1: needUp, 3: true };
     cfRender();
     cfRefreshCells();
-    var tip = '資料確認完成，謝謝您！';
-    var needUp = ((SUPP.record && SUPP.record.items) || []).some(function(x){ return x.status === '待補'; });
-    if (needUp) tip += '<br>您還有資料需要上傳，請見下方「資料上傳」。';
+    var tip = '✅ 資料確認完成，謝謝您！' +
+              (res.session.surveyUrl ? '<br>下一步：請點下方「③ 滿意度調查」的按鈕填寫。' : '<br>滿意度調查於上課當天開放。');
+    if (needUp) tip += '<br>您還有資料需要上傳，請見「① 上傳資料」。';
     cfMsg('cf-top-msg', tip);
     cfEl('cf-main').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (e) {
@@ -1248,6 +1328,7 @@ async function cfSubmit() {
 
 // ---- 查不到時：填寫資料 ----
 async function cfStartFix() {
+  cfSuppHome();
   var box = cfEl('cf-main');
   box.innerHTML = '<div class="result-loading" style="display:block"><div class="spinner"></div>載入班級…</div>';
   box.style.display = 'block';
@@ -1303,7 +1384,7 @@ function cfRenderFix() {
     });
   });
 }
-function cfCloseFix() { var m = cfEl('cf-main'); m.style.display = 'none'; m.innerHTML = ''; }
+function cfCloseFix() { cfSuppHome(); var m = cfEl('cf-main'); m.style.display = 'none'; m.innerHTML = ''; }
 
 async function cfSubmitFix() {
   var errs = [];
@@ -1344,7 +1425,7 @@ async function cfSubmitFix() {
     if (res.status === 'ok') {
       CFS.name = res.name; CFS.id = res.id;
       CFS.sessions = CFS.sessions.filter(function(x){ return x.key !== res.session.key; }).concat([res.session]);
-      CFS.cur = res.session; CFS.editing = false;
+      CFS.cur = res.session; CFS.editing = false; CFS.open = { 3: true };
       cfRender();
       cfRefreshCells();
       cfMsg('cf-top-msg', res.kind === 'walkin'
