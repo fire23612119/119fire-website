@@ -417,14 +417,14 @@
     <div class="query-card">
 
       <div class="section-eyebrow">QUERY</div>
-      <div class="section-title">查詢受訓紀錄</div>
-      <p class="section-sub">請輸入報名時填寫的真實姓名與身分證字號。</p>
+      <div class="section-title" id="q-title">查詢受訓紀錄</div>
+      <p class="section-sub" id="q-sub">請輸入報名時填寫的真實姓名與身分證字號。</p>
 
       <!-- Tabs -->
-      <div class="tab-row">
+      <div class="tab-row" id="q-tabs">
         <button class="tab-btn active" onclick="switchTab('record', this)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          報名紀錄查詢
+          <span id="tab1-text">報名紀錄查詢</span>
         </button>
         <button class="tab-btn" onclick="switchTab('cert', this)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
@@ -434,13 +434,14 @@
 
       <!-- Tab 1 : 報名紀錄 -->
       <div class="tab-panel active" id="panel-record">
-        <div class="panel-title">報名紀錄查詢</div>
-        <p class="panel-desc">查詢本會課程的報名狀態及上課日期。<br>＊收到上課通知後，可在查詢結果中確認基本資料。</p>
+        <div class="panel-title" id="r-title">報名紀錄查詢</div>
+        <p class="panel-desc" id="r-desc">查詢本會課程的報名狀態及上課日期。<br>＊收到上課通知後，可在查詢結果中確認基本資料。</p>
         <div class="cf-guide" id="cf-guide" style="display:none">
           <b>📋 上課學員請依序完成</b>
           <ol>
-            <li>輸入姓名、身分證字號查詢，按【確認資料】</li>
-            <li>確認完成後，點【填寫滿意度調查】</li>
+            <li>輸入姓名、身分證字號，按【開始】</li>
+            <li>畫面會打開您今天上課的班級（有多個班時，請點【確認資料】）</li>
+            <li>依序完成：① 上傳資料（缺照片的學員）② 資料確認 ③ 滿意度調查</li>
           </ol>
         </div>
         <div class="cf-notice">⚠ 證書依確認後的資料製作，未確認致資料有誤者，更正需酌收手續費 200 元。</div>
@@ -457,7 +458,7 @@
         </div>
         <button class="query-btn" onclick="queryRecord()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          查詢報名紀錄
+          <span id="r-btn-text">查詢報名紀錄</span>
         </button>
         <div class="result-area">
           <div class="result-loading" id="loading-record"><div class="spinner"></div>查詢中，請稍候…</div>
@@ -712,6 +713,8 @@ async function queryRecord() {
   });
   document.getElementById('table-record').style.display = 'block';
   cfShowFixPrompt(false);
+  // 掃 QR code 進來、只有一個班可以確認時，直接打開那個班
+  if (CF_QR && CFS.sessions.length === 1) setTimeout(function(){ cfOpen(0); }, 0);
 
   // 查詢成功後，遮蔽身分證字號輸入框，避免學員截圖時外流完整個資
   var idInput = document.getElementById('r-id');
@@ -993,6 +996,7 @@ async function suppDoUpload() {
 // ============================================================
 var CFS = { name: '', id: '', sessions: [], notYet: [], cur: null, editing: false, open: {} };
 var CFX = { sessions: [] };
+var CF_QR = false;   // 掃教室 QR code（?tab=confirm）進來的
 
 function cfEl(id) { return document.getElementById(id); }
 function cfMsg(id, html, isErr) {
@@ -1463,8 +1467,19 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   // QR code／上課通知連結 lookup.html?tab=confirm：直接捲到查詢區（舊連結也相容）
   if (/[?&]tab=confirm(&|$)/.test(location.search)) {
+    CF_QR = true;
+    // 掃教室 QR code 進來：改成「上課學員專區」的說法
+    var setText = function(id, t){ var el = document.getElementById(id); if (el) el.textContent = t; };
+    setText('q-title', '上課學員專區');
+    setText('q-sub', '上課期間的資料確認、照片上傳與滿意度調查，都從這裡開始。');
+    setText('r-title', '上課資料確認');
+    var t1 = document.getElementById('tab1-text');   // 手機換行時，「報名查詢／」「資料確認」各自不拆開
+    if (t1) t1.innerHTML = '<span style="display:inline-block">報名查詢／</span><span style="display:inline-block">資料確認</span>';
+    setText('r-btn-text', '開始');
+    var hide = function(id){ var el = document.getElementById(id); if (el) el.style.display = 'none'; };
+    hide('r-desc');   // 分頁（報名紀錄查詢／結業證書查詢）照常顯示
     var guide = document.getElementById('cf-guide');
-    if (guide) guide.style.display = 'block';   // 只有掃教室 QR code 進來的人才看到上課說明
+    if (guide) { guide.style.display = 'block'; guide.style.marginTop = '0'; }
     var card = document.querySelector('.query-card');
     if (card) setTimeout(function(){ card.scrollIntoView({ block: 'start' }); }, 50);
   }
