@@ -330,7 +330,12 @@
   .cf-wl label { display:block; font-size:.8rem; font-weight:700; color:var(--teal-900); margin:6px 0 4px; }
   .cf-btn2 { width:100%; margin-top:10px; padding:12px; border-radius:10px; border:1.5px solid var(--border); background:#fff; color:var(--text-600); font-weight:700; font-size:.92rem; cursor:pointer; font-family:'Noto Sans TC',sans-serif; }
   .query-btn:disabled { opacity:.5; cursor:default; transform:none; }
-  @media (max-width: 600px) { .cf-steps { grid-template-columns:1fr; } }
+  @media (max-width: 600px) {
+    .cf-steps { grid-template-columns:1fr; }
+    /* 手機：郵遞區號一行（短）、地址一行（全寬） */
+    .cf-zip { grid-template-columns:1fr; gap:0; }
+    .cf-zip input:first-child { width:130px; }
+  }
 </style>
 </head>
 <body>
