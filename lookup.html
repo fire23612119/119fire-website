@@ -251,6 +251,7 @@
   .supp-btn { padding:9px 18px; border:none; border-radius:8px; font-size:.86rem; font-weight:700; cursor:pointer; font-family:'Noto Sans TC',sans-serif; background:linear-gradient(135deg,#E8673F 0%,#C2462A 100%); color:#fff; white-space:nowrap; }
   .supp-btn.opt { background:linear-gradient(135deg,var(--cyan-500) 0%,var(--teal-700) 100%); }
   .supp-btn:disabled { opacity:.5; cursor:default; }
+  .supp-nudge { margin:-4px 0 12px; padding:8px 12px; border-radius:8px; background:#FFF6D6; border:1px solid #F2C94C; color:#6B4E00; font-size:.84rem; font-weight:700; line-height:1.6; }
   .supp-done-text { font-size:.8rem; color:#1E7A43; font-weight:600; }
 
   /* 上傳視窗 */
@@ -273,7 +274,7 @@
   .sm-cancel { background:#fff; border:1.5px solid var(--border); color:var(--text-600); }
   .sm-ok { background:linear-gradient(135deg,var(--cyan-500) 0%,var(--teal-700) 100%); border:none; color:#fff; }
   .sm-ok:disabled { opacity:.5; cursor:default; }
-  .sm-msg { font-size:.82rem; margin-top:10px; text-align:center; min-height:1.2em; }
+  .sm-msg { font-size:.82rem; margin-top:10px; text-align:center; min-height:1.2em; white-space:pre-line; }
   .sm-rules { font-size:.78rem; color:var(--text-600); background:var(--bg); border-radius:8px; padding:8px 12px; margin-top:12px; line-height:1.7; }
 
   /* ===== 上課資料確認（2026-11） ===== */
@@ -670,6 +671,7 @@ async function queryRecord() {
   suppHide('record');
   cfReset();
   document.getElementById('loading-record').style.display = 'block';
+  SUPP_HOLD.record = true;       // 上傳框等報名紀錄出來才顯示
   suppLoad('record', name, id); // 上傳資料跟報名紀錄同時查，不用等前一個查完
 
   // 報名紀錄、資料確認同時查（資料確認的姓名比對較寬鬆，溫／温也查得到）
@@ -686,8 +688,10 @@ async function queryRecord() {
   // 姓名有異體字（溫／温）時，補件要用主資料庫裡的姓名查，上傳框才會出現
   var dbName = CFS.sessions.length ? String(CFS.sessions[0].origName || '').trim() : '';
   if (dbName && dbName !== name) suppLoad('record', dbName, id);
+  suppRelease('record');          // 報名紀錄（確認資料按鈕）跟上傳框一起出現
 
   if (!rows.length && !CFS.sessions.length && !CFS.notYet.length) {
+    suppRelease('record');
     if (data.status === 'neterr' && cf === null) {
       showNotice('record', '查詢時發生錯誤，請稍後再試或來電洽詢 <strong>(02)&nbsp;2361-2119</strong>。');
       return;
@@ -789,22 +793,44 @@ var SM = { tab: '', item: null, img: null, blob: null, mime: '', zoom: 1, ox: 0,
 function suppEsc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function suppHide(tab) { var b = document.getElementById('supp-' + tab); if (b) { b.style.display = 'none'; b.innerHTML = ''; } }
 
+// 報名紀錄還在查的時候，上傳框先不出現（避免學員只看到「上傳照片」就按，沒做資料確認）
+var SUPP_HOLD = {};
+function suppRelease(tab) {
+  SUPP_HOLD[tab] = false;
+  var me = SUPP[tab];
+  if (me && me.loaded) suppRender(tab);
+  else if (me && !me.failed) {
+    var box = document.getElementById('supp-' + tab);
+    box.className = 'supp-box ok';
+    box.innerHTML = '<p class="supp-sub" style="margin:0">⏳ 正在查詢需上傳的資料…</p>';
+    box.style.display = 'block';
+  }
+}
 async function suppLoad(tab, name, id) {
   var me = { name: name, id: id, items: [] };
   SUPP[tab] = me;
   var box = document.getElementById('supp-' + tab);
   box.className = 'supp-box ok';
   box.innerHTML = '<p class="supp-sub" style="margin:0">⏳ 正在查詢需上傳的資料…</p>';
-  box.style.display = 'block';
+  box.style.display = SUPP_HOLD[tab] ? 'none' : 'block';
   try {
     var data = await jsonp(LOOKUP_API + '?action=supplement&name=' + encodeURIComponent(name) + '&id=' + encodeURIComponent(id));
     if (SUPP[tab] !== me) return; // 已經重新查詢了，舊的結果不要蓋上去
-    if (!data || data.status !== 'ok') { suppHide(tab); return; }
+    if (!data || data.status !== 'ok') { me.failed = true; suppHide(tab); return; }
     me.items = data.items || [];
+    me.loaded = true;
+    if (SUPP_HOLD[tab]) return;   // 等報名紀錄出來再顯示
     suppRender(tab);
-  } catch (e) { if (SUPP[tab] === me) suppHide(tab); /* 查詢失敗不影響原本的查詢結果 */ }
+  } catch (e) { if (SUPP[tab] === me) { me.failed = true; suppHide(tab); } /* 查詢失敗不影響原本的查詢結果 */ }
 }
 
+// 上傳框在課程列表下方（沒打開某一班），而且還有班沒做資料確認
+function suppNeedConfirm_() {
+  if (typeof CFS === 'undefined' || !CFS.sessions || !CFS.sessions.length) return false;
+  var slot = document.getElementById('cf-up-slot'), box = document.getElementById('supp-record');
+  if (slot && box && slot.contains(box)) return false;
+  return CFS.sessions.some(function(s){ return !s.confirmed; });
+}
 function suppRender(tab) {
   var box = document.getElementById('supp-' + tab);
   var items = (SUPP[tab] && SUPP[tab].items) || [];
@@ -822,6 +848,9 @@ function suppRender(tab) {
           : photoOpt ? '忘記帶照片的學員，可以直接在這裡拍照上傳。'
           : '複訓學員可以先上傳前次證書影本，上課時就不必另外繳交。';
   var html = '<h4>📎 ' + (photoNeed ? '照片補件與資料上傳' : '資料上傳') + '</h4><p class="supp-sub">' + sub + '</p>';
+  if (tab === 'record' && suppNeedConfirm_()) {
+    html += '<p class="supp-nudge">⚠ 上傳照片後，還要按上方黃色「確認資料」，完成基本資料確認。</p>';
+  }
   items.forEach(function(it, i) {
     var tag, action;
     if (it.status === '待補') {
@@ -981,8 +1010,9 @@ async function suppDoUpload() {
     });
     var res = await resp.json();
     if (res.status !== 'ok') throw new Error(res.message || '上傳失敗');
-    suppSetMsg('✅ ' + res.message, '#1E7A43');
-    setTimeout(function() { suppCloseModal(); suppLoad(SM.tab, who.name, who.id); }, 1200);
+    var next = (SM.tab === 'record' && suppNeedConfirm_()) ? '\n👉 下一步：請按黃色「確認資料」完成基本資料確認' : '';
+    suppSetMsg('✅ ' + res.message + next, '#1E7A43');
+    setTimeout(function() { suppCloseModal(); suppLoad(SM.tab, who.name, who.id); }, next ? 2800 : 1200);
   } catch (e) {
     btn.disabled = false;
     suppSetMsg('❌ ' + (e.message || '上傳失敗') + '，請再試一次，或來電洽詢 (02)2361-2119', '#C2462A');
@@ -1069,10 +1099,14 @@ function cfShowFixPrompt(notFound) {
 function cfSuppHome() {
   var b = cfEl('supp-record'), home = cfEl('supp-home');
   if (b && home && b.previousElementSibling !== home) home.parentNode.insertBefore(b, home.nextSibling);
+  cfSuppRefresh_();
 }
+// 上傳框換位置後重畫（「請按確認資料」的提醒只在課程列表下方出現）
+function cfSuppRefresh_() { if (SUPP.record && SUPP.record.loaded && !SUPP_HOLD.record) suppRender('record'); }
 function cfSuppIn() {
   var b = cfEl('supp-record'), slot = cfEl('cf-up-slot');
   if (b && slot) slot.appendChild(b);
+  cfSuppRefresh_();
 }
 
 function cfOpen(i) {
