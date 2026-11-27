@@ -277,18 +277,19 @@
   .sm-rules { font-size:.78rem; color:var(--text-600); background:var(--bg); border-radius:8px; padding:8px 12px; margin-top:12px; line-height:1.7; }
 
   /* ===== 上課資料確認（2026-11） ===== */
-  .cf-mini { padding:6px 12px; border:none; border-radius:8px; background:linear-gradient(135deg,var(--cyan-500) 0%,var(--teal-700) 100%); color:#fff; font-weight:700; font-size:.8rem; cursor:pointer; white-space:nowrap; font-family:'Noto Sans TC',sans-serif; }
-  .cf-mini.done { background:#E2F5E9; color:#1E7A43; }
+  /* 「確認資料」按鈕：跟「上傳照片」一樣大，用黃色跟上傳（藍綠色）區分 */
+  .cf-mini { padding:9px 18px; border:none; border-radius:8px; background:linear-gradient(135deg,#FFD54F 0%,#F2B705 100%); color:#4A3500; font-weight:700; font-size:.86rem; cursor:pointer; white-space:nowrap; font-family:'Noto Sans TC',sans-serif; box-shadow:0 2px 6px rgba(242,183,5,.35); }
+  .cf-mini.done { background:#E2F5E9; color:#1E7A43; box-shadow:none; }
   .cf-cell { white-space:nowrap; }
   @media (max-width: 600px) {
-    /* 手機：報名紀錄每一列改成卡片，右側放「確認資料」按鈕 */
+    /* 手機：報名紀錄每一列改成卡片，「確認資料」按鈕放在下面 */
     #table-record thead { display:none; }
-    #table-record tr { display:grid; grid-template-columns:1fr auto; column-gap:12px; padding:12px 14px; border-bottom:1px solid var(--border); }
+    #table-record tr { display:grid; grid-template-columns:1fr; padding:12px 14px; border-bottom:1px solid var(--border); }
     #table-record tr:last-child { border-bottom:none; }
     #table-record td { padding:0; border:none; }
     #table-record td:nth-child(1) { font-weight:700; color:var(--teal-900); }
     #table-record td:nth-child(2), #table-record td:nth-child(3), #table-record td:nth-child(4) { font-size:.82rem; color:var(--text-600); }
-    #table-record td:nth-child(5) { grid-column:2; grid-row:1 / span 4; align-self:center; text-align:right; white-space:normal; max-width:110px; }
+    #table-record td:nth-child(5) { margin-top:10px; text-align:left; white-space:normal; }  /* 按鈕放在班級資料下面，跟「上傳照片」同樣排法 */
   }
   .cf-fixbox { margin-top:16px; padding:14px 16px; border:1px dashed var(--cyan-500); border-radius:12px; background:#F3FBFC; font-size:.88rem; line-height:1.7; color:var(--teal-800); }
   #cf-main { margin-top:22px; padding-top:20px; border-top:2px solid var(--border); }
